@@ -1,3 +1,5 @@
 /omniglot
 
 *bak.*
+*.spec
+!src-pyloid/build/*.spec

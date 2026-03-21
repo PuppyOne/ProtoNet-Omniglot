@@ -20,5 +20,6 @@ dist-front
 # pyinstaller
 dist
 
+.tanstack/tmp
 
 !src-pyloid/build

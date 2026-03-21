@@ -7,12 +7,12 @@ description = "My first application"
 requires-python = "~=3.14.0"
 
 dependencies = [
-    "pyloid",
+    "pyloid~=0.27.2",
 ]
 
 [dependency-groups]
 dev = [
-    "pyloid-builder",
-    "pyloid-watcher",
-    "ruff",
+    "pyloid-builder~=0.4.1",
+    "pyloid-watcher~=0.1.8",
+    "ruff~=0.15.7",
 ]

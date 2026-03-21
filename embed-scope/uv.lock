@@ -425,13 +425,13 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "pyloid" }]
+requires-dist = [{ name = "pyloid", specifier = "~=0.27.2" }]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "pyloid-builder" },
-    { name = "pyloid-watcher" },
-    { name = "ruff" },
+    { name = "pyloid-builder", specifier = "~=0.4.1" },
+    { name = "pyloid-watcher", specifier = "~=0.1.8" },
+    { name = "ruff", specifier = "~=0.15.7" },
 ]
 
 [[package]]

@@ -10,7 +10,7 @@
     "pyloid": "uv run -p .venv ./src-pyloid/main.py",
     "pyloid:watch": "uv run pyloid-watcher --path ./src-pyloid --pattern \"*.py\" --command \"uv run ./src-pyloid/main.py\"",
     "build": "tsc -b && vite build && uv run -p .venv ./src-pyloid/build/build.py",
-    "setup": "bun install && uv venv && uv sync"
+    "setup": "bun install && uv venv --clear && uv sync"
   },
   "dependencies": {
     "react": "^18.3.1",

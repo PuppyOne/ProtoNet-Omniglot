@@ -17,7 +17,11 @@ export default defineConfig({
       },
     }),
   ],
-  resolve: { tsconfigPaths: true },
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
+  },
   build: {
     outDir: 'dist-front',
   },

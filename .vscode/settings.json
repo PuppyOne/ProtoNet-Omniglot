@@ -3,5 +3,6 @@
         "omniglot",
         "Omniglot",
         "cdist"
-    ]
+    ],
+    "files.autoSave": "onFocusChange"
 }

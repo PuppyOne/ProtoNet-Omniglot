@@ -1,3 +1,4 @@
+from drag_handler import register_drag_handler
 from pyloid import Pyloid
 from pyloid.serve import pyloid_serve
 from pyloid.tray import (
@@ -50,5 +51,7 @@ else:
     window.load_url('http://localhost:5173')
 
 window.show_and_focus()
+
+register_drag_handler(window)
 
 app.run()

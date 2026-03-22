@@ -1,5 +1,3 @@
-import './globals.css';
-
 import { Button } from '@heroui/react';
 import { createFileRoute } from '@tanstack/react-router';
 

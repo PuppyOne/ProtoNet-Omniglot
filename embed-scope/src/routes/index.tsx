@@ -1,27 +1,27 @@
-import pyloidLogo from "../assets/pyloid_icon.png";
-import "./App.css";
+import pyloidLogo from '../assets/pyloid_icon.png';
+import './App.css';
 
-import { baseAPI, rpc } from "pyloid-js";
+import { baseAPI, rpc } from 'pyloid-js';
 
-import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { useState } from 'react';
+import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute("/")({ component: Home });
+export const Route = createFileRoute('/')({ component: Home });
 
 function Home() {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   return (
     <>
       <div>
-        <img src={pyloidLogo} className="logo pyloid" alt="Pyloid logo" />
+        <img src={pyloidLogo} className='logo pyloid' alt='Pyloid logo' />
       </div>
       <h1>Pyloid App</h1>
-      <div className="card">
+      <div className='card'>
         <button
-          className="action-button"
+          className='action-button'
           onClick={async () => {
-            const message = await rpc.call("greet", { name: "John" });
+            const message = await rpc.call('greet', { name: 'John' });
 
             setMessage(message);
           }}
@@ -29,20 +29,20 @@ function Home() {
           Greet
         </button>
         <button
-          className="action-button"
+          className='action-button'
           onClick={() => {
-            rpc.call("create_window");
+            rpc.call('create_window');
           }}
         >
           Create Window
         </button>
-        <button className="action-button" onClick={() => baseAPI.close()}>
+        <button className='action-button' onClick={() => baseAPI.close()}>
           Close
         </button>
       </div>
       <div>
         <p>{message}</p>
-        <a href="https://pyloid.com">Visit Pyloid</a>
+        <a href='https://pyloid.com'>Visit Pyloid</a>
       </div>
     </>
   );

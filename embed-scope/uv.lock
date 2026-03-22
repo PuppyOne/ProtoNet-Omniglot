@@ -114,6 +114,31 @@ wheels = [
 ]
 
 [[package]]
+name = "embed-scope"
+version = "0.0.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "pyloid" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "pyloid-builder" },
+    { name = "pyloid-watcher" },
+    { name = "ruff" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pyloid", specifier = "~=0.27.2" }]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pyloid-builder", specifier = "~=0.4.1" },
+    { name = "pyloid-watcher", specifier = "~=0.1.8" },
+    { name = "ruff", specifier = "~=0.15.7" },
+]
+
+[[package]]
 name = "frozenlist"
 version = "1.8.0"
 source = { registry = "https://pypi.org/simple" }
@@ -407,31 +432,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/f4/db/b8e1e83b3acf631e0cdd80333ba4a279e66cc01af2447414b98fd28a6470/pyloid-0.27.2.tar.gz", hash = "sha256:6e9eeaa37f25d826b04e465beb910029016017a8dc7143a203073b33d7cc74ed", size = 60211, upload-time = "2025-11-08T08:17:44.3Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/fa/b5/acca3b7581d029ec66c4125564d2ba1f5024223788ca7f3369350b48f817/pyloid-0.27.2-py3-none-any.whl", hash = "sha256:4a5e8ce20800ddeb78de5066dfafff584ac7ed33c35203a10099d82dd2c33599", size = 67025, upload-time = "2025-11-08T08:17:42.643Z" },
-]
-
-[[package]]
-name = "pyloid-app"
-version = "1.0.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "pyloid" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "pyloid-builder" },
-    { name = "pyloid-watcher" },
-    { name = "ruff" },
-]
-
-[package.metadata]
-requires-dist = [{ name = "pyloid", specifier = "~=0.27.2" }]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pyloid-builder", specifier = "~=0.4.1" },
-    { name = "pyloid-watcher", specifier = "~=0.1.8" },
-    { name = "ruff", specifier = "~=0.15.7" },
 ]
 
 [[package]]

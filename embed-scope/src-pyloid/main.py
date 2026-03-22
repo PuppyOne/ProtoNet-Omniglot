@@ -10,7 +10,9 @@ from pyloid.utils import (
 from server import server
 
 
-app = Pyloid(app_name='Pyloid-App', single_instance=True, server=server)
+name = 'EmbedScope'
+
+app = Pyloid(app_name=name, single_instance=True, server=server)
 
 app.set_icon(get_production_path('src-pyloid/icons/icon.png'))
 app.set_tray_icon(get_production_path('src-pyloid/icons/icon.png'))
@@ -37,12 +39,12 @@ app.set_tray_menu_items(
 if is_production():
     url = pyloid_serve(directory=get_production_path('dist-front'))
     window = app.create_window(
-        title='Pyloid-app-production',
+        title=f'{name}-production',
     )
     window.load_url(url)
 else:
     window = app.create_window(
-        title='Pyloid-app-dev',
+        title=f'{name}-dev',
         dev_tools=True,
     )
     window.load_url('http://localhost:5173')

@@ -1,12 +1,19 @@
+import tomllib
+
 from pyloid.utils import get_platform
 from pyloid_builder.optimize import optimize
 from pyloid_builder.pyinstaller import pyinstaller
 
 
 main_script = './src-pyloid/main.py'
-name = 'pyloid-app'
 dist_path = './dist'
 work_path = './build'
+
+
+# 自动提取项目名
+with open('pyproject.toml', 'rb') as f:
+    pyproject = tomllib.load(f)
+    name = pyproject['project']['name']
 
 
 if get_platform() == 'windows':

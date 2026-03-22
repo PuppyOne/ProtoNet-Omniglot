@@ -11,6 +11,7 @@
     "pyloid:watch": "uv run pyloid-watcher --path ./src-pyloid --pattern \"*.py\" --command \"uv run ./src-pyloid/main.py\"",
     "build": "tsc -b && vite build && uv run -p .venv ./src-pyloid/build/build.py",
     "setup": "bun install && uv venv --clear && uv sync",
+    "setup:ci": "bun ci && uv venv --clear && uv sync",
     "prepare": "cd .. && husky embed-scope/.husky"
   },
   "lint-staged": {

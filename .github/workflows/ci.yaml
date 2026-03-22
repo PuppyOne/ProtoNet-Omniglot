@@ -1,0 +1,54 @@
+name: Build and Release
+
+on:
+  push:
+    paths:
+      - embed-scope/**
+      - '.github/workflows/**'
+env:
+  directory: embed-scope
+  artifact-name: EmbedScope-ci
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    env:
+      PYTHONIOENCODING: utf-8
+      PYTHONUTF8: 1
+    defaults:
+      run:
+        working-directory: ${{ env.directory }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: 'latest'
+          enable-cache: true
+          cache-dependency-glob: |
+            **/*requirements*.txt
+            **/*requirements*.in
+            **/*constraints*.txt
+            **/*constraints*.in
+            **/pyproject.toml
+            **/uv.lock
+            **/*.py.lock
+
+      - name: Set up project
+        run: bun run setup:ci
+
+      - name: Build
+        run: bun run build
+
+      - name: Upload to artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: ${{ env.artifact-name }}-${{ github.run_number }}
+          path: ${{ env.directory }}/dist/*

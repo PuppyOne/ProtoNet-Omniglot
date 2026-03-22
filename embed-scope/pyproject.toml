@@ -16,3 +16,24 @@ dev = [
     "pyloid-watcher~=0.1.8",
     "ruff~=0.15.7",
 ]
+
+
+[tool.ruff]
+format.quote-style = "single"
+line-length = 240
+lint.isort.lines-after-imports = 2
+
+lint.select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]

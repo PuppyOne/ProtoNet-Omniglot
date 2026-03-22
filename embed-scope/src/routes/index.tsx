@@ -1,4 +1,4 @@
-import './App.css';
+import './globals.css';
 
 import { createFileRoute } from '@tanstack/react-router';
 import { baseAPI, rpc } from 'pyloid-js';

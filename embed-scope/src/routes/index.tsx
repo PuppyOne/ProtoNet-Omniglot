@@ -1,10 +1,11 @@
-import pyloidLogo from '../assets/pyloid_icon.png';
 import './App.css';
 
-import { baseAPI, rpc } from 'pyloid-js';
-
-import { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
+import { baseAPI, rpc } from 'pyloid-js';
+import { useState } from 'react';
+
+import pyloidLogo from '../assets/pyloid_icon.png';
+
 
 export const Route = createFileRoute('/')({ component: Home });
 

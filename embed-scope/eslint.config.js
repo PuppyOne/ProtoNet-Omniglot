@@ -1,10 +1,14 @@
 import js from '@eslint/js';
-import globals from 'globals';
+import stylistic from '@stylistic/eslint-plugin';
+import pluginRouter from '@tanstack/eslint-plugin-router';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import importPlugin from 'eslint-plugin-import';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import globals from 'globals';
 import tseslint from 'typescript-eslint';
-import { defineConfig, globalIgnores } from 'eslint/config';
-import pluginRouter from '@tanstack/eslint-plugin-router';
+
 
 export default defineConfig([
   globalIgnores(['**/*.gen.*']),
@@ -22,7 +26,53 @@ export default defineConfig([
       'react-refresh': reactRefresh,
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
+      ...reactHooks.configs.r,
+    },
+  },
+  {
+    plugins: { 'simple-import-sort': simpleImportSort, import: importPlugin },
+    languageOptions: {
+      sourceType: 'module',
+      ecmaVersion: 'latest',
+    },
+    rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+      'import/first': 'error',
+      'import/newline-after-import': [
+        'error',
+        { count: 2, exactCount: true, considerComments: true },
+      ],
+      'import/no-duplicates': 'error',
+    },
+  },
+  {
+    plugins: {
+      '@stylistic': stylistic,
+    },
+    rules: {
+      '@stylistic/padding-line-between-statements': [
+        'error',
+
+        // 变量声明后空一行
+        { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+        {
+          blankLine: 'any',
+          prev: ['const', 'let', 'var'],
+          next: ['const', 'let', 'var'],
+        },
+
+        // 指令（如 'use strict'）后空一行
+        { blankLine: 'always', prev: 'directive', next: '*' },
+        { blankLine: 'any', prev: 'directive', next: 'directive' },
+
+        // 具名函数声明空一行
+        { blankLine: 'always', prev: '*', next: 'function' },
+
+        // 类型声明前空一行
+        { blankLine: 'always', prev: '*', next: 'interface' },
+        { blankLine: 'always', prev: '*', next: 'enum' },
+      ],
     },
   },
 ]);

@@ -1,0 +1,2 @@
+cd embed-scope
+bunx lint-staged

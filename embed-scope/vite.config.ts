@@ -10,7 +10,12 @@ export default defineConfig({
       target: 'react',
       autoCodeSplitting: true,
     }),
-    react(),
+    react({
+      // @ts-expect-error  react compiler
+      babel: {
+        plugins: ['babel-plugin-react-compiler'],
+      },
+    }),
   ],
   build: {
     outDir: 'dist-front',

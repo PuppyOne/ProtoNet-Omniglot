@@ -3,7 +3,7 @@ import './globals.css';
 import { Button } from '@heroui/react';
 import { createFileRoute } from '@tanstack/react-router';
 
-import pyloidLogo from '../assets/pyloid_icon.png';
+import pyloidLogo from '@/assets/pyloid_icon.png';
 
 
 export const Route = createFileRoute('/')({ component: Home });

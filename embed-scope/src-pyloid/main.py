@@ -39,7 +39,7 @@ app.set_tray_menu_items(
 if is_production():
     url = pyloid_serve(directory=get_production_path('dist-front'))
     window = app.create_window(
-        title=f'{name}-production',
+        title=f'{name}',
     )
     window.load_url(url)
 else:

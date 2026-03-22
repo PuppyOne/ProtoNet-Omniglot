@@ -20,12 +20,12 @@ function RootComponent() {
             PlaceHold
           </Link>
           <Link
-            to='/'
+            to='/support'
             activeProps={{
               className: 'font-bold',
             }}
           >
-            PlaceHold
+            Support
           </Link>
           <Link
             to='/'
@@ -44,7 +44,7 @@ function RootComponent() {
             PlaceHold
           </Link>
         </div>
-        <div>
+        <div className='overflow-hidden'>
           <Outlet />
         </div>
       </div>

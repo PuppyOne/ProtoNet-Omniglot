@@ -20,7 +20,7 @@ export default function SupportAlbum() {
         </div>
       </Card.Content>
       <Card.Footer className='text-xs'>
-        <div className='truncate'>PlaceHo111111111111ld</div>{' '}
+        <div className='truncate'>PlaceHo111111111111ld</div>
         <div className='inline-block whitespace-nowrap'>个样本</div>
       </Card.Footer>
     </Card>

@@ -1,16 +1,31 @@
-from pyloid.rpc import PyloidRPC, RPCContext
+from pyloid.rpc import PyloidRPC, RPCContext,RPCError
+
+import base64
+import mimetypes
+import aiofiles
 
 
 server = PyloidRPC()
 
 
 @server.method()
-async def greet(name: str):
-    return f'Hello, {name}!'
-
+async def select_file(ctx:RPCContext) -> str | None:
+    return ctx.pyloid.open_file_dialog()
 
 @server.method()
-async def create_window(ctx: RPCContext):
-    win = ctx.pyloid.create_window(title='Google Window')
-    win.load_url('https://www.google.com')
-    win.show_and_focus()
+async def select_folder(ctx:RPCContext) -> str | None:
+    return ctx.pyloid.save_file_dialog()
+
+@server.method()
+async def read_image(path: str) -> str:
+    async with aiofiles.open(path, "rb") as f:
+        data = await f.read()
+
+    b64 = base64.b64encode(data).decode("utf-8")
+    mime, _ = mimetypes.guess_type(path)
+
+    if not mime or not mime.startswith("image/"):
+        return ('UNSUPPORTED_FILE_TYPE')
+    mime = mime or "application/octet-stream"
+
+    return f"data:{mime};base64,{b64}"

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SupportIndexRouteImport } from './routes/support/index'
+import { Route as QueryIndexRouteImport } from './routes/query/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,30 +23,39 @@ const SupportIndexRoute = SupportIndexRouteImport.update({
   path: '/support/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QueryIndexRoute = QueryIndexRouteImport.update({
+  id: '/query/',
+  path: '/query/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/query/': typeof QueryIndexRoute
   '/support/': typeof SupportIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/query': typeof QueryIndexRoute
   '/support': typeof SupportIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/query/': typeof QueryIndexRoute
   '/support/': typeof SupportIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/support/'
+  fullPaths: '/' | '/query/' | '/support/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/support'
-  id: '__root__' | '/' | '/support/'
+  to: '/' | '/query' | '/support'
+  id: '__root__' | '/' | '/query/' | '/support/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  QueryIndexRoute: typeof QueryIndexRoute
   SupportIndexRoute: typeof SupportIndexRoute
 }
 
@@ -65,11 +75,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/query/': {
+      id: '/query/'
+      path: '/query'
+      fullPath: '/query/'
+      preLoaderRoute: typeof QueryIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  QueryIndexRoute: QueryIndexRoute,
   SupportIndexRoute: SupportIndexRoute,
 }
 export const routeTree = rootRouteImport

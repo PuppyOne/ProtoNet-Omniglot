@@ -9,8 +9,17 @@ export const Route = createFileRoute('/support/')({
 
 function Support() {
   return (
-    <div className='m-4 grid h-full grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 overflow-auto scroll-auto'>
-      <SupportAlbum />1
+    <div className='size-full overflow-auto p-4'>
+      <div className='grid min-h-full grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4'>
+        <SupportAlbum />
+        <SupportAlbum />
+        <SupportAlbum />
+        <SupportAlbum />
+        <SupportAlbum />
+        <SupportAlbum />
+        <SupportAlbum />
+        <SupportAlbum />
+      </div>
     </div>
   );
 }

@@ -38,19 +38,28 @@ function Query() {
 
       setImagePath(path);
       setImageBase64(base64);
+
+      const supportDir = '../omniglot/python/images_evaluation/Angelic';
+
+      const result_promise = rpc.call<
+        { support_dir: string; query_strs: string[] },
+        string
+      >('infer', { support_dir: supportDir, query_strs: [path] });
+
+      toast.promise(result_promise, {
+        loading: '正在推理',
+        success: result => `结果: ${result}`,
+        error: error => `未知错误 ${error.message}`,
+      });
     }
   };
 
   return (
-    <div>
+    <>
       <ImagePicker value={imagePath} onChange={handleChange} />
-      <div className='bg-accent aspect-square'>
-        {imageBase64 ? (
-          <img src={imageBase64} className='' />
-        ) : (
-          'No image selected'
-        )}
+      <div className='aspect-square'>
+        {imageBase64 ? <img src={imageBase64} /> : '请选择图片'}
       </div>
-    </div>
+    </>
   );
 }

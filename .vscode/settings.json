@@ -4,5 +4,5 @@
         "Omniglot",
         "cdist"
     ],
-    "files.autoSave": "onFocusChange"
+    "python.analysis.typeCheckingMode": "basic"
 }

@@ -6,8 +6,6 @@ on:
     paths:
       - embed-scope/**
       - '.github/workflows/**'
-    tags:
-      - 'v*'
 
 env:
   directory: embed-scope

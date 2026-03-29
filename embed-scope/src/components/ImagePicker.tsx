@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Input } from '@heroui/react';
+import { Button, Input } from '@heroui/react';
 import { rpc } from 'pyloid-js';
 
 
@@ -19,7 +19,7 @@ export default function ImagePicker({
 
   return (
     <div className='p-4'>
-      <ButtonGroup>
+      <div className='gap-none flex justify-center-safe'>
         <Input
           className='rounded-l-full rounded-r-none shadow-none'
           readOnly
@@ -27,8 +27,13 @@ export default function ImagePicker({
           placeholder={placeholder}
           onClick={handleExplore}
         />
-        <Button onPress={handleExplore}>浏览</Button>
-      </ButtonGroup>
+        <Button
+          className='rounded-l-none rounded-r-full'
+          onPress={handleExplore}
+        >
+          浏览
+        </Button>
+      </div>
     </div>
   );
 }

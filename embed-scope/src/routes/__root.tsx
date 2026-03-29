@@ -1,6 +1,8 @@
 import { Toast } from '@heroui/react';
-import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
+import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+
+import { NavLink } from '@/components/NavLink';
 
 
 export const Route = createRootRoute({
@@ -11,40 +13,12 @@ function RootComponent() {
   return (
     <>
       <Toast.Provider />
-      <div className='grid h-full w-full grid-rows-[4rem_1fr] items-stretch justify-stretch'>
-        <div className='flex justify-center gap-2'>
-          <Link
-            to='/'
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            PlaceHold
-          </Link>
-          <Link
-            to='/support'
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            Support
-          </Link>
-          <Link
-            to='/query'
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            Query
-          </Link>
-          <Link
-            to='/'
-            activeProps={{
-              className: 'font-bold',
-            }}
-          >
-            PlaceHold
-          </Link>
+      <div className='grid h-full w-full grid-rows-[3rem_1fr] items-stretch justify-stretch'>
+        <div className='bg-accent flex items-center-safe justify-center-safe gap-2'>
+          <NavLink to='/'>PlaceHold</NavLink>
+          <NavLink to='/support'>Support</NavLink>
+          <NavLink to='/query'>Query</NavLink>
+          <NavLink to='/'>PlaceHold</NavLink>
         </div>
         <div className='overflow-hidden'>
           <Outlet />

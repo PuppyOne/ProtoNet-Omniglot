@@ -1,0 +1,3 @@
+export enum RPCErrorType {
+  UNSUPPORTED_FILE_TYPE = 'UNSUPPORTED_FILE_TYPE',
+}

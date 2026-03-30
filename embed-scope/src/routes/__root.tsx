@@ -1,6 +1,12 @@
 import { Toast } from '@heroui/react';
-import { createRootRoute, Outlet, useCanGoBack } from '@tanstack/react-router';
+import {
+  createRootRoute,
+  Outlet,
+  useCanGoBack,
+  useLocation,
+} from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+import { AnimatePresence } from 'motion/react';
 
 import BackButton from '@/components/BackButton';
 import { NavLink } from '@/components/NavLink';
@@ -11,6 +17,7 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const location = useLocation();
   const canGoBack = useCanGoBack();
 
   return (
@@ -29,7 +36,9 @@ function RootComponent() {
           </div>
         </div>
         <div className='overflow-hidden'>
-          <Outlet />
+          <AnimatePresence>
+            <Outlet key={location.pathname} />
+          </AnimatePresence>
         </div>
       </div>
       <TanStackRouterDevtools position='bottom-right' />

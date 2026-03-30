@@ -39,7 +39,7 @@ function RootComponent() {
           </div>
         </div>
         <div className='overflow-hidden'>
-          <AnimatePresence>
+          <AnimatePresence mode='wait' initial={false}>
             <Outlet key={location.pathname} />
           </AnimatePresence>
         </div>

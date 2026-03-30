@@ -24,11 +24,14 @@ function RootComponent() {
     <>
       <Toast.Provider />
       <div className='grid h-full w-full grid-rows-[3rem_1fr] items-stretch justify-stretch'>
-        <div className='bg-accent grid grid-cols-[4rem_1fr_4rem]'>
-          <div className='grid size-full place-items-center-safe'>
-            {canGoBack && <BackButton />}
+        <div
+          data-pyloid-drag-region
+          className='bg-accent grid grid-cols-[4rem_1fr_4rem]'
+        >
+          <div className='pointer-events-none grid size-full place-items-center-safe'>
+            {canGoBack && <BackButton className='pointer-events-auto' />}
           </div>
-          <div className='flex items-center-safe justify-center-safe gap-2'>
+          <div className='pointer-events-none flex items-center-safe justify-center-safe gap-2'>
             <NavLink to='/'>PlaceHold</NavLink>
             <NavLink to='/support'>Support</NavLink>
             <NavLink to='/query'>Query</NavLink>

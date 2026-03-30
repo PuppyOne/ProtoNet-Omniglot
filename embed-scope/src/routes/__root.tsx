@@ -6,10 +6,11 @@ import {
   useLocation,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 
 import BackButton from '@/components/BackButton';
 import { NavLink } from '@/components/NavLink';
+import { fadeVariants } from '@/motions/fade';
 
 
 export const Route = createRootRoute({
@@ -29,7 +30,18 @@ function RootComponent() {
           className='bg-accent grid grid-cols-[4rem_1fr_4rem]'
         >
           <div className='pointer-events-none grid size-full place-items-center-safe'>
-            {canGoBack && <BackButton className='pointer-events-auto' />}
+            <AnimatePresence>
+              {canGoBack && (
+                <motion.div
+                  variants={fadeVariants}
+                  initial={false}
+                  animate='show'
+                  exit='exit'
+                >
+                  <BackButton className='pointer-events-auto' />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
           <div className='pointer-events-none flex items-center-safe justify-center-safe gap-2'>
             <NavLink to='/'>PlaceHold</NavLink>

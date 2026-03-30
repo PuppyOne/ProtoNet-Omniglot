@@ -1,5 +1,6 @@
 import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
+import Icons from 'unplugin-icons/vite';
 import { defineConfig } from 'vite';
 
 
@@ -15,6 +16,11 @@ export default defineConfig({
       babel: {
         plugins: ['babel-plugin-react-compiler'],
       },
+    }),
+    Icons({
+      compiler: 'jsx',
+      jsx: 'react',
+      autoInstall: false,
     }),
   ],
   resolve: {

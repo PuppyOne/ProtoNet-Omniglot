@@ -8,11 +8,13 @@ import { useEffect } from 'react';
 
 import { characterSupportsAtom } from '@/atoms/support';
 import NavBar from '@/components/NavBar';
+import NotFound from '@/components/NotFound';
 import type { CharacterSupports } from '@/types/support';
 
 
 export const Route = createRootRoute({
   component: RootComponent,
+  notFoundComponent: NotFound,
 });
 
 function RootComponent() {

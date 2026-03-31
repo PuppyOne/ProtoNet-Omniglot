@@ -1,28 +1,42 @@
-import { Avatar, Card } from '@heroui/react';
+import { Avatar, Badge, BadgeAnchor, Card } from '@heroui/react';
+
+import type { Support } from '@/types/support';
 
 
-export default function SupportAlbum() {
+export default function SupportAlbum({
+  characterName,
+  supports,
+}: {
+  characterName: string;
+  supports: Support[];
+}) {
   return (
-    <Card className='aspect-3/4 w-full' title='Support Album'>
+    <Card className='w-full' title='Support Album'>
       <Card.Header>
-        <div className='aspect-square w-full'>
-          <Avatar className='size-full rounded-xl'>
-            <Avatar.Image src='https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/docs/demo1.jpg'></Avatar.Image>
-            <Avatar.Fallback>
-              PlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHold
-            </Avatar.Fallback>
-          </Avatar>
-        </div>
+        <BadgeAnchor className='relative aspect-square w-full'>
+          {supports[0] && (
+            <Avatar className='absolute z-2 size-[80%] rounded-xl shadow-sm'>
+              <Avatar.Image src={supports[0].src}></Avatar.Image>
+            </Avatar>
+          )}
+          {supports[1] && (
+            <Avatar className='absolute top-5 left-5 z-1 size-[80%] rounded-xl shadow-sm'>
+              <Avatar.Image src={supports[1].src}></Avatar.Image>
+            </Avatar>
+          )}
+          {supports[2] && (
+            <Avatar className='absolute top-10 left-10 z-0 size-[80%] rounded-xl shadow-sm'>
+              <Avatar.Image src={supports[2].src}></Avatar.Image>
+            </Avatar>
+          )}
+          <Badge color='accent' placement='top-left' className='z-10'>
+            {supports.length}
+          </Badge>
+        </BadgeAnchor>
       </Card.Header>
       <Card.Content>
-        <div className='truncate'>
-          PlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHoldPlaceHold
-        </div>
+        <div className='truncate'>{characterName}</div>
       </Card.Content>
-      <Card.Footer className='text-xs'>
-        <div className='truncate'>PlaceHo111111111111ld</div>
-        <div className='inline-block whitespace-nowrap'>个样本</div>
-      </Card.Footer>
     </Card>
   );
 }

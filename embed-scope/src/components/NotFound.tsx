@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <div className='grid size-full place-items-center-safe'>
       <div className='flex flex-col gap-4'>
-        <div className='grid grid-cols-[1fr_min-content_1fr] content-center-safe gap-12'>
+        <div className='flex gap-12'>
           <div className='text-end'>404</div>
           <Separator variant='secondary' orientation='vertical' />
           <div className='text-start'>Not found</div>

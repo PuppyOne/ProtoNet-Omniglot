@@ -1,5 +1,6 @@
+import babel from '@rolldown/plugin-babel';
 import { tanstackRouter } from '@tanstack/router-plugin/vite';
-import react from '@vitejs/plugin-react';
+import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import Icons from 'unplugin-icons/vite';
 import { defineConfig } from 'vite';
 
@@ -11,12 +12,11 @@ export default defineConfig({
       target: 'react',
       autoCodeSplitting: true,
     }),
-    react({
-      // @ts-expect-error  react compiler
-      babel: {
-        plugins: ['babel-plugin-react-compiler'],
-      },
-    }),
+    react(),
+
+    // https://github.com/vitejs/vite-plugin-react/tree/c1651ac5c2fc6026bd8f7b466313aedeb0c83830/packages/plugin-react#react-compiler
+    babel({ presets: [reactCompilerPreset()] }),
+
     Icons({
       compiler: 'jsx',
       jsx: 'react',

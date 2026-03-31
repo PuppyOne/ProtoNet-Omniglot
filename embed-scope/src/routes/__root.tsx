@@ -1,16 +1,9 @@
 import { Toast } from '@heroui/react';
-import {
-  createRootRoute,
-  Outlet,
-  useCanGoBack,
-  useLocation,
-} from '@tanstack/react-router';
+import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence } from 'motion/react';
 
-import BackButton from '@/components/BackButton';
-import { NavLink } from '@/components/NavLink';
-import { fadeVariants } from '@/motions/fade';
+import NavBar from '@/components/NavBar';
 
 
 export const Route = createRootRoute({
@@ -19,37 +12,12 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const location = useLocation();
-  const canGoBack = useCanGoBack();
 
   return (
     <>
       <Toast.Provider />
       <div className='grid h-full w-full grid-rows-[3rem_1fr] items-stretch justify-stretch'>
-        <div
-          data-pyloid-drag-region
-          className='bg-accent grid grid-cols-[4rem_1fr_4rem]'
-        >
-          <div className='pointer-events-none grid size-full place-items-center-safe'>
-            <AnimatePresence>
-              {canGoBack && (
-                <motion.div
-                  variants={fadeVariants}
-                  initial={false}
-                  animate='show'
-                  exit='exit'
-                >
-                  <BackButton className='pointer-events-auto' />
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-          <div className='pointer-events-none flex items-center-safe justify-center-safe gap-2'>
-            <NavLink to='/'>PlaceHold</NavLink>
-            <NavLink to='/support'>Support</NavLink>
-            <NavLink to='/query'>Query</NavLink>
-            <NavLink to='/'>PlaceHold</NavLink>
-          </div>
-        </div>
+        <NavBar />
         <div className='overflow-hidden'>
           <AnimatePresence mode='wait' initial={false}>
             <Outlet key={location.pathname} />

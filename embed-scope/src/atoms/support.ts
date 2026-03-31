@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 
-import { Supports } from '@/types/support';
+import { CharacterSupports } from '@/types/support';
 
 
-export const supportsAtom = atom<Supports | undefined>();
+export const characterSupportsAtom = atom<CharacterSupports | undefined>();

@@ -1,4 +1,5 @@
 import { Avatar, Badge, BadgeAnchor, Card } from '@heroui/react';
+import { useNavigate } from '@tanstack/react-router';
 
 import type { Support } from '@/types/support';
 
@@ -10,8 +11,16 @@ export default function SupportAlbum({
   characterName: string;
   supports: Support[];
 }) {
+  const navigate = useNavigate();
+
   return (
-    <Card className='w-full' title='Support Album'>
+    <Card
+      className='w-full cursor-pointer'
+      title='Support Album'
+      onClick={() =>
+        navigate({ to: '$characterName', params: { characterName } })
+      }
+    >
       <Card.Header>
         <div className='grid aspect-square w-full place-items-center'>
           <BadgeAnchor className='relative size-[80%]'>

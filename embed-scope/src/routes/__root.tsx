@@ -6,9 +6,9 @@ import { AnimatePresence } from 'motion/react';
 import { rpc } from 'pyloid-js';
 import { useEffect } from 'react';
 
-import { supportsAtom } from '@/atoms/support';
+import { characterSupportsAtom } from '@/atoms/support';
 import NavBar from '@/components/NavBar';
-import type { Supports } from '@/types/support';
+import type { CharacterSupports } from '@/types/support';
 
 
 export const Route = createRootRoute({
@@ -17,14 +17,18 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const location = useLocation();
-  const [supports, setSupports] = useAtom(supportsAtom);
+  const [characterSupports, setCharacterSupports] = useAtom(
+    characterSupportsAtom
+  );
 
   const fetchSupports = async () => {
-    setSupports(await rpc.call<undefined, Supports>('get_supports'));
+    setCharacterSupports(
+      await rpc.call<undefined, CharacterSupports>('get_supports')
+    );
   };
 
   useEffect(() => {
-    if (!supports) fetchSupports();
+    if (!characterSupports) fetchSupports();
   }, []);
 
   return (

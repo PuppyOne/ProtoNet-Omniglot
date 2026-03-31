@@ -5,4 +5,4 @@ export interface Support {
   ext: string;
 }
 
-export type Supports = Record<string, Support[]>;
+export type CharacterSupports = Record<string, Support[]>;

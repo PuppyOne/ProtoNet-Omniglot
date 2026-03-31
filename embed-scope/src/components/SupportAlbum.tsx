@@ -26,22 +26,22 @@ export default function SupportAlbum({
           <BadgeAnchor className='relative size-[80%]'>
             {supports[0] && (
               <Avatar className='absolute right-0 bottom-0 z-3 size-full rounded-xl shadow-sm'>
-                <Avatar.Image src={supports[0].src}></Avatar.Image>
+                <Avatar.Image src={supports[0].src} />
               </Avatar>
             )}
             {supports[1] && (
               <Avatar className='absolute right-0 bottom-0 z-2 size-full origin-bottom-right rotate-5 rounded-xl shadow-sm'>
-                <Avatar.Image src={supports[1].src}></Avatar.Image>
+                <Avatar.Image src={supports[1].src} />
               </Avatar>
             )}
             {supports[2] && (
               <Avatar className='absolute right-0 bottom-0 z-1 size-full origin-bottom-right rotate-8 rounded-xl shadow-sm'>
-                <Avatar.Image src={supports[2].src}></Avatar.Image>
+                <Avatar.Image src={supports[2].src} />
               </Avatar>
             )}
             {supports[3] && (
               <Avatar className='absolute right-0 bottom-0 z-0 size-full origin-bottom-right rotate-10 rounded-xl shadow-sm'>
-                <Avatar.Image src={supports[3].src}></Avatar.Image>
+                <Avatar.Image src={supports[3].src} />
               </Avatar>
             )}
             <Badge color='accent' placement='bottom-right' className='z-10'>

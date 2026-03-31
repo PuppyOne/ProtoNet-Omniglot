@@ -73,6 +73,7 @@ export default defineConfig([
         { blankLine: 'always', prev: '*', next: 'interface' },
         { blankLine: 'always', prev: '*', next: 'enum' },
       ],
+      '@stylistic/jsx-self-closing-comp': 'error',
     },
   },
 ]);

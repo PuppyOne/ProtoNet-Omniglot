@@ -34,6 +34,7 @@
     "@tailwindcss/postcss": "^4.2.2",
     "@tanstack/react-router": "^1.168.1",
     "@tanstack/react-router-devtools": "^1.166.10",
+    "jotai": "^2.19.0",
     "motion": "^12.38.0",
     "postcss": "^8.5.8",
     "pyloid-js": "^0.3.3",

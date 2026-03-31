@@ -6,7 +6,6 @@ from pathlib import Path
 
 import aiofiles
 from constants.rpc_error_type import RPCErrorType
-from infer import infer as model_infer
 from pyloid.rpc import PyloidRPC, RPCContext
 
 
@@ -38,7 +37,14 @@ async def read_image(path: str) -> str | dict[str, str]:
 
 
 @server.method()
+async def preload() -> None:
+    import infer  # noqa: F401  preload module
+
+
+@server.method()
 async def infer(support_dir: str, query_strs: Sequence[str]) -> Sequence[str]:
+    from infer import infer as model_infer
+
     support_strs: list[str] = []
     support_labels_str_list: list[str] = []
 

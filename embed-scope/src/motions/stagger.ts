@@ -6,19 +6,38 @@ export const containerVariants = {
   show: {
     opacity: 1,
     transition: {
-      delayChildren: stagger(0.1),
+      type: 'spring',
+      delayChildren: stagger(0.04),
     },
   },
   exit: {
     opacity: 1,
     transition: {
-      delayChildren: stagger(0.05),
+      type: 'spring',
+      delayChildren: stagger(0.02),
     },
   },
 } as const satisfies Variants;
 
 export const childVariants = {
-  hidden: { opacity: 0, y: -20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-  exit: { opacity: 0, y: 20, transition: { duration: 0.2 } },
+  hidden: {
+    opacity: 0,
+    y: -20,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: 'spring',
+      duration: 0.3,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: 20,
+    transition: {
+      type: 'spring',
+      duration: 0.2,
+    },
+  },
 } as const satisfies Variants;

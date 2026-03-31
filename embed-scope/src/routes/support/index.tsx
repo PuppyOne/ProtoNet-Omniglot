@@ -1,11 +1,10 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { useAtom } from 'jotai';
 import { motion } from 'motion/react';
-import { rpc } from 'pyloid-js';
-import { useEffect, useState } from 'react';
 
+import { supportsAtom } from '@/atoms/support';
 import SupportAlbum from '@/components/SupportAlbum';
 import { childVariants, containerVariants } from '@/motions/stagger';
-import { Supports } from '@/types/support';
 
 
 export const Route = createFileRoute('/support/')({
@@ -13,15 +12,7 @@ export const Route = createFileRoute('/support/')({
 });
 
 function Support() {
-  const [supports, setSupports] = useState<Supports | undefined>();
-
-  const fetchSupports = async () => {
-    setSupports(await rpc.call<undefined, Supports>('get_supports'));
-  };
-
-  useEffect(() => {
-    fetchSupports();
-  }, []);
+  const [supports] = useAtom(supportsAtom);
 
   return (
     <div className='size-full overflow-auto p-4'>

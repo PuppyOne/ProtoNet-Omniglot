@@ -16,7 +16,11 @@
       {
         "title": "EmbedScope",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "windowEffects": {
+          "effects": ["mica"]
+        },
+        "transparent": true
       }
     ],
     "security": {

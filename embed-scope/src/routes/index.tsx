@@ -7,7 +7,7 @@ export const Route = createFileRoute('/')({ component: Home });
 function Home() {
   return (
     <>
-      <h1>Pyloid App</h1>
+      <h1>PyTauri App</h1>
       <Button>Hello Hero</Button>
     </>
   );

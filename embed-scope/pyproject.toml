@@ -6,18 +6,25 @@ readme = "README.md"
 requires-python = "~=3.14.0"
 
 dependencies = [
-    "pyloid==0.27.2",
+    "pytauri == 0.8.*",
     "torch>=2.11.0",
     "torchvision>=0.26.0",
 ]
 
+[project.entry-points.pytauri]
+ext_mod = "embed_scope.ext_mod"
+
+[build-system]
+requires = ["setuptools >= 80"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages]
+find = { where = ["src-python"] }  
+
 [dependency-groups]
 dev = [
-    "pyloid-builder~=0.4.1",
-    "pyloid-watcher~=0.1.8",
     "ruff~=0.15.7",
 ]
-
 
 [tool.ruff]
 format.quote-style = "single"

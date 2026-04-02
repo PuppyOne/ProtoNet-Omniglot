@@ -1,16 +1,15 @@
-import { Toast,toast } from '@heroui/react';
+import { Toast, toast } from '@heroui/react';
 import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { useAtom } from 'jotai';
 import { AnimatePresence } from 'motion/react';
-import { rpc } from 'pyloid-js';
 import { useEffect } from 'react';
 
 import { isEngineReadyAtom } from '@/atoms/engine';
 import { characterSupportsAtom } from '@/atoms/support';
+import { getSupports, preload } from '@/client/apiClient';
 import NavBar from '@/components/NavBar';
 import NotFound from '@/components/NotFound';
-import type { CharacterSupports } from '@/types/support';
 
 
 export const Route = createRootRoute({
@@ -26,15 +25,13 @@ function RootComponent() {
   const [isEngineReady, setIsEngineReady] = useAtom(isEngineReadyAtom);
 
   const fetchSupports = async () => {
-    setCharacterSupports(
-      await rpc.call<undefined, CharacterSupports>('get_supports')
-    );
+    setCharacterSupports(await getSupports());
   };
 
   const loadEngine = async () => {
     if (isEngineReady) return;
 
-    await rpc.call<undefined, void>('preload');
+    await preload();
 
     setIsEngineReady(true);
   };

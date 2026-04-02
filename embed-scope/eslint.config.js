@@ -11,7 +11,7 @@ import tseslint from 'typescript-eslint';
 
 
 export default defineConfig([
-  globalIgnores(['**/*.gen.*']),
+  globalIgnores(['**/*.gen.*', 'src/client']),
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...pluginRouter.configs['flat/recommended'],

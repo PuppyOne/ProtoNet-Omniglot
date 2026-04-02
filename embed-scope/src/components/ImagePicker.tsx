@@ -1,5 +1,5 @@
 import { Button, Input } from '@heroui/react';
-import { rpc } from 'pyloid-js';
+import { open } from '@tauri-apps/plugin-dialog';
 
 
 export default function ImagePicker({
@@ -12,7 +12,7 @@ export default function ImagePicker({
   onChange?: (path: string | null) => void;
 }) {
   const handleExplore = async () => {
-    const path = await rpc.call<undefined, string | null>('select_file');
+    const path = await open();
 
     onChange?.(path);
   };

@@ -1,6 +1,6 @@
 import { atom } from 'jotai';
 
-import { CharacterSupports } from '@/types/support';
+import type { SupportsOutput } from '@/client/_apiTypes';
 
 
-export const characterSupportsAtom = atom<CharacterSupports | undefined>();
+export const characterSupportsAtom = atom<SupportsOutput | undefined>();

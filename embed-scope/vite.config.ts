@@ -28,6 +28,12 @@ export default defineConfig({
       '@': '/src',
     },
   },
+  server: {
+    watch: {
+      // tell vite to ignore watching `src-tauri`
+      ignored: ['**/src-tauri/**', '**/.venv/**'],
+    },
+  },
   build: {
     outDir: 'dist-front',
   },

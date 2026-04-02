@@ -12,7 +12,7 @@ export default function NavBar() {
 
   return (
     <div
-      data-pyloid-drag-region
+      data-tauri-drag-region
       className='bg-accent grid grid-cols-[4rem_1fr_4rem]'
     >
       <div className='pointer-events-none grid size-full place-items-center-safe'>

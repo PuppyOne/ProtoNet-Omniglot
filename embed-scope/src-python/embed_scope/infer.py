@@ -81,7 +81,7 @@ class ProtoNet(nn.Module):
 encoder = Encoder(in_channels=1, feature_channels=64, embed_dim=64)
 model = ProtoNet(encoder).to(device)
 
-model.load_state_dict(torch.load('best_model.pth', map_location=device))
+model.load_state_dict(torch.load('models/best_model.pth', map_location=device))
 
 
 model.eval()

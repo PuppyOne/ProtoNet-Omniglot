@@ -17,9 +17,7 @@ dist-front
 # Virtual environments
 .venv
 
-# pyinstaller
-dist
+# Cargo
+target
 
 .tanstack/tmp
-
-!src-pyloid/build

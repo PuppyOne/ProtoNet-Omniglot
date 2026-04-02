@@ -1,5 +1,6 @@
 import { Avatar, Card } from '@heroui/react';
 import { createFileRoute, notFound } from '@tanstack/react-router';
+import { convertFileSrc } from '@tauri-apps/api/core';
 import { useAtom } from 'jotai';
 
 import { characterSupportsAtom } from '@/atoms/support';
@@ -24,7 +25,7 @@ function CharacterSupport() {
           <Card key={i} className='h-min w-full'>
             <Card.Header className='aspect-square'>
               <Avatar className='size-full rounded-xl shadow-sm'>
-                <Avatar.Image src={support.src} />
+                <Avatar.Image src={convertFileSrc(support.filepath)} />
               </Avatar>
             </Card.Header>
             <Card.Content>{support.name}</Card.Content>

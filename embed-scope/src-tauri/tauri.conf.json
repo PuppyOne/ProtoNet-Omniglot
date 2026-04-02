@@ -20,7 +20,8 @@
         "windowEffects": {
           "effects": ["mica"]
         },
-        "transparent": true
+        "transparent": true,
+        "decorations": false
       }
     ],
     "security": {

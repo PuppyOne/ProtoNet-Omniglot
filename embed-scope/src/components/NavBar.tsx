@@ -45,7 +45,7 @@ export default function NavBar() {
           </AnimatePresence>
           <motion.span
             layout
-            className='text-accent-foreground pointer-events-auto pl-2 text-lg font-semibold select-none'
+            className='text-accent-foreground pl-2 text-lg font-semibold select-none'
           >
             {title}
           </motion.span>

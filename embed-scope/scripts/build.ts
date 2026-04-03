@@ -1,3 +1,4 @@
+import { exists } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 
@@ -24,6 +25,8 @@ if (platform !== 'win32') {
     Bun.env.RUSTFLAGS = `-C link-arg=-Wl,-rpath,@executable_path/../Resources/lib -L ${PYLIB_DIR}`;
   }
 }
+
+if (!(await exists(PYTHON_PATH))) await $`bun download-py`;
 
 console.log('Installing Python package into embedded env...');
 

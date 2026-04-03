@@ -10,7 +10,7 @@
     "download-py": "bun run ./scripts/download-py.ts",
     "build": "bun run ./scripts/build.ts",
     "setup": "bun install && uv venv --python-preference only-system --clear && uv sync",
-    "setup:ci": "bun ci && uv venv --clear && uv sync",
+    "setup:ci": "bun ci",
     "prepare": "cd .. && husky embed-scope/.husky"
   },
   "lint-staged": {

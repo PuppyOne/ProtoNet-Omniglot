@@ -1,4 +1,4 @@
-import { exists, mkdir } from 'node:fs/promises';
+import { mkdir , rm } from 'node:fs/promises';
 import { arch, platform } from 'node:os';
 
 import { $ } from 'bun';
@@ -6,6 +6,9 @@ import { $ } from 'bun';
 
 const PYTHON_VERSION = '3.14.3';
 const TAG = '20260203';
+
+const DEST_DIR = 'src-tauri/pyembed';
+const TMP_FILE = '.python.tar.gz';
 
 const PLATFORM_MAP = {
   win32: 'x86_64-pc-windows-msvc',
@@ -21,21 +24,15 @@ if (!target) {
 
 const url = `https://github.com/astral-sh/python-build-standalone/releases/download/${TAG}/cpython-${PYTHON_VERSION}+${TAG}-${target}-install_only_stripped.tar.gz`;
 
-const DEST_DIR = 'src-tauri/pyembed';
-
-if (await exists(DEST_DIR)) {
-  throw new Error(`Destination directory ${DEST_DIR} already exists.`);
-}
+await rm(DEST_DIR, { recursive: true, force: true });
 
 console.log(`⬇ Downloading Python standalone for ${target}...`);
 
 await mkdir(DEST_DIR, { recursive: true });
 
-const tmp = '.python.tar.gz';
-
-await $`curl -L ${url} -o ${tmp}`;
-await $`tar -xzf ${tmp} -C ${DEST_DIR}`;
-await $`rm ${tmp}`;
+await $`curl -L ${url} -o ${TMP_FILE}`;
+await $`tar -xzf ${TMP_FILE} -C ${DEST_DIR}`;
+await $`rm ${TMP_FILE}`;
 
 if (platform() === 'darwin') {
   const majorMinor = PYTHON_VERSION.split('.').slice(0, 2).join('.');

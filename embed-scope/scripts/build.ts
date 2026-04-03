@@ -39,6 +39,6 @@ await $`uv pip install \
 
 console.log('Building Tauri bundle...');
 
-await $`pnpm tauri build --config=src-tauri/tauri.bundle.json -- --profile bundle-release`;
+await $`bun tauri build --config=src-tauri/tauri.bundle.json -- --profile bundle-release`;
 
 console.log('✅ Build done');

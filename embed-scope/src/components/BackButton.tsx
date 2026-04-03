@@ -1,7 +1,7 @@
 import { Button } from '@heroui/react';
 import { useCanGoBack, useRouter } from '@tanstack/react-router';
 
-import IconArrowLeft from '~icons/line-md/arrow-left';
+import LineMdArrowLeft from '~icons/line-md/arrow-left';
 
 
 export default function BackButton(props: React.ComponentProps<typeof Button>) {
@@ -12,7 +12,7 @@ export default function BackButton(props: React.ComponentProps<typeof Button>) {
 
   return (
     <Button {...props} onPress={handleBack}>
-      <IconArrowLeft className='size-6' />
+      <LineMdArrowLeft className='size-6' />
     </Button>
   );
 }

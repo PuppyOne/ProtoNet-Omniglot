@@ -27,7 +27,7 @@ export default function NavBar() {
   return (
     <div
       data-tauri-drag-region
-      className='bg-accent grid grid-cols-[8rem_1fr_8rem] p-1.5'
+      className='bg-accent grid grid-cols-[8rem_1fr_8rem] p-1.5 shadow-md'
     >
       <div className='pointer-events-none flex size-full items-center-safe'>
         <LayoutGroup>

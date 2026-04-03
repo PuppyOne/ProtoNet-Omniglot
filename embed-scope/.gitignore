@@ -19,5 +19,6 @@ dist-front
 
 # Cargo
 target
+portable
 
 .tanstack/tmp

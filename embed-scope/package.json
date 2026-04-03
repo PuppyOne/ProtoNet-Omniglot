@@ -9,6 +9,7 @@
     "vite:build": "tsc -b && vite build",
     "download-py": "bun run ./scripts/download-py.ts",
     "build": "bun run ./scripts/build.ts",
+    "bundle:portable": "bun run ./scripts/portable.ts",
     "setup": "bun install && uv venv --python-preference only-system --clear && uv sync",
     "setup:ci": "bun ci",
     "prepare": "cd .. && husky embed-scope/.husky"

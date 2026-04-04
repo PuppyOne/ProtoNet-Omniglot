@@ -6,8 +6,9 @@ import { AnimatePresence } from 'motion/react';
 import { useEffect } from 'react';
 
 import { isEngineReadyAtom } from '@/atoms/engine';
+import { modelsAtom } from '@/atoms/model';
 import { characterSupportsAtom } from '@/atoms/support';
-import { getSupports, preload } from '@/client/apiClient';
+import { getModels, getSupports, preload } from '@/client/apiClient';
 import NavBar from '@/components/NavBar';
 import NotFound from '@/components/NotFound';
 
@@ -22,10 +23,17 @@ function RootComponent() {
   const [characterSupports, setCharacterSupports] = useAtom(
     characterSupportsAtom
   );
+  const [, setModels] = useAtom(modelsAtom);
   const [isEngineReady, setIsEngineReady] = useAtom(isEngineReadyAtom);
 
   const fetchSupports = async () => {
     setCharacterSupports(await getSupports());
+  };
+
+  const fetchModels = async () => {
+    const models = await getModels();
+
+    setModels(models);
   };
 
   const loadEngine = async () => {
@@ -38,6 +46,8 @@ function RootComponent() {
 
   useEffect(() => {
     if (!characterSupports) fetchSupports();
+
+    fetchModels();
 
     toast.promise(loadEngine, {
       loading: '正在初始化引擎...',

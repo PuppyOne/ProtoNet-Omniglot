@@ -1,29 +1,24 @@
 import { Chip, Description, Label, Radio, RadioGroup } from '@heroui/react';
 import dayjs from 'dayjs';
+import { useAtom } from 'jotai';
 import { motion } from 'motion/react';
-import { useEffect, useState } from 'react';
 
-import { ModelsOutput } from '@/client/_apiTypes';
-import { getModels } from '@/client/apiClient';
+import { modelsAtom, selectedModelAtom } from '@/atoms/model';
 import { childVariants, containerVariants } from '@/motions/stagger';
 
 
 export default function ModelRadioGroup(
   props: React.ComponentProps<typeof RadioGroup>
 ) {
-  const [models, setModels] = useState<ModelsOutput | undefined>();
+  const [models] = useAtom(modelsAtom);
+  const [selectedModel, setSelectedModel] = useAtom(selectedModelAtom);
 
-  const fetchModels = async () => {
-    const models = await getModels();
-
-    setModels(models);
-  };
-
-  useEffect(() => {
-    fetchModels();
-  }, []);
   return (
-    <RadioGroup {...props} variant='secondary'>
+    <RadioGroup
+      {...props}
+      value={selectedModel?.folder.name ?? null}
+      variant='secondary'
+    >
       <motion.div
         variants={containerVariants}
         initial='hidden'
@@ -41,6 +36,7 @@ export default function ModelRadioGroup(
             <Radio
               className='data-[selected=true]:shadow-accent/10 group bg-surface data-[selected=true]:border-accent data-[selected=true]:bg-accent/10 data-[focus-visible=true]:border-accent data-[focus-visible=true]:bg-accent/10 relative flex rounded-xl border px-5 py-4 shadow-sm transition-all'
               value={model.folder.name}
+              onClick={() => setSelectedModel(model)}
             >
               <Radio.Control className='absolute top-3 right-4 size-5'>
                 <Radio.Indicator />

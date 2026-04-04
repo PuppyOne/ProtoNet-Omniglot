@@ -1,0 +1,8 @@
+{
+  "test_loss": 0.31754163871081414,
+  "test_accuracy": 0.9186328125,
+  "n_way": 5,
+  "k_shot": 1,
+  "q_query": 5,
+  "test_batches": 1024
+}

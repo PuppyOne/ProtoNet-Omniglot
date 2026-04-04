@@ -36,7 +36,6 @@
     "@tanstack/react-router-devtools": "^1.166.10",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-dialog": "~2",
-    "@tauri-apps/plugin-fs": "~2",
     "@tauri-apps/plugin-opener": "^2",
     "dayjs": "^1.11.20",
     "jotai": "^2.19.0",

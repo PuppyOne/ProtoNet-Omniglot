@@ -33,4 +33,3 @@ pytauri = { version = "0.8", features = [] }
 tauri-plugin-pytauri = { version = "0.8" }
 winapi = "0.3.9"
 tauri-plugin-dialog = "2"
-tauri-plugin-fs = "2"

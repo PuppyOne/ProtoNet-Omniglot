@@ -16,6 +16,39 @@ export type Filepath = string;
  * 支持的图像格式枚举
  */
 export type ImageFormat = "png" | "jpg" | "jpeg" | "bmp" | "gif";
+export type Name1 = string;
+export type Architecture = string;
+export type Encoder = string;
+export type Dataset = string;
+/**
+ * @minItems 3
+ * @maxItems 3
+ */
+export type Version = [number, number, number];
+export type Embeddingdim = number;
+export type Timestamp = string;
+export type Framework = string;
+export type Nway = number;
+export type Kshot = number;
+export type Qquery = number;
+export type Trainbatches = number;
+export type Valbatches = number;
+export type Testbatches = number;
+export type Earlystoppatience = number;
+export type Testloss = number;
+export type Testaccuracy = number;
+export type Nway1 = number;
+export type Kshot1 = number;
+export type Qquery1 = number;
+export type Testbatches1 = number;
+export type Epoch = number;
+export type Trainloss = number;
+export type Valloss = number;
+export type Valaccuracy = number;
+export type TrainLogs = EpochLog[];
+export type Name2 = string;
+export type Path = string;
+export type ModelsOutput = Model[];
 
 /**
  * Commands Input and Output Schemas
@@ -32,6 +65,10 @@ export interface Commands {
   get_supports: {
     input: void | undefined;
     output: SupportsOutput;
+  };
+  get_models: {
+    input: void | undefined;
+    output: ModelsOutput;
   };
 }
 export interface InferInput {
@@ -58,4 +95,48 @@ export interface SupportImage {
   filename: Filename;
   filepath: Filepath;
   ext: ImageFormat;
+}
+export interface Model {
+  meta: ModelMeta;
+  metrics: Metrics;
+  trainLogs: TrainLogs;
+  folder: Folder;
+}
+export interface ModelMeta {
+  name: Name1;
+  architecture: Architecture;
+  encoder: Encoder;
+  dataset: Dataset;
+  version: Version;
+  embeddingDim: Embeddingdim;
+  train: ModelTrainMeta;
+}
+export interface ModelTrainMeta {
+  timestamp: Timestamp;
+  framework: Framework;
+  nWay: Nway;
+  kShot: Kshot;
+  qQuery: Qquery;
+  trainBatches: Trainbatches;
+  valBatches: Valbatches;
+  testBatches: Testbatches;
+  earlyStopPatience: Earlystoppatience;
+}
+export interface Metrics {
+  testLoss: Testloss;
+  testAccuracy: Testaccuracy;
+  nWay: Nway1;
+  kShot: Kshot1;
+  qQuery: Qquery1;
+  testBatches: Testbatches1;
+}
+export interface EpochLog {
+  epoch: Epoch;
+  trainLoss: Trainloss;
+  valLoss: Valloss;
+  valAccuracy: Valaccuracy;
+}
+export interface Folder {
+  name: Name2;
+  path: Path;
 }

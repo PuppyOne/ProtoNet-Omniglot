@@ -13,4 +13,8 @@ class CommandBaseModel(BaseModel):
         #
         # See: <https://docs.pydantic.dev/2.10/concepts/models/#extra-data>
         extra='forbid',
+        # Allow validate by snake_case
+        validate_by_name=True,
+        # 返回值字段转换为 camelCase
+        serialize_by_alias=True,
     )

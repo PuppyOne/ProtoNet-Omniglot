@@ -1,3 +1,4 @@
+import json
 import time
 from collections.abc import Sequence
 from pathlib import Path
@@ -6,10 +7,12 @@ from pytauri import Commands
 
 from .constants.pytauri_gen_ts import PYTAURI_GEN_TS
 from .data.infer import InferInput
+from .data.model import ModelsOutput
 from .data.support import SupportsOutput
 
 
 support_path = './support'
+models_path = './models'
 
 commands = Commands(experimental_gen_ts=PYTAURI_GEN_TS)
 
@@ -94,3 +97,23 @@ async def get_supports() -> SupportsOutput:
             )
 
     return SupportsOutput(**data)
+
+
+@commands.command()
+async def get_models() -> ModelsOutput:
+    JSON_NAMES = ['meta', 'metrics', 'train_logs']
+
+    models = []
+
+    for model_path in Path(models_path).iterdir():
+        model = {}
+
+        for json_name in JSON_NAMES:
+            data = (model_path / f'{json_name}.json').read_text()
+
+            model[json_name] = json.loads(data)
+
+        model['folder'] = {'name': model_path.name, 'path': model_path.resolve().as_posix()}
+        models.append(model)
+
+    return ModelsOutput(models)

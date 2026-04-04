@@ -57,3 +57,10 @@ export async function getSupports(
 ): Promise<Commands["get_supports"]["output"]> {
     return await pyInvoke("get_supports", body, options);
 }
+
+export async function getModels(
+    body: Commands["get_models"]["input"],
+    options?: InvokeOptions
+): Promise<Commands["get_models"]["output"]> {
+    return await pyInvoke("get_models", body, options);
+}

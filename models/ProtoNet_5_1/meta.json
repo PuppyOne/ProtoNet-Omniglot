@@ -1,0 +1,23 @@
+{
+  "name": "ProtoNet",
+  "architecture": "ProtoNet",
+  "encoder": "CNN-4",
+  "dataset": "Omniglot",
+  "version": [
+    1,
+    0,
+    0
+  ],
+  "embedding_dim": 64,
+  "train": {
+    "timestamp": "2026-04-04T15:25:57.141805",
+    "framework": "PyTorch",
+    "n_way": 5,
+    "k_shot": 1,
+    "q_query": 5,
+    "train_batches": 512,
+    "val_batches": 512,
+    "test_batches": 1024,
+    "early_stop_patience": 25
+  }
+}

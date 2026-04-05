@@ -27,8 +27,57 @@ export default defineConfig([
     },
     rules: {
       ...reactHooks.configs.r,
+
+      // 命名规范
+      '@typescript-eslint/naming-convention': [
+        'error',
+
+        // 默认：变量 / 函数 camelCase
+        {
+          selector: 'variableLike',
+          format: ['camelCase', 'PascalCase'],
+        },
+
+        // 类型：PascalCase
+        {
+          selector: 'typeLike',
+          format: ['PascalCase'],
+        },
+
+        // const 允许 UPPER_CASE
+        {
+          selector: 'variable',
+          modifiers: ['const'],
+          format: ['camelCase', 'UPPER_CASE'],
+          filter: {
+            regex: '^Route$',
+            match: false,
+          },
+        },
+
+        // 函数（兼容 React 组件）
+        {
+          selector: 'function',
+          format: ['camelCase', 'PascalCase'],
+        },
+
+        // 参数允许前导 _
+        {
+          selector: 'parameter',
+          format: ['camelCase'],
+          leadingUnderscore: 'allow',
+        },
+
+        // 泛型单字母
+        {
+          selector: 'typeParameter',
+          format: ['PascalCase'],
+          prefix: ['T'],
+        },
+      ],
     },
   },
+
   {
     plugins: { 'simple-import-sort': simpleImportSort, import: importPlugin },
     languageOptions: {

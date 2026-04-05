@@ -26,12 +26,12 @@ function Query() {
         return;
       }
 
-      const result_promise = infer({
+      const resultPromise = infer({
         modelFolderName: selectedModel.folder.name,
         queryStrs: [path],
       });
 
-      toast.promise(result_promise, {
+      toast.promise(resultPromise, {
         loading: '正在推理',
         success: result => `结果: ${result}`,
         error: error => `未知错误 ${error.message}`,

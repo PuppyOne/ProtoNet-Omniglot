@@ -5,6 +5,7 @@ import { useAtom } from 'jotai';
 import { useState } from 'react';
 
 import { selectedModelAtom } from '@/atoms/model';
+import { InferOutput } from '@/client/_apiTypes';
 import { infer } from '@/client/apiClient';
 import ImagePicker from '@/components/ImagePicker';
 
@@ -17,6 +18,8 @@ function Query() {
   const [imagePath, setImagePath] = useState<string | null>(null);
   const [selectedModel] = useAtom(selectedModelAtom);
 
+  const [result, setResult] = useState<InferOutput | null>(null);
+
   const handleChange = async (path: string | null) => {
     if (path) {
       setImagePath(path);
@@ -26,14 +29,21 @@ function Query() {
         return;
       }
 
-      const resultPromise = infer({
-        modelFolderName: selectedModel.folder.name,
-        queryStrs: [path],
-      });
+      const handleInfer = async (): Promise<InferOutput> => {
+        const result = await infer({
+          modelFolderName: selectedModel.folder.name,
+          queryStrs: [path],
+        });
 
-      toast.promise(resultPromise, {
+        setResult(result);
+
+        return result;
+      };
+
+      toast.promise(handleInfer, {
         loading: '正在推理',
-        success: result => `结果: ${result}`,
+        success: result =>
+          `结果: ${result.prediction} 耗时: ${result.timeSpentS}`,
         error: error => `未知错误 ${error.message}`,
       });
     }
@@ -54,20 +64,29 @@ function Query() {
           )}
         </Avatar>
         <Surface className='row-span-2 flex size-full flex-col gap-6 overflow-auto rounded-3xl px-8 py-4'>
-          <Meter value={98}>
-            <Label>character01</Label>
-            <Meter.Output />
-            <Meter.Track>
-              <Meter.Fill />
-            </Meter.Track>
-          </Meter>
-          <Meter value={1}>
-            <Label>character02</Label>
-            <Meter.Output />
-            <Meter.Track>
-              <Meter.Fill />
-            </Meter.Track>
-          </Meter>
+          {result &&
+            Object.entries(result.confidences[0])
+              .sort(
+                ([, confidenceA], [, confidenceB]) => confidenceB - confidenceA
+              )
+              .map(([characterName, confidence]) => (
+                <Meter
+                  key={characterName}
+                  formatOptions={{
+                    style: 'percent',
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }}
+                  maxValue={1}
+                  value={confidence}
+                >
+                  <Label>{characterName}</Label>
+                  <Meter.Output />
+                  <Meter.Track>
+                    <Meter.Fill />
+                  </Meter.Track>
+                </Meter>
+              ))}
         </Surface>
         <Surface
           variant='transparent'

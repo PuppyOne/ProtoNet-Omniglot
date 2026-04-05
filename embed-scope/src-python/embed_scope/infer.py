@@ -44,7 +44,7 @@ class InferenceManager:
 
         self.model.eval()
 
-    def infer(self, support_strs: Sequence[str], support_labels_str_list: Sequence[str], query_strs: Sequence[str]) -> Sequence[str]:
+    def infer(self, support_strs: Sequence[str], support_labels_str_list: Sequence[str], query_strs: Sequence[str]) -> tuple[list[str], list[dict[str, float]]]:
         if self.model is None or self.torch is None:
             raise RuntimeError(f'Call {self.construct_model.__name__}() first.')
 
@@ -81,7 +81,15 @@ class InferenceManager:
             pred_labels_list: list[int] = pred_labels.cpu().tolist()
 
             # 反向映射
-            return [int_to_str[label] for label in pred_labels_list]
+            pred_labels_str_list: list[str] = [int_to_str[label] for label in pred_labels_list]
+
+            # softmax 得到概率
+            softmax_probs: torch.Tensor = self.torch.nn.functional.softmax(logits, dim=1)
+
+            # 映射成 [{class: confidence, ...}, ...]
+            pred_conf: list[dict[str, float]] = [{int_to_str[i]: float(prob) for i, prob in enumerate(sample_probs)} for sample_probs in softmax_probs.cpu()]
+
+            return pred_labels_str_list, pred_conf
 
     def _load_image(self, path_str: str, transform: torch.nn.Module | None = None) -> torch.Tensor:
         if self.torchvision is None:
@@ -194,8 +202,8 @@ if __name__ == '__main__':
     inference_manager.load_model('best_model.pth')
 
     start_time = time.perf_counter()
-    pred_labels = inference_manager.infer(support_strs, support_labels_str_list, query_strs)
+    pred = inference_manager.infer(support_strs, support_labels_str_list, query_strs)
     end_time = time.perf_counter()
 
     print(f'Time spent: {end_time - start_time:.4f}s')
-    print(pred_labels)
+    print(pred)

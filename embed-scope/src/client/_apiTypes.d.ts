@@ -8,7 +8,11 @@
 export type RootModelNoneType = null;
 export type Modelfoldername = string;
 export type Querystrs = string[];
-export type RootModelSequenceStr = string[];
+export type Prediction = string[];
+export type Confidences = {
+  [k: string]: number;
+}[];
+export type Timespents = number;
 export type Name = string;
 export type Filename = string;
 export type Filepath = string;
@@ -60,7 +64,7 @@ export interface Commands {
   };
   infer: {
     input: InferInput;
-    output: RootModelSequenceStr;
+    output: InferOutput;
   };
   get_supports: {
     input: void | undefined;
@@ -74,6 +78,11 @@ export interface Commands {
 export interface InferInput {
   modelFolderName: Modelfoldername;
   queryStrs: Querystrs;
+}
+export interface InferOutput {
+  prediction: Prediction;
+  confidences: Confidences;
+  timeSpentS: Timespents;
 }
 /**
  * 获取所有字符支持图像的响应模型

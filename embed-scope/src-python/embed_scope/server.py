@@ -1,12 +1,11 @@
 import json
 import time
-from collections.abc import Sequence
 from pathlib import Path
 
 from pytauri import Commands
 
 from .constants.pytauri_gen_ts import PYTAURI_GEN_TS
-from .data.infer import InferInput
+from .data.infer import InferInput, InferOutput
 from .data.model import ModelsOutput
 from .data.support import SupportsOutput
 from .infer import InferenceManager
@@ -26,7 +25,7 @@ async def preload() -> None:
 
 
 @commands.command()
-async def infer(body: InferInput) -> Sequence[str]:
+async def infer(body: InferInput) -> InferOutput:
     support_strs: list[str] = []
     support_labels_str_list: list[str] = []
 
@@ -43,12 +42,14 @@ async def infer(body: InferInput) -> Sequence[str]:
 
     inference_manager.load_model(models_path / Path(body.model_folder_name) / 'best_model.pth')
     start_time = time.perf_counter()
-    prediction = inference_manager.infer(support_strs, support_labels_str_list, body.query_strs)
+    prediction, confidences = inference_manager.infer(support_strs, support_labels_str_list, body.query_strs)
     end_time = time.perf_counter()
 
-    print(f'Time spent: {end_time - start_time:.4f}s')
+    time_spent_s = end_time - start_time
 
-    return prediction
+    print(f'Time spent: {time_spent_s:.4f}s')
+
+    return InferOutput(prediction=prediction, time_spent_s=time_spent_s, confidences=confidences)
 
 
 @commands.command()

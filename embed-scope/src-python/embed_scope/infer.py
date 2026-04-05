@@ -54,7 +54,19 @@ class InferenceManager:
         support = self.torch.stack([self._load_image(s) for s in support_strs])  # (n_way*k_shot, 1, H, W)
         query = self.torch.stack([self._load_image(s) for s in query_strs])  # (n_way*q_query, 1, H, W)
 
-        support_labels_list = tuple(range(len(support_labels_str_list)))
+        # 字符串 整数  双向映射
+        str_to_int: dict[str, int] = {}
+        int_to_str: dict[int, str] = {}
+        next_id = 0
+
+        support_labels_list: list[int] = []
+        for support_labels_str in support_labels_str_list:
+            if support_labels_str not in str_to_int:
+                str_to_int[support_labels_str] = next_id
+                int_to_str[next_id] = support_labels_str
+                next_id += 1
+            support_labels_list.append(str_to_int[support_labels_str])
+
         support_labels = self.torch.tensor(support_labels_list)  # (n_way*k_shot,)
 
         with self.torch.no_grad():
@@ -68,7 +80,8 @@ class InferenceManager:
 
             pred_labels_list: list[int] = pred_labels.cpu().tolist()
 
-            return [support_labels_str_list[label] for label in pred_labels_list]
+            # 反向映射
+            return [int_to_str[label] for label in pred_labels_list]
 
     def _load_image(self, path_str: str, transform: torch.nn.Module | None = None) -> torch.Tensor:
         if self.torchvision is None:

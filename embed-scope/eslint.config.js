@@ -6,6 +6,7 @@ import importPlugin from 'eslint-plugin-import';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
@@ -24,6 +25,7 @@ export default defineConfig([
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      unicorn: eslintPluginUnicorn,
     },
     rules: {
       ...reactHooks.configs.r,
@@ -123,6 +125,31 @@ export default defineConfig([
         { blankLine: 'always', prev: '*', next: 'enum' },
       ],
       '@stylistic/jsx-self-closing-comp': 'error',
+    },
+  },
+
+  // 文件命名规则
+  {
+    files: ['**/*.ts'],
+    rules: {
+      'unicorn/filename-case': [
+        'error',
+        {
+          cases: { kebabCase: true },
+        },
+      ],
+    },
+  },
+  {
+    files: ['**/*.tsx'],
+    rules: {
+      'unicorn/filename-case': [
+        'error',
+        {
+          cases: { pascalCase: true },
+          ignore: ['^(__root|main)\\.tsx$'],
+        },
+      ],
     },
   },
 ]);

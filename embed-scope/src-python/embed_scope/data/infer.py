@@ -4,5 +4,5 @@ from .base_model import CommandBaseModel
 
 
 class InferInput(CommandBaseModel):
-    support_dir: str
+    model_folder_name: str
     query_strs: Sequence[str]

@@ -1,8 +1,10 @@
 import { Avatar, Label, Meter, Surface, toast } from '@heroui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { convertFileSrc } from '@tauri-apps/api/core';
+import { useAtom } from 'jotai';
 import { useState } from 'react';
 
+import { selectedModelAtom } from '@/atoms/model';
 import { infer } from '@/client/apiClient';
 import ImagePicker from '@/components/ImagePicker';
 
@@ -13,14 +15,21 @@ export const Route = createFileRoute('/query/')({
 
 function Query() {
   const [imagePath, setImagePath] = useState<string | null>(null);
+  const [selectedModel] = useAtom(selectedModelAtom);
 
   const handleChange = async (path: string | null) => {
     if (path) {
       setImagePath(path);
 
-      const supportDir = '../omniglot/python/images_evaluation/Angelic';
+      if (!selectedModel) {
+        toast.danger('请先选择模型');
+        return;
+      }
 
-      const result_promise = infer({ supportDir, queryStrs: [path] });
+      const result_promise = infer({
+        modelFolderName: selectedModel.folder.name,
+        queryStrs: [path],
+      });
 
       toast.promise(result_promise, {
         loading: '正在推理',

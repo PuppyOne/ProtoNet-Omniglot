@@ -6,7 +6,7 @@
  */
 
 export type RootModelNoneType = null;
-export type Supportdir = string;
+export type Modelfoldername = string;
 export type Querystrs = string[];
 export type RootModelSequenceStr = string[];
 export type Name = string;
@@ -72,7 +72,7 @@ export interface Commands {
   };
 }
 export interface InferInput {
-  supportDir: Supportdir;
+  modelFolderName: Modelfoldername;
   queryStrs: Querystrs;
 }
 /**

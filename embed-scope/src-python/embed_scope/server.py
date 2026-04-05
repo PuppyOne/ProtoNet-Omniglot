@@ -9,6 +9,7 @@ from .constants.pytauri_gen_ts import PYTAURI_GEN_TS
 from .data.infer import InferInput
 from .data.model import ModelsOutput
 from .data.support import SupportsOutput
+from .infer import InferenceManager
 
 
 support_path = './support'
@@ -16,26 +17,33 @@ models_path = './models'
 
 commands = Commands(experimental_gen_ts=PYTAURI_GEN_TS)
 
+inference_manager = InferenceManager()
+
 
 @commands.command()
 async def preload() -> None:
-    from . import infer  # noqa: F401  preload module
+    inference_manager.initialize()
 
 
 @commands.command()
 async def infer(body: InferInput) -> Sequence[str]:
-    from .infer import infer as model_infer
-
     support_strs: list[str] = []
     support_labels_str_list: list[str] = []
 
-    for character_path in Path(body.support_dir).iterdir():
+    for character_path in Path(support_path).iterdir():
+        if not character_path.is_dir():
+            continue
+
         for image_path in character_path.iterdir():
+            if not image_path.is_file():
+                continue
+
             support_strs.append(image_path.as_posix())
             support_labels_str_list.append(character_path.name)
 
+    inference_manager.load_model(models_path / Path(body.model_folder_name) / 'best_model.pth')
     start_time = time.perf_counter()
-    prediction = model_infer(support_strs, support_labels_str_list, body.query_strs)
+    prediction = inference_manager.infer(support_strs, support_labels_str_list, body.query_strs)
     end_time = time.perf_counter()
 
     print(f'Time spent: {end_time - start_time:.4f}s')

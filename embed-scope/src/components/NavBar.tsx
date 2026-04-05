@@ -25,7 +25,10 @@ export default function NavBar() {
   }, []);
 
   return (
-    <div
+    <motion.div
+      variants={fadeVariants}
+      initial='hidden'
+      animate='show'
       data-tauri-drag-region
       className='bg-accent grid grid-cols-[8rem_1fr_8rem] p-1.5 shadow-md'
     >
@@ -57,6 +60,6 @@ export default function NavBar() {
       <div className='pointer-events-none flex items-center-safe justify-end'>
         <WindowControls />
       </div>
-    </div>
+    </motion.div>
   );
 }

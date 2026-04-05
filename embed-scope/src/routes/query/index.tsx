@@ -92,10 +92,12 @@ function Query() {
           variant='transparent'
           className='border-border row-span-2 flex size-full flex-col items-start gap-2 overflow-auto rounded-3xl border-2 px-8 py-4 opacity-90'
         >
-          <div>预测结果: character01</div>
-          <div>耗时: 24ms</div>
-          <div>还不知道写什么</div>
-          <div>还不知道写什么</div>
+          {result && (
+            <>
+              <div>预测结果: {result?.prediction[0]}</div>
+              <div>耗时: {Math.round(result?.timeSpentS * 1000)}ms</div>
+            </>
+          )}
         </Surface>
       </div>
     </div>

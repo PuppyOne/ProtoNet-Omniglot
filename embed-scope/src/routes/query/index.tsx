@@ -2,12 +2,14 @@ import { Avatar, Label, Meter, Surface, toast } from '@heroui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { convertFileSrc } from '@tauri-apps/api/core';
 import { useAtom } from 'jotai';
+import { motion } from 'motion/react';
 import { useState } from 'react';
 
 import { selectedModelAtom } from '@/atoms/model';
 import { InferOutput } from '@/client/_apiTypes';
 import { infer } from '@/client/apiClient';
 import ImagePicker from '@/components/ImagePicker';
+import { childVariants, containerVariants } from '@/motions/stagger';
 
 
 export const Route = createFileRoute('/query/')({
@@ -63,41 +65,67 @@ function Query() {
             '请选择图片'
           )}
         </Avatar>
-        <Surface className='row-span-2 flex size-full flex-col gap-6 overflow-auto rounded-3xl px-8 py-4'>
-          {result &&
-            Object.entries(result.confidences[0])
-              .sort(
-                ([, confidenceA], [, confidenceB]) => confidenceB - confidenceA
-              )
-              .map(([characterName, confidence]) => (
-                <Meter
-                  key={characterName}
-                  formatOptions={{
-                    style: 'percent',
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  }}
-                  maxValue={1}
-                  value={confidence}
-                >
-                  <Label>{characterName}</Label>
-                  <Meter.Output />
-                  <Meter.Track>
-                    <Meter.Fill />
-                  </Meter.Track>
-                </Meter>
-              ))}
+        <Surface className='row-span-2 size-full rounded-3xl'>
+          <motion.div
+            variants={containerVariants}
+            initial='hidden'
+            animate='show'
+            exit='exit'
+            className='flex size-full flex-col gap-6 overflow-auto px-8 py-4'
+          >
+            {result &&
+              Object.entries(result.confidences[0])
+                .sort(
+                  ([, confidenceA], [, confidenceB]) =>
+                    confidenceB - confidenceA
+                )
+                .map(([characterName, confidence]) => (
+                  <motion.div
+                    key={characterName}
+                    layoutId={`confidence-${characterName}`}
+                    variants={childVariants}
+                  >
+                    <Meter
+                      formatOptions={{
+                        style: 'percent',
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      }}
+                      maxValue={1}
+                      value={confidence}
+                    >
+                      <Label>{characterName}</Label>
+                      <Meter.Output />
+                      <Meter.Track>
+                        <Meter.Fill />
+                      </Meter.Track>
+                    </Meter>
+                  </motion.div>
+                ))}
+          </motion.div>
         </Surface>
         <Surface
           variant='transparent'
-          className='border-border row-span-2 flex size-full flex-col items-start gap-2 overflow-auto rounded-3xl border-2 px-8 py-4 opacity-90'
+          className='border-border size-full rounded-3xl border-2 px-8 py-4 opacity-90'
         >
-          {result && (
-            <>
-              <div>预测结果: {result?.prediction[0]}</div>
-              <div>耗时: {Math.round(result?.timeSpentS * 1000)}ms</div>
-            </>
-          )}
+          <motion.div
+            variants={containerVariants}
+            initial='hidden'
+            animate='show'
+            exit='exit'
+            className='flex size-full flex-col items-start gap-2 overflow-auto'
+          >
+            {result && (
+              <>
+                <motion.div variants={childVariants}>
+                  预测结果: {result?.prediction[0]}
+                </motion.div>
+                <motion.div variants={childVariants}>
+                  耗时: {Math.round(result?.timeSpentS * 1000)}ms
+                </motion.div>
+              </>
+            )}
+          </motion.div>
         </Surface>
       </div>
     </div>

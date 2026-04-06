@@ -1,9 +1,11 @@
 import { Toast, toast } from '@heroui/react';
 import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+import type { UnlistenFn } from '@tauri-apps/api/event';
+import { getCurrentWindow, type Theme } from '@tauri-apps/api/window';
 import { useAtom } from 'jotai';
 import { AnimatePresence } from 'motion/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { isEngineReadyAtom } from '@/atoms/engine';
 import { modelsAtom } from '@/atoms/model';
@@ -26,6 +28,8 @@ function RootComponent() {
   const [, setModels] = useAtom(modelsAtom);
   const [isEngineReady, setIsEngineReady] = useAtom(isEngineReadyAtom);
 
+  const [theme, setTheme] = useState<Theme | null>(null);
+
   const fetchSupports = async () => {
     setCharacterSupports(await getSupports());
   };
@@ -44,6 +48,12 @@ function RootComponent() {
     setIsEngineReady(true);
   };
 
+  const syncTheme = async () => {
+    const theme = await getCurrentWindow().theme();
+
+    setTheme(theme);
+  };
+
   useEffect(() => {
     if (!characterSupports) fetchSupports();
 
@@ -55,6 +65,28 @@ function RootComponent() {
       error: error => `引擎初始化失败: ${error.message}`,
     });
   }, []);
+
+  useEffect(() => {
+    syncTheme();
+
+    let cleanup: UnlistenFn | null = null;
+
+    const setupListener = async () => {
+      cleanup = await getCurrentWindow().onThemeChanged(
+        ({ payload: theme }) => {
+          setTheme(theme);
+        }
+      );
+    };
+
+    setupListener();
+
+    return () => cleanup?.();
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  }, [theme]);
 
   return (
     <>

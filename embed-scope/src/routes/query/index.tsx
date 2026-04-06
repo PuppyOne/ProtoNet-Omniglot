@@ -10,8 +10,9 @@ import { InferOutput } from '@/client/_apiTypes';
 import { infer } from '@/client/apiClient';
 import EmptyQuery from '@/components/EmptyQuery';
 import ImagePicker from '@/components/ImagePicker';
+import MotionContainer from '@/components/MotionContainer';
 import { fadeVariants } from '@/motions/fade';
-import { childVariants, containerVariants } from '@/motions/stagger';
+import { childVariants } from '@/motions/stagger';
 import SvgSpinnersBlocksWave from '~icons/svg-spinners/blocks-wave';
 
 
@@ -51,15 +52,13 @@ function Query() {
   };
 
   return (
-    <div className='grid size-full grid-rows-[min-content_1fr]'>
-      <ImagePicker value={imagePath} onChange={handleChange} />
-      <motion.div
-        variants={containerVariants}
-        initial='hidden'
-        animate='show'
-        exit='exit'
-        className='grid size-full grid-cols-2 grid-rows-2 gap-4 overflow-hidden p-4'
-      >
+    <MotionContainer className='grid size-full grid-rows-[min-content_1fr]'>
+      <ImagePicker
+        variants={childVariants}
+        value={imagePath}
+        onChange={handleChange}
+      />
+      <MotionContainer className='grid size-full grid-cols-2 grid-rows-2 gap-4 overflow-hidden p-4'>
         <AnimatePresence mode='wait'>
           {imagePath ? (
             <>
@@ -77,13 +76,7 @@ function Query() {
                 className='row-span-2'
               >
                 <Surface className='size-full rounded-3xl'>
-                  <motion.div
-                    variants={containerVariants}
-                    initial='hidden'
-                    animate='show'
-                    exit='exit'
-                    className='flex size-full flex-col gap-6 overflow-auto px-8 py-4'
-                  >
+                  <MotionContainer className='flex size-full flex-col gap-6 overflow-auto px-8 py-4'>
                     {result &&
                       Object.entries(result.confidences[0])
                         .sort(
@@ -113,7 +106,7 @@ function Query() {
                             </Meter>
                           </motion.div>
                         ))}
-                  </motion.div>
+                  </MotionContainer>
                 </Surface>
               </motion.section>
               <motion.section key='result'>
@@ -121,13 +114,7 @@ function Query() {
                   variant='transparent'
                   className='border-border size-full rounded-3xl border-2 px-8 py-4 opacity-90'
                 >
-                  <motion.div
-                    variants={containerVariants}
-                    initial='hidden'
-                    animate='show'
-                    exit='exit'
-                    className='flex size-full flex-col items-start gap-2 overflow-auto'
-                  >
+                  <MotionContainer className='flex size-full flex-col items-start gap-2 overflow-auto'>
                     <AnimatePresence mode='popLayout'>
                       {result ? (
                         <>
@@ -172,7 +159,7 @@ function Query() {
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </motion.div>
+                  </MotionContainer>
                 </Surface>
               </motion.section>
             </>
@@ -185,7 +172,7 @@ function Query() {
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
-    </div>
+      </MotionContainer>
+    </MotionContainer>
   );
 }

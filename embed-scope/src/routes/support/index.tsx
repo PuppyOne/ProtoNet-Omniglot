@@ -4,8 +4,9 @@ import { motion } from 'motion/react';
 
 import { characterSupportsAtom } from '@/atoms/support';
 import EmptySupport from '@/components/EmptySupport';
+import MotionContainer from '@/components/MotionContainer';
 import SupportAlbum from '@/components/SupportAlbum';
-import { childVariants, containerVariants } from '@/motions/stagger';
+import { childVariants } from '@/motions/stagger';
 
 
 export const Route = createFileRoute('/support/')({
@@ -21,19 +22,13 @@ function Support() {
       {characterSupportsEntries.length === 0 ? (
         <EmptySupport />
       ) : (
-        <motion.div
-          variants={containerVariants}
-          initial='hidden'
-          animate='show'
-          exit='exit'
-          className='grid min-h-full grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4'
-        >
+        <MotionContainer className='grid min-h-full grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4'>
           {characterSupportsEntries.map(([characterName, supports], i) => (
             <motion.div key={i} variants={childVariants}>
               <SupportAlbum characterName={characterName} supports={supports} />
             </motion.div>
           ))}
-        </motion.div>
+        </MotionContainer>
       )}
     </div>
   );

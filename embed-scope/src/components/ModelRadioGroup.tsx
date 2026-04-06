@@ -4,7 +4,9 @@ import { useAtom } from 'jotai';
 import { motion } from 'motion/react';
 
 import { modelsAtom, selectedModelAtom } from '@/atoms/model';
-import { childVariants, containerVariants } from '@/motions/stagger';
+import { childVariants } from '@/motions/stagger';
+
+import MotionContainer from './MotionContainer';
 
 
 export default function ModelRadioGroup(
@@ -19,13 +21,7 @@ export default function ModelRadioGroup(
       value={selectedModel?.folder.name ?? null}
       variant='secondary'
     >
-      <motion.div
-        variants={containerVariants}
-        initial='hidden'
-        animate='show'
-        exit='exit'
-        className='grid min-h-full grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4'
-      >
+      <MotionContainer className='grid min-h-full grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4'>
         {models?.map((model, i) => (
           <motion.div
             key={i}
@@ -76,7 +72,7 @@ export default function ModelRadioGroup(
             </Radio>
           </motion.div>
         ))}
-      </motion.div>
+      </MotionContainer>
     </RadioGroup>
   );
 }

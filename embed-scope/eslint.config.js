@@ -70,11 +70,10 @@ export default defineConfig([
           leadingUnderscore: 'allow',
         },
 
-        // 泛型单字母
+        // 泛型
         {
           selector: 'typeParameter',
           format: ['PascalCase'],
-          prefix: ['T'],
         },
       ],
     },

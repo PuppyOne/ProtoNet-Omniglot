@@ -39,7 +39,7 @@ class SupportsOutput(RootModel):
     获取所有字符支持图像的响应模型
     """
 
-    root: dict[str, list[SupportImage]]
+    root: dict[str, list[SupportImage]] = {}
 
     model_config = ConfigDict(
         json_schema_extra={

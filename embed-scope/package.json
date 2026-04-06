@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "uv run tauri dev",
-    "vite": "vite",
     "vite:build": "tsc -b && vite build",
     "download-py": "bun run ./scripts/download-py.ts",
     "build": "bun run ./scripts/build.ts",

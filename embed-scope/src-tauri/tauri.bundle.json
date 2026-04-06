@@ -1,9 +1,14 @@
 {
   "bundle": {
-    "active": false,
+    "active": true,
     "targets": ["deb", "rpm", "msi", "nsis", "app", "dmg"],
     "resources": {
       "pyembed/python": "./"
+    },
+    "windows": {
+      "wix": {
+        "language": "zh-CN"
+      }
     }
   }
 }

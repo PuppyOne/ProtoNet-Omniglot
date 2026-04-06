@@ -13,6 +13,7 @@ import { characterSupportsAtom } from '@/atoms/support';
 import { getModels, getSupports, preload } from '@/client/apiClient';
 import NavBar from '@/components/NavBar';
 import NotFound from '@/components/NotFound';
+import { isWin11 } from '@/utils/is-win11';
 
 
 export const Route = createRootRoute({
@@ -87,7 +88,9 @@ function RootComponent() {
   return (
     <>
       <Toast.Provider />
-      <div className='grid h-full w-full grid-rows-[3rem_1fr] items-stretch justify-stretch select-none'>
+      <div
+        className={`grid h-full w-full grid-rows-[3rem_1fr] items-stretch justify-stretch select-none ${isWin11 ? '' : 'bg-background'}`}
+      >
         <NavBar />
         <div className='overflow-hidden'>
           <AnimatePresence mode='wait' initial={false}>

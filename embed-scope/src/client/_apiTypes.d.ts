@@ -83,6 +83,7 @@ export interface InferOutput {
   prediction: Prediction;
   confidences: Confidences;
   timeSpentS: Timespents;
+  request: InferInput;
 }
 /**
  * 获取所有字符支持图像的响应模型

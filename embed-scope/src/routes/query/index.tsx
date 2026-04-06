@@ -131,10 +131,16 @@ function Query() {
                     <AnimatePresence mode='popLayout'>
                       {result ? (
                         <>
-                          <motion.div variants={childVariants}>
+                          <motion.div
+                            key={`prediction-${JSON.stringify(result.request)}`}
+                            variants={childVariants}
+                          >
                             预测结果: {result?.prediction[0]}
                           </motion.div>
-                          <motion.div variants={childVariants}>
+                          <motion.div
+                            key={`time-spent-${JSON.stringify(result.request)}`}
+                            variants={childVariants}
+                          >
                             耗时: {Math.round(result?.timeSpentS * 1000)}ms
                           </motion.div>
                         </>

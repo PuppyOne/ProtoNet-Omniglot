@@ -12,3 +12,5 @@ class InferOutput(CommandBaseModel):
     prediction: list[str]
     confidences: list[dict[str, float]]
     time_spent_s: float
+
+    request: InferInput

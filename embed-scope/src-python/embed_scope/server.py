@@ -49,7 +49,7 @@ async def infer(body: InferInput) -> InferOutput:
 
     print(f'Time spent: {time_spent_s:.4f}s')
 
-    return InferOutput(prediction=prediction, time_spent_s=time_spent_s, confidences=confidences)
+    return InferOutput(prediction=prediction, time_spent_s=time_spent_s, confidences=confidences, request=body)
 
 
 @commands.command()

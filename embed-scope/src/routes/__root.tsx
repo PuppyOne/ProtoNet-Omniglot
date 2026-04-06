@@ -1,4 +1,4 @@
-import { Toast, toast } from '@heroui/react';
+import { Toast } from '@heroui/react';
 import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import type { UnlistenFn } from '@tauri-apps/api/event';
@@ -59,11 +59,7 @@ function RootComponent() {
 
     fetchModels();
 
-    toast.promise(loadEngine, {
-      loading: '正在初始化引擎...',
-      success: '就绪',
-      error: error => `引擎初始化失败: ${error.message}`,
-    });
+    loadEngine();
   }, []);
 
   useEffect(() => {

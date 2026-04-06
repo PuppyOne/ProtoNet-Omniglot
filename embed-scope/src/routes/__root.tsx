@@ -87,7 +87,7 @@ function RootComponent() {
   return (
     <>
       <Toast.Provider />
-      <div className='grid h-full w-full grid-rows-[3rem_1fr] items-stretch justify-stretch'>
+      <div className='grid h-full w-full grid-rows-[3rem_1fr] items-stretch justify-stretch select-none'>
         <NavBar />
         <div className='overflow-hidden'>
           <AnimatePresence mode='wait' initial={false}>

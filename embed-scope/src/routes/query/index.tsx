@@ -10,7 +10,9 @@ import { InferOutput } from '@/client/_apiTypes';
 import { infer } from '@/client/apiClient';
 import EmptyQuery from '@/components/EmptyQuery';
 import ImagePicker from '@/components/ImagePicker';
+import { fadeVariants } from '@/motions/fade';
 import { childVariants, containerVariants } from '@/motions/stagger';
+import SvgSpinnersBlocksWave from '~icons/svg-spinners/blocks-wave';
 
 
 export const Route = createFileRoute('/query/')({
@@ -22,6 +24,7 @@ function Query() {
   const [selectedModel] = useAtom(selectedModelAtom);
 
   const [result, setResult] = useState<InferOutput | null>(null);
+  const [error, setError] = useState<Error | null>(null);
 
   const handleChange = async (path: string | null) => {
     if (path) {
@@ -32,23 +35,18 @@ function Query() {
         return;
       }
 
-      const handleInfer = async (): Promise<InferOutput> => {
+      try {
         const result = await infer({
           modelFolderName: selectedModel.folder.name,
           queryStrs: [path],
         });
 
         setResult(result);
-
-        return result;
-      };
-
-      toast.promise(handleInfer, {
-        loading: '正在推理',
-        success: result =>
-          `结果: ${result.prediction} 耗时: ${result.timeSpentS}`,
-        error: error => `未知错误 ${error.message}`,
-      });
+      } catch (e: unknown) {
+        setResult(null);
+        if (e instanceof Error) setError(e);
+        else setError(new Error('未知错误'));
+      }
     }
   };
 
@@ -130,16 +128,44 @@ function Query() {
                     exit='exit'
                     className='flex size-full flex-col items-start gap-2 overflow-auto'
                   >
-                    {result && (
-                      <>
-                        <motion.div variants={childVariants}>
-                          预测结果: {result?.prediction[0]}
+                    <AnimatePresence mode='popLayout'>
+                      {result ? (
+                        <>
+                          <motion.div variants={childVariants}>
+                            预测结果: {result?.prediction[0]}
+                          </motion.div>
+                          <motion.div variants={childVariants}>
+                            耗时: {Math.round(result?.timeSpentS * 1000)}ms
+                          </motion.div>
+                        </>
+                      ) : error ? (
+                        <>
+                          <motion.div
+                            variants={childVariants}
+                            className='text-danger'
+                          >
+                            推理失败:
+                          </motion.div>
+                          <motion.div variants={childVariants} className='pl-8'>
+                            {error.name}
+                          </motion.div>
+                          <motion.div variants={childVariants} className='pl-8'>
+                            {error.message}
+                          </motion.div>
+                        </>
+                      ) : (
+                        <motion.div
+                          key='spinner'
+                          variants={fadeVariants}
+                          initial='hidden'
+                          animate='show'
+                          exit='exit'
+                          className='m-auto overflow-hidden'
+                        >
+                          <SvgSpinnersBlocksWave className='text-4xl' />
                         </motion.div>
-                        <motion.div variants={childVariants}>
-                          耗时: {Math.round(result?.timeSpentS * 1000)}ms
-                        </motion.div>
-                      </>
-                    )}
+                      )}
+                    </AnimatePresence>
                   </motion.div>
                 </Surface>
               </motion.section>

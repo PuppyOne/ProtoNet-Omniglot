@@ -49,6 +49,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@iconify-json/line-md": "^1.2.16",
+    "@iconify-json/svg-spinners": "^1.2.4",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@svgr/core": "^8.1.0",
     "@svgr/plugin-jsx": "^8.1.0",

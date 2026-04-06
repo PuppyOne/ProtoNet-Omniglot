@@ -1,4 +1,4 @@
-import { Avatar, Label, Meter, Surface, toast } from '@heroui/react';
+import { Avatar, Label, Meter, toast } from '@heroui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { convertFileSrc } from '@tauri-apps/api/core';
 import { useAtom } from 'jotai';
@@ -11,6 +11,7 @@ import { infer } from '@/client/apiClient';
 import EmptyQuery from '@/components/EmptyQuery';
 import ImagePicker from '@/components/ImagePicker';
 import MotionContainer from '@/components/MotionContainer';
+import Section from '@/components/Section';
 import { fadeVariants } from '@/motions/fade';
 import { childVariants } from '@/motions/stagger';
 import SvgSpinnersBlocksWave from '~icons/svg-spinners/blocks-wave';
@@ -75,7 +76,7 @@ function Query() {
                 variants={childVariants}
                 className='row-span-2'
               >
-                <Surface className='size-full rounded-3xl'>
+                <Section>
                   <MotionContainer className='flex size-full flex-col gap-6 overflow-auto px-8 py-4'>
                     {result &&
                       Object.entries(result.confidences[0])
@@ -107,12 +108,12 @@ function Query() {
                           </motion.div>
                         ))}
                   </MotionContainer>
-                </Surface>
+                </Section>
               </motion.section>
               <motion.section key='result'>
-                <Surface
+                <Section
                   variant='transparent'
-                  className='border-border size-full rounded-3xl border-2 px-8 py-4 opacity-90'
+                  className='border-border border-2 px-8 py-4 opacity-90'
                 >
                   <MotionContainer className='flex size-full flex-col items-start gap-2 overflow-auto'>
                     <AnimatePresence mode='popLayout'>
@@ -160,7 +161,7 @@ function Query() {
                       )}
                     </AnimatePresence>
                   </MotionContainer>
-                </Surface>
+                </Section>
               </motion.section>
             </>
           ) : (

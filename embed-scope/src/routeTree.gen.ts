@@ -13,7 +13,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SupportIndexRouteImport } from './routes/support/index'
 import { Route as QueryIndexRouteImport } from './routes/query/index'
 import { Route as ModelIndexRouteImport } from './routes/model/index'
-import { Route as HistoryIndexRouteImport } from './routes/history/index'
 import { Route as SupportCharacterNameIndexRouteImport } from './routes/support/$characterName/index'
 
 const IndexRoute = IndexRouteImport.update({
@@ -36,11 +35,6 @@ const ModelIndexRoute = ModelIndexRouteImport.update({
   path: '/model/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HistoryIndexRoute = HistoryIndexRouteImport.update({
-  id: '/history/',
-  path: '/history/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SupportCharacterNameIndexRoute =
   SupportCharacterNameIndexRouteImport.update({
     id: '/support/$characterName/',
@@ -50,7 +44,6 @@ const SupportCharacterNameIndexRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/history/': typeof HistoryIndexRoute
   '/model/': typeof ModelIndexRoute
   '/query/': typeof QueryIndexRoute
   '/support/': typeof SupportIndexRoute
@@ -58,7 +51,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/history': typeof HistoryIndexRoute
   '/model': typeof ModelIndexRoute
   '/query': typeof QueryIndexRoute
   '/support': typeof SupportIndexRoute
@@ -67,7 +59,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/history/': typeof HistoryIndexRoute
   '/model/': typeof ModelIndexRoute
   '/query/': typeof QueryIndexRoute
   '/support/': typeof SupportIndexRoute
@@ -77,23 +68,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/history/'
     | '/model/'
     | '/query/'
     | '/support/'
     | '/support/$characterName/'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/history'
-    | '/model'
-    | '/query'
-    | '/support'
-    | '/support/$characterName'
+  to: '/' | '/model' | '/query' | '/support' | '/support/$characterName'
   id:
     | '__root__'
     | '/'
-    | '/history/'
     | '/model/'
     | '/query/'
     | '/support/'
@@ -102,7 +85,6 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  HistoryIndexRoute: typeof HistoryIndexRoute
   ModelIndexRoute: typeof ModelIndexRoute
   QueryIndexRoute: typeof QueryIndexRoute
   SupportIndexRoute: typeof SupportIndexRoute
@@ -139,13 +121,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ModelIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/history/': {
-      id: '/history/'
-      path: '/history'
-      fullPath: '/history/'
-      preLoaderRoute: typeof HistoryIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/support/$characterName/': {
       id: '/support/$characterName/'
       path: '/support/$characterName'
@@ -158,7 +133,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  HistoryIndexRoute: HistoryIndexRoute,
   ModelIndexRoute: ModelIndexRoute,
   QueryIndexRoute: QueryIndexRoute,
   SupportIndexRoute: SupportIndexRoute,

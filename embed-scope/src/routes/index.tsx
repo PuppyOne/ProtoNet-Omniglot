@@ -109,7 +109,7 @@ function Home() {
           </motion.span>
         )}
       </HomeLinkCard>
-      <HomeLinkCard to='/model'>
+      <HomeLinkCard to='/query'>
         <motion.h3 className='text-accent/90 pb-4 text-3xl font-semibold'>
           推理
         </motion.h3>

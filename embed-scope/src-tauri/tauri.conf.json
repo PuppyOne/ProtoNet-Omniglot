@@ -17,6 +17,8 @@
         "title": "EmbedScope",
         "width": 950,
         "height": 550,
+        "minWidth": 750,
+        "minHeight": 250,
         "center": true,
         "scrollBarStyle": "fluentOverlay",
         "windowEffects": {

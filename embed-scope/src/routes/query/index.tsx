@@ -116,7 +116,7 @@ function Query() {
                   className='border-border border-2 px-8 py-4 opacity-90'
                 >
                   <MotionContainer className='flex size-full flex-col items-start gap-2 overflow-auto'>
-                    <AnimatePresence mode='popLayout'>
+                    <AnimatePresence>
                       {result ? (
                         <>
                           <motion.div
@@ -154,7 +154,7 @@ function Query() {
                           initial='hidden'
                           animate='show'
                           exit='exit'
-                          className='m-auto overflow-hidden'
+                          className='absolute inset-0 place-self-center overflow-hidden'
                         >
                           <SvgSpinnersBlocksWave className='text-4xl' />
                         </motion.div>

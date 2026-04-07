@@ -29,7 +29,7 @@ export const childVariants = {
     y: 0,
     transition: {
       type: 'spring',
-      duration: 0.3,
+      duration: 0.5,
     },
   },
   exit: {
@@ -37,7 +37,7 @@ export const childVariants = {
     y: -20,
     transition: {
       type: 'spring',
-      duration: 0.2,
+      duration: 0.3,
     },
   },
 } as const satisfies Variants;

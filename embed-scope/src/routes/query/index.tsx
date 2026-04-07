@@ -59,7 +59,7 @@ function Query() {
         value={imagePath}
         onChange={handleChange}
       />
-      <MotionContainer className='grid size-full grid-cols-2 grid-rows-2 gap-4 overflow-hidden p-4'>
+      <MotionContainer className='grid size-full grid-flow-col grid-cols-2 grid-rows-2 gap-4 overflow-hidden p-4 [@media(max-height:480px)]:grid-cols-3 [@media(max-height:480px)]:grid-rows-1'>
         <AnimatePresence mode='wait'>
           {imagePath ? (
             <>
@@ -70,45 +70,6 @@ function Query() {
                     src={convertFileSrc(imagePath)}
                   />
                 </Avatar>
-              </motion.section>
-              <motion.section
-                key='confidences'
-                variants={childVariants}
-                className='row-span-2'
-              >
-                <Section>
-                  <MotionContainer className='flex size-full flex-col gap-6 overflow-auto px-8 py-4'>
-                    {result &&
-                      Object.entries(result.confidences[0])
-                        .sort(
-                          ([, confidenceA], [, confidenceB]) =>
-                            confidenceB - confidenceA
-                        )
-                        .map(([characterName, confidence]) => (
-                          <motion.div
-                            key={characterName}
-                            layoutId={`confidence-${characterName}`}
-                            variants={childVariants}
-                          >
-                            <Meter
-                              formatOptions={{
-                                style: 'percent',
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              }}
-                              maxValue={1}
-                              value={confidence}
-                            >
-                              <Label>{characterName}</Label>
-                              <Meter.Output />
-                              <Meter.Track>
-                                <Meter.Fill />
-                              </Meter.Track>
-                            </Meter>
-                          </motion.div>
-                        ))}
-                  </MotionContainer>
-                </Section>
               </motion.section>
               <motion.section key='result'>
                 <Section
@@ -163,11 +124,50 @@ function Query() {
                   </MotionContainer>
                 </Section>
               </motion.section>
+              <motion.section
+                key='confidences'
+                variants={childVariants}
+                className='row-span-full'
+              >
+                <Section>
+                  <MotionContainer className='flex size-full flex-col gap-6 overflow-auto px-8 py-4'>
+                    {result &&
+                      Object.entries(result.confidences[0])
+                        .sort(
+                          ([, confidenceA], [, confidenceB]) =>
+                            confidenceB - confidenceA
+                        )
+                        .map(([characterName, confidence]) => (
+                          <motion.div
+                            key={characterName}
+                            layoutId={`confidence-${characterName}`}
+                            variants={childVariants}
+                          >
+                            <Meter
+                              formatOptions={{
+                                style: 'percent',
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }}
+                              maxValue={1}
+                              value={confidence}
+                            >
+                              <Label>{characterName}</Label>
+                              <Meter.Output />
+                              <Meter.Track>
+                                <Meter.Fill />
+                              </Meter.Track>
+                            </Meter>
+                          </motion.div>
+                        ))}
+                  </MotionContainer>
+                </Section>
+              </motion.section>
             </>
           ) : (
             <motion.div
               key='empty'
-              className='pointer-events-none fixed inset-0 col-span-full row-span-full grid place-content-center'
+              className='pointer-events-none inset-0 col-span-full row-span-full grid place-content-center [@media(min-height:480px)]:fixed'
             >
               <EmptyQuery />
             </motion.div>

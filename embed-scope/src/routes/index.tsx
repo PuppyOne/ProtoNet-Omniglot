@@ -81,7 +81,6 @@ function Home() {
         </motion.h3>
         {selectedModel ? (
           <>
-            {' '}
             <motion.span
               variants={childVariants}
               className='flex items-center gap-4 text-2xl font-semibold'
@@ -118,7 +117,7 @@ function Home() {
           className='flex items-center gap-4 text-2xl font-semibold'
         >
           点击进入
-        </motion.span>{' '}
+        </motion.span>
         <motion.span
           variants={childVariants}
           className='text-muted flex items-center gap-2 text-sm'

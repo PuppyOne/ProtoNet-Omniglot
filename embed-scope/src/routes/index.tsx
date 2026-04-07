@@ -21,7 +21,7 @@ function Home() {
   const [selectedModel] = useAtom(selectedModelAtom);
 
   return (
-    <MotionContainer className='grid size-full grid-cols-2 grid-rows-2 gap-4 p-4'>
+    <MotionContainer className='grid size-full grid-cols-2 grid-rows-[repeat(2,1fr)] gap-4 overflow-auto p-4'>
       <HomeLinkCard to='/'>
         <motion.h3 className='text-accent/90 pb-4 text-3xl font-semibold'>
           推理引擎

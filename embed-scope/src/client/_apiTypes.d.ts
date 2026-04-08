@@ -67,6 +67,9 @@ export type Filepath = string;
  */
 export type ImageFormat = "png" | "jpg" | "jpeg" | "bmp" | "gif";
 export type ModelsOutput = Model1[];
+export type Modelfoldername = string;
+export type Filename1 = string;
+export type RootModelStr = string;
 
 /**
  * Commands Input and Output Schemas
@@ -87,6 +90,10 @@ export interface Commands {
   get_models: {
     input: void | undefined;
     output: ModelsOutput;
+  };
+  resolveModelPath: {
+    input: ResolvePathInput;
+    output: RootModelStr;
   };
 }
 export interface InferInput {
@@ -200,4 +207,8 @@ export interface SupportImage {
   filename: Filename;
   filepath: Filepath;
   ext: ImageFormat;
+}
+export interface ResolvePathInput {
+  modelFolderName: Modelfoldername;
+  fileName: Filename1;
 }

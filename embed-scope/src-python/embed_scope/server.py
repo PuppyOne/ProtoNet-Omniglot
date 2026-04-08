@@ -8,6 +8,7 @@ from pytauri import Commands
 from .constants.pytauri_gen_ts import PYTAURI_GEN_TS
 from .data.infer import InferInput, InferOutput
 from .data.model import Model, ModelsOutput
+from .data.resolve_model_path import ResolvePathInput
 from .data.support import SupportsOutput
 from .infer import InferenceManager
 
@@ -147,3 +148,10 @@ async def get_models() -> ModelsOutput:
         models.append(model)
 
     return ModelsOutput(models)
+
+
+@commands.command()
+async def resolveModelPath(body: ResolvePathInput) -> str:
+    file_path = Path(models_path) / body.model_folder_name / body.file_name
+
+    return file_path.resolve().as_posix()

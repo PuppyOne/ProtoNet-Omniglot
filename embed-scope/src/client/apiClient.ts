@@ -64,3 +64,10 @@ export async function getModels(
 ): Promise<Commands["get_models"]["output"]> {
     return await pyInvoke("get_models", body, options);
 }
+
+export async function resolveModelPath(
+    body: Commands["resolveModelPath"]["input"],
+    options?: InvokeOptions
+): Promise<Commands["resolveModelPath"]["output"]> {
+    return await pyInvoke("resolveModelPath", body, options);
+}

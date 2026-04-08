@@ -1,10 +1,19 @@
-import { Chip, Description, Label, Radio, RadioGroup } from '@heroui/react';
+import {
+  Button,
+  Chip,
+  Description,
+  Label,
+  Radio,
+  RadioGroup,
+} from '@heroui/react';
+import { useNavigate } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import { motion } from 'motion/react';
 
 import { modelsAtom, selectedModelAtom } from '@/atoms/model';
 import { childVariants } from '@/motions/stagger';
+import MdiInformationSlabCircleOutline from '~icons/mdi/information-slab-circle-outline';
 
 import MotionContainer from './MotionContainer';
 
@@ -14,6 +23,8 @@ export default function ModelRadioGroup(
 ) {
   const [models] = useAtom(modelsAtom);
   const [selectedModel, setSelectedModel] = useAtom(selectedModelAtom);
+
+  const navigate = useNavigate();
 
   return (
     <RadioGroup
@@ -65,8 +76,24 @@ export default function ModelRadioGroup(
                   <Chip variant='tertiary' className='border'>
                     v{model.meta.version.join('.')}
                   </Chip>
-                  <div className='text-sm'>
-                    {dayjs(model.meta.train.timestamp).format('YYYY-M-D')}
+                  <div className='relative w-1/2 text-sm'>
+                    <div className='absolute top-1/2 right-0 -translate-y-1/2 text-sm transition-all duration-300 group-hover:opacity-0'>
+                      {dayjs(model.meta.train.timestamp).format('YYYY-M-D')}
+                    </div>
+                    <div className='absolute top-1/2 right-0 flex -translate-y-1/2 text-sm opacity-0 transition-all duration-300 group-hover:opacity-100'>
+                      <Button
+                        variant='primary'
+                        onPress={() =>
+                          navigate({
+                            to: '$modelFolderName',
+                            params: { modelFolderName: model.folder.name },
+                          })
+                        }
+                      >
+                        <MdiInformationSlabCircleOutline />
+                        详情
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </Radio.Content>

@@ -14,6 +14,7 @@ import { Route as SupportIndexRouteImport } from './routes/support/index'
 import { Route as QueryIndexRouteImport } from './routes/query/index'
 import { Route as ModelIndexRouteImport } from './routes/model/index'
 import { Route as SupportCharacterNameIndexRouteImport } from './routes/support/$characterName/index'
+import { Route as ModelModelFolderNameIndexRouteImport } from './routes/model/$modelFolderName/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -41,12 +42,19 @@ const SupportCharacterNameIndexRoute =
     path: '/support/$characterName/',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ModelModelFolderNameIndexRoute =
+  ModelModelFolderNameIndexRouteImport.update({
+    id: '/model/$modelFolderName/',
+    path: '/model/$modelFolderName/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/model/': typeof ModelIndexRoute
   '/query/': typeof QueryIndexRoute
   '/support/': typeof SupportIndexRoute
+  '/model/$modelFolderName/': typeof ModelModelFolderNameIndexRoute
   '/support/$characterName/': typeof SupportCharacterNameIndexRoute
 }
 export interface FileRoutesByTo {
@@ -54,6 +62,7 @@ export interface FileRoutesByTo {
   '/model': typeof ModelIndexRoute
   '/query': typeof QueryIndexRoute
   '/support': typeof SupportIndexRoute
+  '/model/$modelFolderName': typeof ModelModelFolderNameIndexRoute
   '/support/$characterName': typeof SupportCharacterNameIndexRoute
 }
 export interface FileRoutesById {
@@ -62,6 +71,7 @@ export interface FileRoutesById {
   '/model/': typeof ModelIndexRoute
   '/query/': typeof QueryIndexRoute
   '/support/': typeof SupportIndexRoute
+  '/model/$modelFolderName/': typeof ModelModelFolderNameIndexRoute
   '/support/$characterName/': typeof SupportCharacterNameIndexRoute
 }
 export interface FileRouteTypes {
@@ -71,15 +81,23 @@ export interface FileRouteTypes {
     | '/model/'
     | '/query/'
     | '/support/'
+    | '/model/$modelFolderName/'
     | '/support/$characterName/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/model' | '/query' | '/support' | '/support/$characterName'
+  to:
+    | '/'
+    | '/model'
+    | '/query'
+    | '/support'
+    | '/model/$modelFolderName'
+    | '/support/$characterName'
   id:
     | '__root__'
     | '/'
     | '/model/'
     | '/query/'
     | '/support/'
+    | '/model/$modelFolderName/'
     | '/support/$characterName/'
   fileRoutesById: FileRoutesById
 }
@@ -88,6 +106,7 @@ export interface RootRouteChildren {
   ModelIndexRoute: typeof ModelIndexRoute
   QueryIndexRoute: typeof QueryIndexRoute
   SupportIndexRoute: typeof SupportIndexRoute
+  ModelModelFolderNameIndexRoute: typeof ModelModelFolderNameIndexRoute
   SupportCharacterNameIndexRoute: typeof SupportCharacterNameIndexRoute
 }
 
@@ -128,6 +147,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SupportCharacterNameIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/model/$modelFolderName/': {
+      id: '/model/$modelFolderName/'
+      path: '/model/$modelFolderName'
+      fullPath: '/model/$modelFolderName/'
+      preLoaderRoute: typeof ModelModelFolderNameIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -136,6 +162,7 @@ const rootRouteChildren: RootRouteChildren = {
   ModelIndexRoute: ModelIndexRoute,
   QueryIndexRoute: QueryIndexRoute,
   SupportIndexRoute: SupportIndexRoute,
+  ModelModelFolderNameIndexRoute: ModelModelFolderNameIndexRoute,
   SupportCharacterNameIndexRoute: SupportCharacterNameIndexRoute,
 }
 export const routeTree = rootRouteImport

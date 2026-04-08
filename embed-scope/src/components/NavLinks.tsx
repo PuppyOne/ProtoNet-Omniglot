@@ -1,4 +1,4 @@
-import LineMdCogFilled from '~icons/line-md/cog-filled';
+import LineMdCog from '~icons/line-md/cog';
 import LineMdCogLoop from '~icons/line-md/cog-loop';
 import LineMdHomeSimpleTwotone from '~icons/line-md/home-simple-twotone';
 import LineMdImageTwotone from '~icons/line-md/image-twotone';
@@ -13,10 +13,7 @@ export default function NavLinks() {
       <NavLink to='/'>
         {({ isActive }) => (
           <>
-            <LineMdHomeSimpleTwotone
-              key={Number(isActive)}
-              className='text-lg'
-            />
+            <LineMdHomeSimpleTwotone key={+isActive} className='text-lg' />
             主页
           </>
         )}
@@ -25,7 +22,7 @@ export default function NavLinks() {
       <NavLink to='/support'>
         {({ isActive }) => (
           <>
-            <LineMdImageTwotone key={Number(isActive)} className='text-lg' />
+            <LineMdImageTwotone key={+isActive} className='text-lg' />
             字库
           </>
         )}
@@ -37,7 +34,7 @@ export default function NavLinks() {
             {isActive ? (
               <LineMdCogLoop className='text-lg' />
             ) : (
-              <LineMdCogFilled className='text-lg' />
+              <LineMdCog className='text-lg' />
             )}
             模型
           </>
@@ -47,7 +44,7 @@ export default function NavLinks() {
       <NavLink to='/query'>
         {({ isActive }) => (
           <>
-            <LineMdSearchTwotone key={Number(isActive)} className='text-lg' />
+            <LineMdSearchTwotone key={+isActive} className='text-lg' />
             识别
           </>
         )}

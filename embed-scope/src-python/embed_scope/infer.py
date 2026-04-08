@@ -18,13 +18,12 @@ class InferenceManager:
         self.device: torch.device | None = None
 
         self.encoder: torch.nn.Module | None = None
-        self.model: torch.nn.Module | None = None
+        self.classifier: torch.nn.Module | None = None
 
         self.lock = Lock()
 
     def initialize(self):
         self.load_torch()
-        self.construct_model()
 
     def load_torch(self):
         with self.lock:
@@ -36,17 +35,16 @@ class InferenceManager:
 
                 print(f'Using device: {self.device}')
 
-    def load_model(self, path: PathLike[str] | str):
-        if self.model is None or self.torch is None:
-            raise RuntimeError(f'Call {self.construct_model.__name__}() first.')
+    def load_model(self, encoder_path: PathLike[str] | str, classifier_path: PathLike[str] | str):
+        if self.torch is None:
+            raise RuntimeError(f'Call {self.load_torch.__name__}() first.')
 
-        self.model.load_state_dict(self.torch.load(path, map_location=self.device))
-
-        self.model.eval()
+        self.encoder = self.torch.export.load(encoder_path).module()
+        self.classifier = self.torch.export.load(classifier_path).module()
 
     def infer(self, support_strs: Sequence[str], support_labels_str_list: Sequence[str], query_strs: Sequence[str]) -> tuple[list[str], list[dict[str, float]]]:
-        if self.model is None or self.torch is None:
-            raise RuntimeError(f'Call {self.construct_model.__name__}() first.')
+        if self.encoder is None or self.classifier is None or self.torch is None:
+            raise RuntimeError(f'Call {self.load_model.__name__}() first.')
 
         if len(support_strs) != len(support_labels_str_list):
             raise ValueError('Length of support_strs and support_labels_str_list must be the same.')
@@ -74,7 +72,10 @@ class InferenceManager:
             query: torch.Tensor = query.to(self.device)
             support_labels: torch.Tensor = support_labels.to(self.device)
 
-            logits: torch.Tensor = self.model(support, support_labels, query)
+            embed_support = self.encoder(support)
+            embed_query = self.encoder(query)
+
+            logits: torch.Tensor = self.classifier(embed_support, support_labels, embed_query)
 
             pred_labels = logits.argmax(dim=1)
 
@@ -103,80 +104,6 @@ class InferenceManager:
         image: torch.Tensor = image.float() / 255
 
         return image
-
-    def construct_model(self):
-        if self.torch is None:
-            raise RuntimeError(f'Call {self.load_model.__name__}() first.')
-
-        torch = self.torch
-
-        class Encoder(self.torch.nn.Module):
-            def __init__(self, in_channels=1, feature_channels=64, embed_dim=64) -> None:
-                super().__init__()
-
-                self.encoder = torch.nn.Sequential(
-                    torch.nn.Conv2d(in_channels, feature_channels, 3, padding=1),
-                    torch.nn.BatchNorm2d(feature_channels),
-                    torch.nn.ReLU(),
-                    torch.nn.MaxPool2d(2),
-                    torch.nn.Conv2d(feature_channels, feature_channels, 3, padding=1),
-                    torch.nn.BatchNorm2d(feature_channels),
-                    torch.nn.ReLU(),
-                    torch.nn.MaxPool2d(2),
-                    torch.nn.Conv2d(feature_channels, feature_channels, 3, padding=1),
-                    torch.nn.BatchNorm2d(feature_channels),
-                    torch.nn.ReLU(),
-                    torch.nn.MaxPool2d(2),
-                    torch.nn.Conv2d(feature_channels, embed_dim, 3, padding=1),
-                    torch.nn.BatchNorm2d(embed_dim),
-                    torch.nn.ReLU(),
-                    torch.nn.AdaptiveAvgPool2d(1),  # (batch, embed_dim, 1, 1)
-                )
-
-            def forward(self, x: torch.Tensor):
-                x = self.encoder(x)
-                return x.view(x.size(0), -1)  # flatten to (batch, embed_dim)
-
-        class ProtoNet(self.torch.nn.Module):
-            def __init__(self, encoder: torch.nn.Module) -> None:
-                super().__init__()
-
-                self.encoder: torch.nn.Module = encoder
-
-            def forward(self, support: torch.Tensor, support_labels: torch.Tensor, query: torch.Tensor) -> torch.Tensor:
-                """
-                support: (n_way*k_shot, 1, H, W)
-                support_labels: (n_way*k_shot,)
-                query: (n_way*q_query, 1, H, W)
-
-                return:
-                    logits: (n_way*q_query, n_way)
-                """
-                # 1. embed support and query
-                embed_support: torch.Tensor = self.encoder(support)  # (n_way*k_shot, embed_dim)
-                embed_query: torch.Tensor = self.encoder(query)  # (n_way*q_query, embed_dim)
-
-                # 2. compute prototypes
-                unique_labels = torch.unique(support_labels)  # [0,1,2,...,n_way-1]
-                prototypes_list = []
-                for c in unique_labels:
-                    # mean of embeddings for class c
-                    embed_class = embed_support[support_labels == c]
-                    prototypes_list.append(embed_class.mean(0))
-
-                prototypes: torch.Tensor = torch.stack(prototypes_list)  # (n_way, embed_dim)
-
-                # 3. compute negative distances as logits
-                # dist: (n_query, n_way)
-                dist = torch.cdist(embed_query, prototypes) ** 2
-
-                # negative distance = higher score if closer
-                logits = -dist
-
-                return logits
-
-        self.encoder = Encoder(in_channels=1, feature_channels=64, embed_dim=64)
-        self.model = ProtoNet(self.encoder).to(self.device)
 
 
 if __name__ == '__main__':

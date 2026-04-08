@@ -2,11 +2,12 @@ import json
 import time
 from pathlib import Path
 
+from pydantic import ValidationError
 from pytauri import Commands
 
 from .constants.pytauri_gen_ts import PYTAURI_GEN_TS
 from .data.infer import InferInput, InferOutput
-from .data.model import ModelsOutput
+from .data.model import Model, ModelsOutput
 from .data.support import SupportsOutput
 from .infer import InferenceManager
 
@@ -40,7 +41,11 @@ async def infer(body: InferInput) -> InferOutput:
             support_strs.append(image_path.as_posix())
             support_labels_str_list.append(character_path.name)
 
-    inference_manager.load_model(models_path / Path(body.model_folder_name) / 'best_model.pth')
+    model_folder_name = body.model.folder.name
+    encoder_path = models_path / Path(model_folder_name) / body.model.meta.files.models.encoder
+    classifier_path = models_path / Path(model_folder_name) / body.model.meta.files.models.classifier
+
+    inference_manager.load_model(encoder_path, classifier_path)
     start_time = time.perf_counter()
     prediction, confidences = inference_manager.infer(support_strs, support_labels_str_list, body.query_strs)
     end_time = time.perf_counter()
@@ -110,19 +115,35 @@ async def get_supports() -> SupportsOutput:
 
 @commands.command()
 async def get_models() -> ModelsOutput:
-    JSON_NAMES = ['meta', 'metrics', 'train_logs']
+    JSON_NAME = 'meta'
 
     models = []
 
     for model_path in Path(models_path).iterdir():
-        model = {}
+        if not model_path.is_dir():
+            continue
 
-        for json_name in JSON_NAMES:
-            data = (model_path / f'{json_name}.json').read_text()
+        try:
+            model = {}
 
-            model[json_name] = json.loads(data)
+            meta = (model_path / f'{JSON_NAME}.json').read_text()
 
-        model['folder'] = {'name': model_path.name, 'path': model_path.resolve().as_posix()}
+            model['meta'] = json.loads(meta)
+
+            model['folder'] = {'name': model_path.name, 'path': model_path.resolve().as_posix()}
+
+            model = Model(**model)
+
+        except ValidationError as e:
+            print(f'Unsupported model directory: {model_path.as_posix()}')
+            print(e)
+
+            continue
+
+        except Exception as e:
+            print(e)
+            continue
+
         models.append(model)
 
     return ModelsOutput(models)

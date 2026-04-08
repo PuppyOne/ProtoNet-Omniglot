@@ -39,7 +39,7 @@ function Query() {
 
       try {
         const result = await infer({
-          modelFolderName: selectedModel.folder.name,
+          model: selectedModel,
           queryStrs: [path],
         });
 

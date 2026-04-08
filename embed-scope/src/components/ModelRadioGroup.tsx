@@ -52,10 +52,11 @@ export default function ModelRadioGroup(
                 <div className='flex flex-col items-start'>
                   <div className='flex w-full items-center justify-between'>
                     <div className='font-bold'>
-                      {(model.metrics.testAccuracy * 100).toFixed(2)}%
+                      {(model.meta.metrics.testAccuracy * 100).toFixed(2)}%
                     </div>
                     <div className='text-muted text-sm'>
-                      {model.metrics.nWay}-way {model.metrics.kShot}-shot
+                      {model.meta.metrics.nWay}-way {model.meta.metrics.kShot}
+                      -shot
                     </div>
                   </div>
                   <div className='text-muted text-[0.8rem]'>Accuracy</div>

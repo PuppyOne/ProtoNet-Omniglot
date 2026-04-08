@@ -1,10 +1,11 @@
 from collections.abc import Sequence
 
 from .base_model import CommandBaseModel
+from .model import Model
 
 
 class InferInput(CommandBaseModel):
-    model_folder_name: str
+    model: Model
     query_strs: Sequence[str]
 
 

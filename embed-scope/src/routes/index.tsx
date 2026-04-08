@@ -94,9 +94,10 @@ function Home() {
               variants={childVariants}
               className='text-muted flex items-center gap-2 text-sm'
             >
-              {selectedModel.metrics.nWay}-way {selectedModel?.metrics.kShot}
+              {selectedModel.meta.metrics.nWay}-way{' '}
+              {selectedModel.meta.metrics.kShot}
               -shot · Acc{' '}
-              {(selectedModel.metrics.testAccuracy * 100).toFixed(2)}%
+              {(selectedModel.meta.metrics.testAccuracy * 100).toFixed(2)}%
             </motion.span>
           </>
         ) : (

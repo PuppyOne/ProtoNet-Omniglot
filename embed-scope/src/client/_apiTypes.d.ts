@@ -6,21 +6,7 @@
  */
 
 export type RootModelNoneType = null;
-export type Modelfoldername = string;
-export type Querystrs = string[];
-export type Prediction = string[];
-export type Confidences = {
-  [k: string]: number;
-}[];
-export type Timespents = number;
 export type Name = string;
-export type Filename = string;
-export type Filepath = string;
-/**
- * 支持的图像格式枚举
- */
-export type ImageFormat = "png" | "jpg" | "jpeg" | "bmp" | "gif";
-export type Name1 = string;
 export type Architecture = string;
 export type Encoder = string;
 export type Dataset = string;
@@ -37,22 +23,50 @@ export type Kshot = number;
 export type Qquery = number;
 export type Trainbatches = number;
 export type Valbatches = number;
-export type Testbatches = number;
-export type Earlystoppatience = number;
-export type Testloss = number;
+export type Earlystoppatience = number | null;
+export type Logs = EpochLog[] | null;
+export type Epoch = number;
+export type Trainloss = number;
+export type Valloss = number | null;
+export type Valaccuracy = number;
+export type Testloss = number | null;
 export type Testaccuracy = number;
 export type Nway1 = number;
 export type Kshot1 = number;
 export type Qquery1 = number;
-export type Testbatches1 = number;
-export type Epoch = number;
-export type Trainloss = number;
-export type Valloss = number;
-export type Valaccuracy = number;
-export type TrainLogs = EpochLog[];
-export type Name2 = string;
+export type Testbatches = number;
+export type Encoder1 = string;
+export type Classifier = string;
+export type Losscurve = string | null;
+export type Accuracycurve = string | null;
+export type Tsne = string | null;
+export type Name1 = string;
 export type Path = string;
-export type ModelsOutput = Model[];
+export type Querystrs = string[];
+export type Prediction = string[];
+export type Confidences = {
+  [k: string]: number;
+}[];
+export type Timespents = number;
+export type Name2 = string;
+export type Architecture1 = string;
+export type Encoder2 = string;
+export type Dataset1 = string;
+/**
+ * @minItems 3
+ * @maxItems 3
+ */
+export type Version1 = [number, number, number];
+export type Embeddingdim1 = number;
+export type Querystrs1 = string[];
+export type Name3 = string;
+export type Filename = string;
+export type Filepath = string;
+/**
+ * 支持的图像格式枚举
+ */
+export type ImageFormat = "png" | "jpg" | "jpeg" | "bmp" | "gif";
+export type ModelsOutput = Model1[];
 
 /**
  * Commands Input and Output Schemas
@@ -76,14 +90,95 @@ export interface Commands {
   };
 }
 export interface InferInput {
-  modelFolderName: Modelfoldername;
+  model: Model;
   queryStrs: Querystrs;
+}
+export interface Model {
+  meta: ModelMeta;
+  folder: Folder;
+}
+export interface ModelMeta {
+  name: Name;
+  architecture: Architecture;
+  encoder: Encoder;
+  dataset: Dataset;
+  version: Version;
+  embeddingDim: Embeddingdim;
+  train: TrainInfo;
+  metrics: Metrics;
+  files: Files;
+}
+export interface TrainInfo {
+  timestamp: Timestamp;
+  framework: Framework;
+  nWay: Nway;
+  kShot: Kshot;
+  qQuery: Qquery;
+  trainBatches: Trainbatches;
+  valBatches: Valbatches;
+  earlyStopPatience?: Earlystoppatience;
+  logs?: Logs;
+}
+export interface EpochLog {
+  epoch: Epoch;
+  trainLoss: Trainloss;
+  valLoss?: Valloss;
+  valAccuracy: Valaccuracy;
+}
+export interface Metrics {
+  testLoss?: Testloss;
+  testAccuracy: Testaccuracy;
+  nWay: Nway1;
+  kShot: Kshot1;
+  qQuery: Qquery1;
+  testBatches: Testbatches;
+}
+export interface Files {
+  models: ModelFiles;
+  images?: ImageFiles | null;
+  [k: string]: {
+    [k: string]: string;
+  };
+}
+export interface ModelFiles {
+  encoder: Encoder1;
+  classifier: Classifier;
+  [k: string]: string;
+}
+export interface ImageFiles {
+  lossCurve?: Losscurve;
+  accuracyCurve?: Accuracycurve;
+  tSne?: Tsne;
+  [k: string]: string;
+}
+export interface Folder {
+  name: Name1;
+  path: Path;
 }
 export interface InferOutput {
   prediction: Prediction;
   confidences: Confidences;
   timeSpentS: Timespents;
-  request: InferInput;
+  request: InferInput1;
+}
+export interface InferInput1 {
+  model: Model1;
+  queryStrs: Querystrs1;
+}
+export interface Model1 {
+  meta: ModelMeta1;
+  folder: Folder;
+}
+export interface ModelMeta1 {
+  name: Name2;
+  architecture: Architecture1;
+  encoder: Encoder2;
+  dataset: Dataset1;
+  version: Version1;
+  embeddingDim: Embeddingdim1;
+  train: TrainInfo;
+  metrics: Metrics;
+  files: Files;
 }
 /**
  * 获取所有字符支持图像的响应模型
@@ -101,52 +196,8 @@ export interface SupportsOutput {
  *     ext: 文件扩展名（不包含点）
  */
 export interface SupportImage {
-  name: Name;
+  name: Name3;
   filename: Filename;
   filepath: Filepath;
   ext: ImageFormat;
-}
-export interface Model {
-  meta: ModelMeta;
-  metrics: Metrics;
-  trainLogs: TrainLogs;
-  folder: Folder;
-}
-export interface ModelMeta {
-  name: Name1;
-  architecture: Architecture;
-  encoder: Encoder;
-  dataset: Dataset;
-  version: Version;
-  embeddingDim: Embeddingdim;
-  train: ModelTrainMeta;
-}
-export interface ModelTrainMeta {
-  timestamp: Timestamp;
-  framework: Framework;
-  nWay: Nway;
-  kShot: Kshot;
-  qQuery: Qquery;
-  trainBatches: Trainbatches;
-  valBatches: Valbatches;
-  testBatches: Testbatches;
-  earlyStopPatience: Earlystoppatience;
-}
-export interface Metrics {
-  testLoss: Testloss;
-  testAccuracy: Testaccuracy;
-  nWay: Nway1;
-  kShot: Kshot1;
-  qQuery: Qquery1;
-  testBatches: Testbatches1;
-}
-export interface EpochLog {
-  epoch: Epoch;
-  trainLoss: Trainloss;
-  valLoss: Valloss;
-  valAccuracy: Valaccuracy;
-}
-export interface Folder {
-  name: Name2;
-  path: Path;
 }

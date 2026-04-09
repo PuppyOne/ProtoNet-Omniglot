@@ -1,13 +1,15 @@
-import { Button, ButtonGroup, Chip } from '@heroui/react';
+import { AlertDialog, Button, ButtonGroup, Chip, toast } from '@heroui/react';
 import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router';
 import { useAtom } from 'jotai';
 import { motion } from 'motion/react';
 
 import { modelsAtom, selectedModelAtom } from '@/atoms/model';
+import { getModels, moveModelToTrash } from '@/client/apiClient';
 import ModelImage from '@/components/ModelImage';
 import MotionContainer from '@/components/MotionContainer';
 import Section from '@/components/Section';
 import { childVariants } from '@/motions/stagger';
+import MdiTrashCanOutline from '~icons/mdi/trash-can-outline';
 
 
 export const Route = createFileRoute('/model/$modelFolderName/')({
@@ -19,7 +21,7 @@ function ModelInfo() {
 
   const navigate = useNavigate();
 
-  const [models] = useAtom(modelsAtom);
+  const [models, setModels] = useAtom(modelsAtom);
   const [selectedModel, setSelectedModel] = useAtom(selectedModelAtom);
 
   const model = models?.find(model => model.folder.name === modelFolderName);
@@ -36,6 +38,31 @@ function ModelInfo() {
     navigate({ to: '/query' });
   };
 
+  const fetchModels = async () => {
+    const models = await getModels();
+
+    setModels(models);
+  };
+
+  const handleMoveToTrash = () => {
+    console.dir(
+      toast.promise(
+        async () => {
+          await moveModelToTrash({ modelFolderName });
+
+          await fetchModels();
+
+          await navigate({ to: '../' });
+        },
+        {
+          loading: `正在移动 ${model.meta.name} 至回收站`,
+          success: `已将 ${model.meta.name} 移动至回收站`,
+          error: `移动 ${model.meta.name} 至回收站失败`,
+        }
+      )
+    );
+  };
+
   return (
     <MotionContainer className='flex size-full flex-col gap-4 overflow-auto p-4 select-text'>
       <motion.section variants={childVariants} className='sticky top-0 z-10'>
@@ -44,19 +71,55 @@ function ModelInfo() {
             <h1 className='text-4xl font-semibold'>{modelFolderName}</h1>
             <Chip>v{model.meta.version.join('.')}</Chip>
           </div>
-          <ButtonGroup>
-            <Button
-              variant='secondary'
-              isDisabled={selectedModel?.folder.name === modelFolderName}
-              onPress={handleSelect}
-            >
-              {selectedModel?.folder.name === modelFolderName ? '已选' : '选择'}
-            </Button>
-            <Button onPress={handleSelectAndQuery}>
-              <ButtonGroup.Separator />
-              推理
-            </Button>
-          </ButtonGroup>
+          <span className='flex items-center gap-3'>
+            <ButtonGroup>
+              <Button
+                variant='secondary'
+                isDisabled={selectedModel?.folder.name === modelFolderName}
+                onPress={handleSelect}
+              >
+                {selectedModel?.folder.name === modelFolderName
+                  ? '已选'
+                  : '选择'}
+              </Button>
+              <Button onPress={handleSelectAndQuery}>
+                <ButtonGroup.Separator />
+                推理
+              </Button>
+            </ButtonGroup>
+            <AlertDialog>
+              <Button isIconOnly variant='danger'>
+                <MdiTrashCanOutline className='text-lg' />
+              </Button>
+              <AlertDialog.Backdrop>
+                <AlertDialog.Container>
+                  <AlertDialog.Dialog>
+                    <AlertDialog.Header>
+                      <AlertDialog.Icon />
+                      <AlertDialog.Heading>
+                        确认删除 {model.meta.name}
+                      </AlertDialog.Heading>
+                    </AlertDialog.Header>
+                    <AlertDialog.Body>
+                      此操作将移动 {model.folder.name} 至回收站。
+                    </AlertDialog.Body>
+                    <AlertDialog.Footer>
+                      <Button slot='close' variant='tertiary'>
+                        取消
+                      </Button>
+                      <Button
+                        slot='close'
+                        variant='danger'
+                        onPress={handleMoveToTrash}
+                      >
+                        确定
+                      </Button>
+                    </AlertDialog.Footer>
+                  </AlertDialog.Dialog>
+                </AlertDialog.Container>
+              </AlertDialog.Backdrop>
+            </AlertDialog>
+          </span>
         </Section>
       </motion.section>
       <motion.section>

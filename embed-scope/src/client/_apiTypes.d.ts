@@ -70,6 +70,9 @@ export type ModelsOutput = Model1[];
 export type Modelfoldername = string;
 export type Filename1 = string;
 export type RootModelStr = string;
+export type Sourcepath = string;
+export type Targetfoldername = string | null;
+export type Modelfoldername1 = string;
 
 /**
  * Commands Input and Output Schemas
@@ -94,6 +97,14 @@ export interface Commands {
   resolveModelPath: {
     input: ResolvePathInput;
     output: RootModelStr;
+  };
+  add_model: {
+    input: AddModelInput;
+    output: RootModelNoneType;
+  };
+  move_model_to_trash: {
+    input: RemoveModelInput;
+    output: RootModelNoneType;
   };
 }
 export interface InferInput {
@@ -211,4 +222,11 @@ export interface SupportImage {
 export interface ResolvePathInput {
   modelFolderName: Modelfoldername;
   fileName: Filename1;
+}
+export interface AddModelInput {
+  sourcePath: Sourcepath;
+  targetFolderName?: Targetfoldername;
+}
+export interface RemoveModelInput {
+  modelFolderName: Modelfoldername1;
 }

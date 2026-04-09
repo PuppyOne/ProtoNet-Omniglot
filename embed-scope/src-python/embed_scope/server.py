@@ -4,10 +4,12 @@ from pathlib import Path
 
 from pydantic import ValidationError
 from pytauri import Commands
+from pytauri.ipc import InvokeException
+from send2trash import send2trash
 
 from .constants.pytauri_gen_ts import PYTAURI_GEN_TS
 from .data.infer import InferInput, InferOutput
-from .data.model import Model, ModelsOutput
+from .data.model import AddModelInput, Model, ModelsOutput, RemoveModelInput
 from .data.resolve_model_path import ResolvePathInput
 from .data.support import SupportsOutput
 from .infer import InferenceManager
@@ -155,3 +157,24 @@ async def resolveModelPath(body: ResolvePathInput) -> str:
     file_path = Path(models_path) / body.model_folder_name / body.file_name
 
     return file_path.resolve().as_posix()
+
+
+@commands.command()
+async def add_model(body: AddModelInput) -> None:
+    if not body.source_path.is_dir():
+        raise InvokeException('source_path is not a directory')
+
+    if body.target_folder_name:
+        body.source_path.copy(Path(models_path) / body.target_folder_name)
+    else:
+        body.source_path.copy_into(models_path)
+
+
+@commands.command()
+async def move_model_to_trash(body: RemoveModelInput) -> None:
+    model_path = Path(models_path) / body.model_folder_name
+
+    if not model_path.exists():
+        raise InvokeException('model_folder_name does not exist')
+
+    send2trash(model_path)

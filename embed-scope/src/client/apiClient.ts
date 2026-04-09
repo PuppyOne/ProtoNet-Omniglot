@@ -71,3 +71,17 @@ export async function resolveModelPath(
 ): Promise<Commands["resolveModelPath"]["output"]> {
     return await pyInvoke("resolveModelPath", body, options);
 }
+
+export async function addModel(
+    body: Commands["add_model"]["input"],
+    options?: InvokeOptions
+): Promise<Commands["add_model"]["output"]> {
+    return await pyInvoke("add_model", body, options);
+}
+
+export async function moveModelToTrash(
+    body: Commands["move_model_to_trash"]["input"],
+    options?: InvokeOptions
+): Promise<Commands["move_model_to_trash"]["output"]> {
+    return await pyInvoke("move_model_to_trash", body, options);
+}

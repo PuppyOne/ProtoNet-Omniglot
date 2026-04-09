@@ -94,3 +94,12 @@ class Model(CommandBaseModel):
 
 class ModelsOutput(RootModel):
     root: list[Model]
+
+
+class AddModelInput(CommandBaseModel):
+    source_path: Path
+    target_folder_name: str | None = None
+
+
+class RemoveModelInput(CommandBaseModel):
+    model_folder_name: str

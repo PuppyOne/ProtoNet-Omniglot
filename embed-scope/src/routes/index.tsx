@@ -26,24 +26,40 @@ function Home() {
         <motion.h3 className='text-accent/90 pb-4 text-3xl font-semibold'>
           推理引擎
         </motion.h3>
-        <motion.span
-          variants={childVariants}
-          className='flex items-center gap-2'
-        >
-          <span className='flex items-center gap-2 text-2xl font-semibold'>
-            {isEngineReady ? (
-              <>
-                <LineMdConfirm />
-                就绪
-              </>
-            ) : (
-              <>
-                <LineMdLoadingAltLoop />
-                初始化
-              </>
-            )}
-          </span>
-        </motion.span>
+        {isEngineReady ? (
+          <>
+            <motion.span
+              variants={childVariants}
+              className='flex items-center gap-2 text-2xl font-semibold'
+            >
+              <LineMdConfirm />
+              就绪
+            </motion.span>
+            <motion.span
+              variants={childVariants}
+              className='text-muted flex items-center text-sm'
+            >
+              初始化已完成，可以开始推理。
+            </motion.span>
+          </>
+        ) : (
+          <>
+            <motion.span
+              variants={childVariants}
+              className='flex items-center gap-2 text-2xl font-semibold'
+            >
+              <LineMdLoadingAltLoop />
+              初始化...
+            </motion.span>
+
+            <motion.span
+              variants={childVariants}
+              className='text-muted flex items-center text-sm'
+            >
+              正在初始化，请稍候...
+            </motion.span>
+          </>
+        )}
       </HomeLinkCard>
       <HomeLinkCard to='/support'>
         <motion.h3 className='text-accent/90 pb-4 text-3xl font-semibold'>

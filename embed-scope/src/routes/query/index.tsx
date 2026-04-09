@@ -1,4 +1,4 @@
-import { Avatar, Label, Meter, toast } from '@heroui/react';
+import { Accordion, Avatar, Label, Meter, toast } from '@heroui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { convertFileSrc } from '@tauri-apps/api/core';
 import { useAtom } from 'jotai';
@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useState } from 'react';
 
 import { selectedModelAtom } from '@/atoms/model';
+import { characterSupportsAtom } from '@/atoms/support';
 import { InferOutput } from '@/client/_apiTypes';
 import { infer } from '@/client/apiClient';
 import EmptyQuery from '@/components/EmptyQuery';
@@ -24,6 +25,7 @@ export const Route = createFileRoute('/query/')({
 function Query() {
   const [imagePath, setImagePath] = useState<string | null>(null);
   const [selectedModel] = useAtom(selectedModelAtom);
+  const [characterSupports] = useAtom(characterSupportsAtom);
 
   const [result, setResult] = useState<InferOutput | null>(null);
   const [error, setError] = useState<Error | null>(null);
@@ -83,8 +85,9 @@ function Query() {
                           <motion.div
                             key={`prediction-${JSON.stringify(result.request)}`}
                             variants={childVariants}
+                            className='text-accent text-2xl font-semibold 2xl:text-3xl'
                           >
-                            预测结果: {result?.prediction[0]}
+                            识别结果: {result?.prediction[0]}
                           </motion.div>
                           <motion.div
                             key={`time-spent-${JSON.stringify(result.request)}`}
@@ -130,36 +133,82 @@ function Query() {
                 className='row-span-full'
               >
                 <Section>
-                  <MotionContainer className='flex size-full flex-col gap-6 overflow-auto px-8 py-4'>
-                    {result &&
-                      Object.entries(result.confidences[0])
-                        .sort(
-                          ([, confidenceA], [, confidenceB]) =>
-                            confidenceB - confidenceA
-                        )
-                        .map(([characterName, confidence]) => (
-                          <motion.div
-                            key={characterName}
-                            layoutId={`confidence-${characterName}`}
-                            variants={childVariants}
-                          >
-                            <Meter
-                              formatOptions={{
-                                style: 'percent',
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              }}
-                              maxValue={1}
-                              value={confidence}
-                            >
-                              <Label>{characterName}</Label>
-                              <Meter.Output />
-                              <Meter.Track>
-                                <Meter.Fill />
-                              </Meter.Track>
-                            </Meter>
-                          </motion.div>
-                        ))}
+                  <MotionContainer className='flex size-full flex-col gap-2 overflow-auto px-8 py-4'>
+                    {result && (
+                      <>
+                        <motion.div
+                          key='header'
+                          layoutId='confidenceHeader'
+                          variants={childVariants}
+                          className='text-accent self-start text-2xl font-semibold 2xl:text-3xl'
+                        >
+                          置信度排行
+                        </motion.div>
+                        <Accordion
+                          allowsMultipleExpanded
+                          hideSeparator
+                          defaultExpandedKeys={[...Array(3)].map(
+                            (_, i) => `${i}`
+                          )}
+                        >
+                          {Object.entries(result.confidences[0])
+                            .sort(
+                              ([, confidenceA], [, confidenceB]) =>
+                                confidenceB - confidenceA
+                            )
+                            .map(([characterName, confidence], i) => (
+                              <Accordion.Item
+                                key={characterName}
+                                id={`${i}`}
+                                className=' '
+                              >
+                                <motion.div
+                                  layoutId={`confidence-${characterName}`}
+                                  variants={childVariants}
+                                >
+                                  <Accordion.Heading>
+                                    <Accordion.Trigger className='gap-4 rounded-3xl transition-all duration-100 aria-expanded:rounded-none'>
+                                      <Meter
+                                        formatOptions={{
+                                          style: 'percent',
+                                          minimumFractionDigits: 2,
+                                          maximumFractionDigits: 2,
+                                        }}
+                                        maxValue={1}
+                                        value={confidence}
+                                      >
+                                        <Label>{characterName}</Label>
+                                        <Meter.Output />
+                                        <Meter.Track>
+                                          <Meter.Fill />
+                                        </Meter.Track>
+                                      </Meter>
+                                      <Accordion.Indicator />
+                                    </Accordion.Trigger>
+                                  </Accordion.Heading>
+                                  <Accordion.Panel>
+                                    <Accordion.Body className='pt-1'>
+                                      <div className='text-start'>
+                                        字库参考样本:
+                                      </div>
+                                      <div className='flex size-full h-10 overflow-auto 2xl:h-20'>
+                                        {characterSupports?.[characterName].map(
+                                          ({ filepath }) => (
+                                            <img
+                                              key={filepath}
+                                              src={convertFileSrc(filepath)}
+                                            />
+                                          )
+                                        )}
+                                      </div>
+                                    </Accordion.Body>
+                                  </Accordion.Panel>
+                                </motion.div>
+                              </Accordion.Item>
+                            ))}
+                        </Accordion>
+                      </>
+                    )}
                   </MotionContainer>
                 </Section>
               </motion.section>

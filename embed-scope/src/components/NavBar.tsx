@@ -32,7 +32,7 @@ export default function NavBar() {
       data-tauri-drag-region
       className='bg-accent light grid grid-cols-[1fr_auto_1fr] p-1.5 shadow-md'
     >
-      <div className='pointer-events-none flex size-full items-center-safe'>
+      <div className='pointer-events-none flex size-full min-w-0 items-center-safe'>
         <LayoutGroup>
           <AnimatePresence>
             {canGoBack && (
@@ -48,7 +48,7 @@ export default function NavBar() {
           </AnimatePresence>
           <motion.span
             layout
-            className='text-accent-foreground pl-2 text-lg font-semibold select-none'
+            className='text-accent-foreground truncate pl-2 text-lg font-semibold select-none'
           >
             {title}
           </motion.span>

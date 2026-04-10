@@ -396,8 +396,11 @@
     },
     "images": {
       "loss_curve": "loss_curve.png",
+      "loss_curve_svg": "loss_curve.svg",
       "accuracy_curve": "accuracy_curve.png",
-      "t_sne": "t-sne.png"
+      "accuracy_curve_svg": "accuracy_curve.svg",
+      "t_sne": "t-sne.png",
+      "t_sne_svg": "t-sne.svg"
     }
   }
 }

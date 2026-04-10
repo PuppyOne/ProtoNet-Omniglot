@@ -197,46 +197,44 @@ function ModelInfo() {
           </motion.section>
         </MotionContainer>
       </motion.section>
-      <motion.section variants={childVariants}>
-        <Section className='flex flex-col items-start gap-6 p-4'>
-          <div className='flex items-baseline gap-4'>
-            <h2 className='text-3xl font-semibold'>可视化</h2>
-            <span className='text-muted'>(点击放大)</span>
-          </div>
-          <div className='grid w-full grid-cols-2 gap-4 lg:grid-cols-3'>
-            {model.meta.files.images && (
-              <>
-                <ModelImage
-                  alt='损失曲线'
-                  modelFolderName={modelFolderName}
-                  imageName={
-                    model.meta.files.images.lossCurveSvg ??
-                    model.meta.files.images.lossCurve
-                  }
-                 />
+      {model.meta.files.images && (
+        <motion.section variants={childVariants}>
+          <Section className='flex flex-col items-start gap-6 p-4'>
+            <div className='flex items-baseline gap-4'>
+              <h2 className='text-3xl font-semibold'>可视化</h2>
+              <span className='text-muted'>(点击放大)</span>
+            </div>
+            <div className='grid w-full grid-cols-2 gap-4 lg:grid-cols-3'>
+              <ModelImage
+                alt='损失曲线'
+                modelFolderName={modelFolderName}
+                imageName={
+                  model.meta.files.images.lossCurveSvg ??
+                  model.meta.files.images.lossCurve
+                }
+              />
 
-                <ModelImage
-                  alt='准确率曲线'
-                  modelFolderName={modelFolderName}
-                  imageName={
-                    model.meta.files.images.accuracyCurveSvg ??
-                    model.meta.files.images.accuracyCurve
-                  }
-                />
+              <ModelImage
+                alt='准确率曲线'
+                modelFolderName={modelFolderName}
+                imageName={
+                  model.meta.files.images.accuracyCurveSvg ??
+                  model.meta.files.images.accuracyCurve
+                }
+              />
 
-                <ModelImage
-                  alt='t-SNE 可视化'
-                  modelFolderName={modelFolderName}
-                  imageName={
-                    model.meta.files.images.tSneSvg ??
-                    model.meta.files.images.tSne
-                  }
-                />
-              </>
-            )}
-          </div>
-        </Section>
-      </motion.section>
+              <ModelImage
+                alt='t-SNE 可视化'
+                modelFolderName={modelFolderName}
+                imageName={
+                  model.meta.files.images.tSneSvg ??
+                  model.meta.files.images.tSne
+                }
+              />
+            </div>
+          </Section>
+        </motion.section>
+      )}
     </MotionContainer>
   );
 }

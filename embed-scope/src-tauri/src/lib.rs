@@ -27,6 +27,7 @@ pub mod ext_mod {
                     .plugin(tauri_plugin_os::init())
                     .plugin(tauri_plugin_dialog::init())
                     .plugin(tauri_plugin_opener::init())
+                    .plugin(tauri_plugin_prevent_default::debug())
                     .invoke_handler(tauri::generate_handler![greet]);
                 Ok(builder)
             },

@@ -34,3 +34,4 @@ tauri-plugin-pytauri = { version = "0.8" }
 winapi = "0.3.9"
 tauri-plugin-dialog = "2"
 tauri-plugin-os = "2"
+tauri-plugin-prevent-default = "4"

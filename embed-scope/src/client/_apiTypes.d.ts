@@ -38,8 +38,11 @@ export type Testbatches = number;
 export type Encoder1 = string;
 export type Classifier = string;
 export type Losscurve = string | null;
+export type Losscurvesvg = string | null;
 export type Accuracycurve = string | null;
+export type Accuracycurvesvg = string | null;
 export type Tsne = string | null;
+export type Tsnesvg = string | null;
 export type Name1 = string;
 export type Path = string;
 export type Querystrs = string[];
@@ -165,8 +168,11 @@ export interface ModelFiles {
 }
 export interface ImageFiles {
   lossCurve?: Losscurve;
+  lossCurveSvg?: Losscurvesvg;
   accuracyCurve?: Accuracycurve;
+  accuracyCurveSvg?: Accuracycurvesvg;
   tSne?: Tsne;
+  tSneSvg?: Tsnesvg;
   [k: string]: string;
 }
 export interface Folder {

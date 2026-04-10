@@ -13,9 +13,11 @@ export default function ModelImage({
   ...props
 }: OverrideProps<
   React.ComponentProps<'img'>,
-  { modelFolderName: string; imageName: string }
+  { modelFolderName: string; imageName?: string | null }
 >) {
   const [src, setSrc] = useState<string | undefined>(undefined);
+
+  if (!imageName) return null;
 
   const fetchSrc = async () => {
     const src = convertFileSrc(
@@ -30,35 +32,38 @@ export default function ModelImage({
   }, []);
 
   return (
-    <Modal>
-      <Modal.Trigger className='size-full'>
-        <img
-          {...props}
-          src={src}
-          alt={alt}
-          className='size-full object-contain'
-        />
-      </Modal.Trigger>
-      <Modal.Backdrop variant='blur'>
-        <Modal.Container size='cover'>
-          <Modal.Dialog>
-            <Modal.CloseTrigger />
-            <Modal.Header>
-              <Modal.Heading>
-                <header className='text-3xl font-semibold'>{alt}</header>
-              </Modal.Heading>
-            </Modal.Header>
-            <Modal.Body>
-              <img
-                {...props}
-                src={src}
-                alt={alt}
-                className='size-full object-contain'
-              />
-            </Modal.Body>
-          </Modal.Dialog>
-        </Modal.Container>
-      </Modal.Backdrop>
-    </Modal>
+    <div className='flex flex-col gap-2'>
+      <span className='font-semibold'>{alt}</span>
+      <Modal>
+        <Modal.Trigger className='size-full'>
+          <img
+            {...props}
+            src={src}
+            alt={alt}
+            className='size-full object-contain'
+          />
+        </Modal.Trigger>
+        <Modal.Backdrop variant='blur'>
+          <Modal.Container size='cover'>
+            <Modal.Dialog>
+              <Modal.CloseTrigger />
+              <Modal.Header>
+                <Modal.Heading>
+                  <header className='text-3xl font-semibold'>{alt}</header>
+                </Modal.Heading>
+              </Modal.Header>
+              <Modal.Body>
+                <img
+                  {...props}
+                  src={src}
+                  alt={alt}
+                  className='size-full object-contain'
+                />
+              </Modal.Body>
+            </Modal.Dialog>
+          </Modal.Container>
+        </Modal.Backdrop>
+      </Modal>
+    </div>
   );
 }

@@ -51,8 +51,13 @@ class ModelFiles(CommandBaseModel):
 
 class ImageFiles(CommandBaseModel):
     loss_curve: str | None = None
+    loss_curve_svg: str | None = None
+
     accuracy_curve: str | None = None
+    accuracy_curve_svg: str | None = None
+
     t_sne: str | None = None
+    t_sne_svg: str | None = None
 
     model_config = ConfigDict(extra='allow')
 

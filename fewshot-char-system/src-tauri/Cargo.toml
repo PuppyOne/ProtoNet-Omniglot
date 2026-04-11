@@ -1,5 +1,5 @@
 [package]
-name = "embed-scope"
+name = "fewshot-char-system"
 version = "0.1.0"
 description = "A Tauri App"
 authors = ["zxz"]
@@ -11,12 +11,12 @@ edition = "2021"
 # The `_lib` suffix may seem redundant but it is necessary
 # to make the lib name unique and wouldn't conflict with the bin name.
 # This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
-name = "embed_scope_lib"
+name = "fewshot_char_system_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [[bin]]
 # the same as the package name
-name = "embed-scope"
+name = "fewshot-char-system"
 path = "src/main.rs"
 required-features = ["pytauri/standalone"]
 

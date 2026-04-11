@@ -9,7 +9,7 @@ use pytauri::standalone::{
 };
 use tauri::utils::platform::resource_dir;
 
-use embed_scope_lib::{ext_mod, tauri_generate_context};
+use fewshot_char_system_lib::{ext_mod, tauri_generate_context};
 
 fn main() -> Result<Infallible, Box<dyn Error>> {
     let py_env = if cfg!(dev) {
@@ -37,9 +37,9 @@ fn main() -> Result<Infallible, Box<dyn Error>> {
         PythonInterpreterEnv::Standalone(resource_dir.into())
     };
 
-    // 👉 Equivalent to `python -m embed_scope`,
-    // i.e, run the `src-tauri/python/embed_scope/__main__.py`
-    let py_script = PythonScript::Module("embed_scope".into());
+    // 👉 Equivalent to `python -m fewshot_char_system`,
+    // i.e, run the `src-tauri/python/fewshot_char_system/__main__.py`
+    let py_script = PythonScript::Module("fewshot_char_system".into());
 
     // 👉 `ext_mod` is your extension module, we export it from memory,
     // so you don't need to compile it into a binary file (.pyd/.so).

@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "embed-scope",
+  "productName": "小样本字符识别系统",
   "version": "0.1.0",
-  "identifier": "com.zxz.embed-scope",
+  "identifier": "com.zxz.fewshot-char-system",
   "build": {
     "beforeDevCommand": "vite",
     "devUrl": "http://localhost:5173",
@@ -14,7 +14,7 @@
   "app": {
     "windows": [
       {
-        "title": "EmbedScope",
+        "title": "小样本字符识别系统",
         "width": 950,
         "height": 550,
         "minWidth": 750,

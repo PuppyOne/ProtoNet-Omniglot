@@ -1,5 +1,5 @@
 {
-  "name": "embed-scope",
+  "name": "fewshot-char-system",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,7 @@
     "bundle:portable": "bun run ./scripts/portable.ts",
     "setup": "bun install && uv venv --python-preference only-system --clear && uv sync",
     "setup:ci": "bun ci",
-    "prepare": "cd .. && husky embed-scope/.husky"
+    "prepare": "cd .. && husky fewshot-char-system/.husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

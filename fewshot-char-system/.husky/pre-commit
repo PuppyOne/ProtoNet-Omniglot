@@ -1,0 +1,2 @@
+cd fewshot-char-system
+bunx lint-staged

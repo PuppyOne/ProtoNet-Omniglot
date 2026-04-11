@@ -1,5 +1,5 @@
 [project]
-name = "embed-scope"
+name = "fewshot-char-system"
 version = "0.0.0"
 readme = "README.md"
 
@@ -13,7 +13,7 @@ dependencies = [
 ]
 
 [project.entry-points.pytauri]
-ext_mod = "embed_scope.ext_mod"
+ext_mod = "fewshot_char_system.ext_mod"
 
 [build-system]
 requires = ["setuptools >= 80"]

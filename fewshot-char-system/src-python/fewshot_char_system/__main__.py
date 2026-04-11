@@ -3,7 +3,7 @@
 import sys
 from multiprocessing import freeze_support
 
-from embed_scope import main
+from fewshot_char_system import main
 
 
 # - If you don't use `multiprocessing`, you can remove this line.

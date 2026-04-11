@@ -4,8 +4,10 @@ import path from 'node:path';
 
 import { $ } from 'bun';
 
+import pyproject from '../pyproject.toml';
 
-const PROJECT_NAME = 'pytauri-app';
+
+const PROJECT_NAME = pyproject.project.name;
 const platform = os.platform();
 
 const PYTHON_PATH =

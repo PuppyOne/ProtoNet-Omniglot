@@ -25,7 +25,7 @@ inference_manager = InferenceManager()
 
 @commands.command()
 async def preload() -> None:
-    inference_manager.initialize()
+    await inference_manager.initialize()
 
 
 @commands.command()

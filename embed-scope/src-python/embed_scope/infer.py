@@ -1,7 +1,7 @@
+import asyncio
 from collections.abc import Sequence
 from importlib import import_module
 from os import PathLike
-from threading import Lock
 from types import ModuleType
 from typing import TYPE_CHECKING
 
@@ -20,18 +20,22 @@ class InferenceManager:
         self.encoder: torch.nn.Module | None = None
         self.classifier: torch.nn.Module | None = None
 
-        self.lock = Lock()
+        self.lock = asyncio.Lock()
 
-    def initialize(self):
-        self.load_torch()
+    async def initialize(self):
+        await self.load_torch()
 
-    def load_torch(self):
-        with self.lock:
+    async def load_torch(self):
+        async with self.lock:
             if self.torch is None:
-                self.torch = import_module('torch')
-                self.torchvision = import_module('torchvision')
 
-                self.device = self.torch.device('cuda' if self.torch.cuda.is_available() else 'cpu')
+                def _import_torch():
+                    self.torch = import_module('torch')
+                    self.torchvision = import_module('torchvision')
+
+                    self.device = self.torch.device('cuda' if self.torch.cuda.is_available() else 'cpu')
+
+                await asyncio.to_thread(_import_torch)
 
                 print(f'Using device: {self.device}')
 
@@ -107,30 +111,37 @@ class InferenceManager:
 
 
 if __name__ == '__main__':
-    import time
 
-    support_strs = [
-        '../../../omniglot/python/images_evaluation/Angelic/character02/0966_01.png',
-        '../../../omniglot/python/images_evaluation/Angelic/character01/0965_01.png',
-    ]
-    support_labels_str_list = [
-        'character02',
-        'character01',
-    ]
-    query_strs = [
-        '../../../omniglot/python/images_evaluation/Angelic/character01/0965_02.png',
-        '../../../omniglot/python/images_evaluation/Angelic/character02/0966_02.png',
-    ]
+    async def main():
+        import time
 
-    inference_manager = InferenceManager()
+        support_strs = [
+            '../../../omniglot/python/images_evaluation/Angelic/character02/0966_01.png',
+            '../../../omniglot/python/images_evaluation/Angelic/character01/0965_01.png',
+        ]
+        support_labels_str_list = [
+            'character02',
+            'character01',
+        ]
+        query_strs = [
+            '../../../omniglot/python/images_evaluation/Angelic/character01/0965_02.png',
+            '../../../omniglot/python/images_evaluation/Angelic/character02/0966_02.png',
+        ]
 
-    inference_manager.initialize()
+        inference_manager = InferenceManager()
 
-    inference_manager.load_model('best_model.pth')
+        await inference_manager.initialize()
 
-    start_time = time.perf_counter()
-    pred = inference_manager.infer(support_strs, support_labels_str_list, query_strs)
-    end_time = time.perf_counter()
+        inference_manager.load_model(
+            '../../../models/ProtoNet_5_1/encoder.pt2',
+            '../../../models/ProtoNet_5_1/classifier.pt2',
+        )
 
-    print(f'Time spent: {end_time - start_time:.4f}s')
-    print(pred)
+        start_time = time.perf_counter()
+        pred = inference_manager.infer(support_strs, support_labels_str_list, query_strs)
+        end_time = time.perf_counter()
+
+        print(f'Time spent: {end_time - start_time:.4f}s')
+        print(pred)
+
+    asyncio.run(main())

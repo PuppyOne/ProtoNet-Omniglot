@@ -1,7 +1,7 @@
 {
-  "name": "ProtoNet SE",
+  "name": "ProtoNet CBAM SA",
   "architecture": "ProtoNet",
-  "encoder": "CNN-4-SE",
+  "encoder": "CNN-4-CBAM-SA",
   "dataset": "Omniglot",
   "version": [
     2,

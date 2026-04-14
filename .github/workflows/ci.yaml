@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - embed-scope/**
+      - fewshot-char-system/**
       - '.github/workflows/**'
 
 defaults:
@@ -16,8 +16,8 @@ defaults:
     shell: bash
 
 env:
-  directory: embed-scope
-  artifact-name: EmbedScope-ci
+  directory: fewshot-char-system
+  artifact-name: FewshotCharSystem-ci
 
 jobs:
   build:

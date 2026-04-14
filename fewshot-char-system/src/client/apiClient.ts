@@ -66,10 +66,10 @@ export async function getModels(
 }
 
 export async function resolveModelPath(
-    body: Commands["resolveModelPath"]["input"],
+    body: Commands["resolve_model_path"]["input"],
     options?: InvokeOptions
-): Promise<Commands["resolveModelPath"]["output"]> {
-    return await pyInvoke("resolveModelPath", body, options);
+): Promise<Commands["resolve_model_path"]["output"]> {
+    return await pyInvoke("resolve_model_path", body, options);
 }
 
 export async function addModel(

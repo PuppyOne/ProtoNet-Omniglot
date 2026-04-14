@@ -97,7 +97,7 @@ export interface Commands {
     input: void | undefined;
     output: ModelsOutput;
   };
-  resolveModelPath: {
+  resolve_model_path: {
     input: ResolvePathInput;
     output: RootModelStr;
   };

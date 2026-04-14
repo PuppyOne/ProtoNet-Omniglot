@@ -153,7 +153,7 @@ async def get_models() -> ModelsOutput:
 
 
 @commands.command()
-async def resolveModelPath(body: ResolvePathInput) -> str:
+async def resolve_model_path(body: ResolvePathInput) -> str:
     file_path = Path(models_path) / body.model_folder_name / body.file_name
 
     return file_path.resolve().as_posix()

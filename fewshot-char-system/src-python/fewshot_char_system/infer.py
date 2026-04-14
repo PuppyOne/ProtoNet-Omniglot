@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     import torch
+    import torchvision
 
 
 class InferenceManager:
@@ -19,6 +20,8 @@ class InferenceManager:
 
         self.encoder: torch.nn.Module | None = None
         self.classifier: torch.nn.Module | None = None
+
+        self.transform: torchvision.transforms.Compose | torch.nn.Module | None = None
 
         self.lock = asyncio.Lock()
 
@@ -34,6 +37,8 @@ class InferenceManager:
                     self.torchvision = import_module('torchvision')
 
                     self.device = self.torch.device('cuda' if self.torch.cuda.is_available() else 'cpu')
+
+                    self.transform = self.torchvision.transforms.Resize((105, 105))
 
                 await asyncio.to_thread(_import_torch)
 
@@ -96,14 +101,14 @@ class InferenceManager:
 
             return pred_labels_str_list, pred_conf
 
-    def _load_image(self, path_str: str, transform: torch.nn.Module | None = None) -> torch.Tensor:
+    def _load_image(self, path_str: str) -> torch.Tensor:
         if self.torchvision is None:
             raise RuntimeError(f'Call {self.load_model.__name__}() first.')
 
-        image = self.torchvision.io.decode_image(path_str)
+        image = self.torchvision.io.decode_image(path_str, mode='GRAY')
 
-        if transform:
-            image = transform(image)
+        if self.transform:
+            image = self.transform(image)
 
         image: torch.Tensor = image.float() / 255
 

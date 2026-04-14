@@ -1,6 +1,7 @@
-import { Avatar, Card } from '@heroui/react';
+import { Avatar, Button, Card } from '@heroui/react';
 import { createFileRoute, notFound } from '@tanstack/react-router';
 import { convertFileSrc } from '@tauri-apps/api/core';
+import { openPath } from '@tauri-apps/plugin-opener';
 import { useAtom } from 'jotai';
 import { motion } from 'motion/react';
 
@@ -22,7 +23,15 @@ function CharacterSupport() {
 
   return (
     <div className='grid size-full grid-rows-[min-content_1fr] gap-4 p-4'>
-      <h2 className='w-min text-4xl'>{characterName}</h2>
+      <div className='flex justify-between'>
+        <h2 className='w-min text-4xl'>{characterName}</h2>
+        <Button
+          variant='primary'
+          onPress={() => openPath(`support/${characterName}`)}
+        >
+          打开文件夹
+        </Button>
+      </div>
       <MotionContainer className='grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 overflow-auto'>
         {supports.map((support, i) => (
           <motion.div variants={childVariants} className='h-min w-full'>

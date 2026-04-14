@@ -126,7 +126,7 @@ function ModelInfo() {
         <MotionContainer className='grid grid-cols-2 justify-between gap-4'>
           <motion.section variants={childVariants}>
             <Section className='flex flex-col items-start gap-6 p-4'>
-              <h2 className='text-3xl font-semibold'>模型信息</h2>
+              <h2 className='text-accent text-3xl font-semibold'>模型信息</h2>
               <div className='flex flex-col items-start gap-3'>
                 <div>
                   <span className='font-semibold'>结构: </span>
@@ -168,7 +168,7 @@ function ModelInfo() {
           </motion.section>
           <motion.section variants={childVariants}>
             <Section className='flex flex-col items-start gap-6 p-4'>
-              <h2 className='text-3xl font-semibold'>模型指标</h2>
+              <h2 className='text-accent text-3xl font-semibold'>模型指标</h2>
               <div className='flex flex-col items-start gap-3'>
                 <div>
                   <span className='font-semibold'>测试准确率: </span>
@@ -201,7 +201,7 @@ function ModelInfo() {
         <motion.section variants={childVariants}>
           <Section className='flex flex-col items-start gap-6 p-4'>
             <div className='flex items-baseline gap-4'>
-              <h2 className='text-3xl font-semibold'>可视化</h2>
+              <h2 className='text-accent text-3xl font-semibold'>可视化</h2>
               <span className='text-muted'>(点击放大)</span>
             </div>
             <div className='grid w-full grid-cols-2 gap-4 lg:grid-cols-3'>

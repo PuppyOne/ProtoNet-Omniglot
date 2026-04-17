@@ -1,20 +1,31 @@
 <svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
 
-  <circle cx="12" cy="12" r="12" fill="#38BDF8"/>
-  <circle cx="500" cy="12" r="12" fill="#38BDF8"/>
-  <circle cx="12" cy="500" r="12" fill="#38BDF8"/>
-  <circle cx="500" cy="500" r="12" fill="#38BDF8"/>
+  <defs>
+    <style>
+      .c { stroke: #38BDF8; stroke-width: 14; stroke-linecap: round; }
+    </style>
+  </defs>
 
-  <text
+  <g transform="translate(0,96)">
+    <path d="M7 7 L107 7 M7 7 L7 107" class="c" />
+
+    <path d="M405 7 L505 7 M505 7 L505 107" class="c" />
+
+    <path d="M7 213 L7 313 M7 313 L107 313" class="c" />
+
+    <path d="M505 213 L505 313 M405 313 L505 313" class="c" />
+
+    <text
       x="256"
-      y="256"
+      y="160"
       text-anchor="middle"
       dominant-baseline="middle"
-      font-size="800"
+      font-size="500"
       font-family="Arial, sans-serif"
       fill="#38BDF8"
       font-weight="700">
-    α
-  </text>
+      α
+    </text>
+  </g>
 
 </svg>

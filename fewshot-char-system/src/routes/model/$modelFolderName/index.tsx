@@ -91,7 +91,7 @@ function ModelInfo() {
               <Button isIconOnly variant='danger'>
                 <MdiTrashCanOutline className='text-lg' />
               </Button>
-              <AlertDialog.Backdrop>
+              <AlertDialog.Backdrop className='bg-red-950/60'>
                 <AlertDialog.Container>
                   <AlertDialog.Dialog>
                     <AlertDialog.Header>

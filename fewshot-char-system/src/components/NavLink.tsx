@@ -5,7 +5,7 @@ export function NavLink(props: React.ComponentProps<typeof Link>) {
   return (
     <Link
       {...props}
-      className={`pointer-events-auto flex items-end gap-1 rounded-full px-3 py-1 text-sm transition-colors duration-300 ${props.className ?? ''}`}
+      className={`pointer-events-auto flex items-end gap-1 rounded-full px-3 py-1 text-sm transition-all duration-300 active:scale-95 ${props.className ?? ''}`}
       activeProps={{
         className: 'bg-overlay text-accent',
       }}

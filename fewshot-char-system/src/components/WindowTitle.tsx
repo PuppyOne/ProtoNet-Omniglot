@@ -7,5 +7,10 @@ const titlePromise = getCurrentWindow().title();
 export default function WindowTitle() {
   const title = use(titlePromise);
 
-  return <>{title}</>;
+  return (
+    <>
+      {title}
+      {import.meta.env.DEV && '-dev'}
+    </>
+  );
 }

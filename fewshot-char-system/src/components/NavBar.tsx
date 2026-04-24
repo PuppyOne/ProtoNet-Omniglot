@@ -1,28 +1,17 @@
 import { useCanGoBack } from '@tanstack/react-router';
-import { getCurrentWindow } from '@tauri-apps/api/window';
 import { AnimatePresence, LayoutGroup, motion } from 'motion/react';
-import { useEffect, useState } from 'react';
+import { Suspense } from 'react';
 
 import { fadeVariants } from '@/motions/fade';
 
 import BackButton from './BackButton';
 import NavLinks from './NavLinks';
 import WindowControls from './WindowControls';
+import WindowTitle from './WindowTitle';
 
 
 export default function NavBar() {
   const canGoBack = useCanGoBack();
-  const [title, setTitle] = useState('');
-
-  const getTitle = async () => {
-    const title = await getCurrentWindow().title();
-
-    setTitle(title);
-  };
-
-  useEffect(() => {
-    getTitle();
-  }, []);
 
   return (
     <motion.div
@@ -50,7 +39,9 @@ export default function NavBar() {
             layout
             className='text-accent-foreground truncate pl-2 text-lg font-semibold select-none'
           >
-            {title}
+            <Suspense>
+              <WindowTitle />
+            </Suspense>
           </motion.span>
         </LayoutGroup>
       </div>

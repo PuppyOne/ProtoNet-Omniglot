@@ -93,7 +93,7 @@ function RootComponent() {
       >
         <NavBar />
         <div className='overflow-hidden'>
-          <AnimatePresence mode='wait' initial={false}>
+          <AnimatePresence mode='wait'>
             <Outlet key={location.pathname} />
           </AnimatePresence>
         </div>

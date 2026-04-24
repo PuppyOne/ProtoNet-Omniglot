@@ -89,7 +89,7 @@ function RootComponent() {
     <>
       <Toast.Provider />
       <div
-        className={`grid h-full w-full grid-rows-[3rem_1fr] items-stretch justify-stretch select-none ${isWin11 ? '' : 'bg-background'}`}
+        className={`grid size-full grid-rows-[3rem_1fr] items-stretch justify-stretch select-none ${isWin11 ? '' : 'bg-background'}`}
       >
         <NavBar />
         <div className='overflow-hidden'>

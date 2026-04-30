@@ -40,7 +40,9 @@ export default function NavBar() {
             className='text-accent-foreground truncate pl-2 text-lg font-semibold select-none'
           >
             <Suspense>
-              <WindowTitle />
+              <motion.span variants={fadeVariants}>
+                <WindowTitle />
+              </motion.span>
             </Suspense>
           </motion.span>
         </LayoutGroup>

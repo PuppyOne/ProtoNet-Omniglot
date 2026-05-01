@@ -15,6 +15,7 @@ import MotionContainer from '@/components/MotionContainer';
 import Section from '@/components/Section';
 import { fadeVariants } from '@/motions/fade';
 import { childVariants } from '@/motions/stagger';
+import { parseError } from '@/utils/parse-error';
 import SvgSpinnersBlocksWave from '~icons/svg-spinners/blocks-wave';
 
 
@@ -46,10 +47,10 @@ function Query() {
         });
 
         setResult(result);
+        setError(null);
       } catch (e: unknown) {
         setResult(null);
-        if (e instanceof Error) setError(e);
-        else setError(new Error('未知错误'));
+        setError(parseError(e));
       }
     }
   };

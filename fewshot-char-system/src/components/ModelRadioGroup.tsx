@@ -33,9 +33,9 @@ export default function ModelRadioGroup(
       variant='secondary'
     >
       <MotionContainer className='grid min-h-full grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-4'>
-        {models?.map((model, i) => (
+        {models?.map(model => (
           <motion.div
-            key={i}
+            key={model.folder.name}
             layout
             layoutId={`model-${model.folder.name}`}
             variants={childVariants}

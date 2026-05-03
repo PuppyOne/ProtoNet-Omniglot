@@ -23,8 +23,8 @@ function Support() {
         <EmptySupport />
       ) : (
         <MotionContainer className='grid min-h-full grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4'>
-          {characterSupportsEntries.map(([characterName, supports], i) => (
-            <motion.div key={i} variants={childVariants}>
+          {characterSupportsEntries.map(([characterName, supports]) => (
+            <motion.div layout key={characterName} variants={childVariants}>
               <SupportAlbum characterName={characterName} supports={supports} />
             </motion.div>
           ))}

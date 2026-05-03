@@ -33,9 +33,14 @@ function CharacterSupport() {
         </Button>
       </div>
       <MotionContainer className='grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 overflow-auto'>
-        {supports.map((support, i) => (
-          <motion.div variants={childVariants} className='h-min w-full'>
-            <Card key={i}>
+        {supports.map(support => (
+          <motion.div
+            layout
+            key={support.filename}
+            variants={childVariants}
+            className='h-min w-full'
+          >
+            <Card>
               <Card.Header className='aspect-square'>
                 <Avatar className='size-full rounded-xl shadow-sm'>
                   <Avatar.Image src={convertFileSrc(support.filepath)} />

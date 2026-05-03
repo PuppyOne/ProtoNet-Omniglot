@@ -64,6 +64,32 @@ function RootComponent() {
   }, []);
 
   useEffect(() => {
+    let disposed = false;
+    let cleanup: UnlistenFn | null = null;
+
+    const setupFocusListener = async () => {
+      const unlisten = await getCurrentWindow().onFocusChanged(
+        ({ payload: focus }) => {
+          if (focus) {
+            fetchSupports();
+            fetchModels();
+          }
+        }
+      );
+
+      if (disposed) unlisten();
+      else cleanup = unlisten;
+    };
+
+    setupFocusListener();
+
+    return () => {
+      disposed = true;
+      cleanup?.();
+    };
+  }, []);
+
+  useEffect(() => {
     syncTheme();
 
     let cleanup: UnlistenFn | null = null;

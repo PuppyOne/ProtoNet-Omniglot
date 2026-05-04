@@ -66,6 +66,8 @@ Flatten → 64 维嵌入向量
 
 空间尺寸演变：105 → 52 → 26 → **13**（Self-Attention 的 `spatial_size=13`）
 
+![注意力编码器架构图](./assets/attention_encoder_architecture.svg)
+
 ## 训练环境配置
 
 ### 依赖安装

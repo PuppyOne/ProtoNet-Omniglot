@@ -45,21 +45,19 @@ function ModelInfo() {
   };
 
   const handleMoveToTrash = () => {
-    console.dir(
-      toast.promise(
-        async () => {
-          await moveModelToTrash({ modelFolderName });
+    toast.promise(
+      async () => {
+        await moveModelToTrash({ modelFolderName });
 
-          await fetchModels();
+        await fetchModels();
 
-          await navigate({ to: '../' });
-        },
-        {
-          loading: `正在移动 ${model.meta.name} 至回收站`,
-          success: `已将 ${model.meta.name} 移动至回收站`,
-          error: `移动 ${model.meta.name} 至回收站失败`,
-        }
-      )
+        await navigate({ to: '../' });
+      },
+      {
+        loading: `正在移动 ${model.meta.name} 至回收站`,
+        success: `已将 ${model.meta.name} 移动至回收站`,
+        error: `移动 ${model.meta.name} 至回收站失败`,
+      }
     );
   };
 

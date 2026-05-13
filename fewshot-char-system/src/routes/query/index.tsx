@@ -3,8 +3,9 @@ import { createFileRoute } from '@tanstack/react-router';
 import { convertFileSrc } from '@tauri-apps/api/core';
 import { useAtom } from 'jotai';
 import { AnimatePresence, motion } from 'motion/react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
+import { isEngineReadyAtom } from '@/atoms/engine';
 import { selectedModelAtom } from '@/atoms/model';
 import { characterSupportsAtom } from '@/atoms/support';
 import { InferOutput } from '@/client/_apiTypes';
@@ -25,11 +26,14 @@ export const Route = createFileRoute('/query/')({
 
 function Query() {
   const [imagePath, setImagePath] = useState<string | null>(null);
+  const [isEngineReady] = useAtom(isEngineReadyAtom);
   const [selectedModel] = useAtom(selectedModelAtom);
   const [characterSupports] = useAtom(characterSupportsAtom);
 
   const [result, setResult] = useState<InferOutput | null>(null);
   const [error, setError] = useState<Error | null>(null);
+
+  const isEngineReadyPromiseRef = useRef(Promise.withResolvers<void>());
 
   const handleChange = async (path: string | null) => {
     if (path) {
@@ -39,6 +43,8 @@ function Query() {
         toast.danger('请先选择模型');
         return;
       }
+
+      await isEngineReadyPromiseRef.current.promise;
 
       try {
         const result = await infer({
@@ -54,6 +60,10 @@ function Query() {
       }
     }
   };
+
+  useEffect(() => {
+    if (isEngineReady) isEngineReadyPromiseRef.current.resolve();
+  }, [isEngineReady]);
 
   return (
     <MotionContainer className='grid size-full grid-rows-[min-content_1fr]'>
@@ -119,9 +129,22 @@ function Query() {
                           initial='hidden'
                           animate='show'
                           exit='exit'
-                          className='absolute inset-0 place-self-center overflow-hidden'
+                          className='absolute inset-0 grid size-full grid-rows-[1fr_auto_1fr] place-items-center'
                         >
-                          <SvgSpinnersBlocksWave className='text-4xl' />
+                          <SvgSpinnersBlocksWave className='row-start-2 text-4xl' />
+                          <AnimatePresence>
+                            {isEngineReady || (
+                              <motion.div
+                                variants={fadeVariants}
+                                initial='hide'
+                                animate='show'
+                                exit='exit'
+                                className='row-start-3 self-start text-nowrap'
+                              >
+                                正在初始化...
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
                         </motion.div>
                       )}
                     </AnimatePresence>

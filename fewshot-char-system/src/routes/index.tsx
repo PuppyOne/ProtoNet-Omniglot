@@ -2,6 +2,7 @@ import { Chip } from '@heroui/react';
 import { createFileRoute } from '@tanstack/react-router';
 import { useAtom } from 'jotai';
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
 import { isEngineReadyAtom } from '@/atoms/engine';
 import { selectedModelAtom } from '@/atoms/model';
@@ -16,6 +17,8 @@ import LineMdLoadingAltLoop from '~icons/line-md/loading-alt-loop';
 export const Route = createFileRoute('/')({ component: Home });
 
 function Home() {
+  const { t } = useTranslation();
+
   const [isEngineReady] = useAtom(isEngineReadyAtom);
   const [characterSupports] = useAtom(characterSupportsAtom);
   const [selectedModel] = useAtom(selectedModelAtom);
@@ -24,7 +27,7 @@ function Home() {
     <MotionContainer className='grid size-full grid-cols-2 grid-rows-[repeat(2,1fr)] gap-4 overflow-auto p-4'>
       <HomeLinkCard to='/'>
         <motion.h3 className='text-accent/90 pb-4 text-3xl font-semibold'>
-          推理引擎
+          {t('home.engineTitle')}
         </motion.h3>
         {isEngineReady ? (
           <>
@@ -33,13 +36,13 @@ function Home() {
               className='flex items-center gap-2 text-2xl font-semibold'
             >
               <LineMdConfirm />
-              就绪
+              {t('home.ready')}
             </motion.span>
             <motion.span
               variants={childVariants}
               className='text-muted flex items-center text-sm'
             >
-              初始化已完成，可以开始推理。
+              {t('home.readyDesc')}
             </motion.span>
           </>
         ) : (
@@ -49,21 +52,21 @@ function Home() {
               className='flex items-center gap-2 text-2xl font-semibold'
             >
               <LineMdLoadingAltLoop />
-              初始化...
+              {t('home.initializing')}
             </motion.span>
 
             <motion.span
               variants={childVariants}
               className='text-muted flex items-center text-sm'
             >
-              正在初始化，请稍候...
+              {t('home.initializingDesc')}
             </motion.span>
           </>
         )}
       </HomeLinkCard>
       <HomeLinkCard to='/support'>
         <motion.h3 className='text-accent/90 pb-4 text-3xl font-semibold'>
-          字库
+          {t('nav.support')}
         </motion.h3>
         <motion.span
           variants={childVariants}
@@ -74,7 +77,7 @@ function Home() {
           ) : (
             <LineMdLoadingAltLoop />
           )}{' '}
-          字符
+          {t('home.characters')}
         </motion.span>
         <motion.span
           variants={childVariants}
@@ -88,12 +91,12 @@ function Home() {
           ) : (
             <LineMdLoadingAltLoop />
           )}{' '}
-          样本
+          {t('home.samples')}
         </motion.span>
       </HomeLinkCard>
       <HomeLinkCard to='/model'>
         <motion.h3 className='text-accent/90 pb-4 text-3xl font-semibold'>
-          模型
+          {t('nav.model')}
         </motion.h3>
         {selectedModel ? (
           <>
@@ -121,25 +124,25 @@ function Home() {
             variants={childVariants}
             className='flex items-center gap-4 text-2xl font-semibold'
           >
-            点击选择
+            {t('home.clickToSelect')}
           </motion.span>
         )}
       </HomeLinkCard>
       <HomeLinkCard to='/query'>
         <motion.h3 className='text-accent/90 pb-4 text-3xl font-semibold'>
-          推理
+          {t('common.inference')}
         </motion.h3>
         <motion.span
           variants={childVariants}
           className='flex items-center gap-4 text-2xl font-semibold'
         >
-          点击进入
+          {t('home.clickToEnter')}
         </motion.span>
         <motion.span
           variants={childVariants}
           className='text-muted flex items-center gap-2 text-sm'
         >
-          上传图像
+          {t('home.uploadImage')}
         </motion.span>
       </HomeLinkCard>
     </MotionContainer>

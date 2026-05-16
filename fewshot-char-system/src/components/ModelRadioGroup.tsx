@@ -10,6 +10,7 @@ import { useNavigate } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { useAtom } from 'jotai';
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
 import { modelsAtom, selectedModelAtom } from '@/atoms/model';
 import { childVariants } from '@/motions/stagger';
@@ -21,6 +22,8 @@ import MotionContainer from './MotionContainer';
 export default function ModelRadioGroup(
   props: React.ComponentProps<typeof RadioGroup>
 ) {
+  const { t } = useTranslation();
+
   const [models] = useAtom(modelsAtom);
   const [selectedModel, setSelectedModel] = useAtom(selectedModelAtom);
 
@@ -70,7 +73,9 @@ export default function ModelRadioGroup(
                       -shot
                     </div>
                   </div>
-                  <div className='text-muted text-[0.8rem]'>Accuracy</div>
+                  <div className='text-muted text-[0.8rem]'>
+                    {t('model.accuracy')}
+                  </div>
                 </div>
                 <div className='flex justify-between'>
                   <Chip variant='tertiary' className='border'>
@@ -91,7 +96,7 @@ export default function ModelRadioGroup(
                         }
                       >
                         <MdiInformationSlabCircleOutline />
-                        详情
+                        {t('model.details')}
                       </Button>
                     </div>
                   </div>

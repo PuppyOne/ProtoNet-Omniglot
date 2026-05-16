@@ -4,5 +4,12 @@
         "Omniglot",
         "cdist"
     ],
-    "python.analysis.typeCheckingMode": "basic"
+    "python.analysis.typeCheckingMode": "basic",
+    "i18n-ally.localesPaths": [
+        "fewshot-char-system/src/locales"
+    ],
+    "i18n-ally.enabledFrameworks": [
+        "react-i18next"
+    ],
+    "i18n-ally.displayLanguage": "zh-CN"
 }

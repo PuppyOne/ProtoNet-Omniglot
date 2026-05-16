@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
 import { fadeVariants } from '@/motions/fade';
 import { childVariants } from '@/motions/stagger';
@@ -6,6 +7,8 @@ import LineMdFolderPlus from '~icons/line-md/folder-plus';
 
 
 export default function EmptyQuery() {
+  const { t } = useTranslation();
+
   return (
     <div className='flex size-full flex-col items-center-safe justify-center-safe gap-4 select-none'>
       <motion.div
@@ -23,7 +26,7 @@ export default function EmptyQuery() {
         exit='exit'
         className='text-field-placeholder'
       >
-        请选择图片
+        {t('common.pleaseSelectImage')}
       </motion.div>
     </div>
   );

@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import LineMdCog from '~icons/line-md/cog';
 import LineMdCogLoop from '~icons/line-md/cog-loop';
 import LineMdHomeSimpleTwotone from '~icons/line-md/home-simple-twotone';
@@ -8,13 +10,15 @@ import { NavLink } from './NavLink';
 
 
 export default function NavLinks() {
+  const { t } = useTranslation();
+
   return (
     <>
       <NavLink to='/'>
         {({ isActive }) => (
           <>
             <LineMdHomeSimpleTwotone key={+isActive} className='text-lg' />
-            主页
+            {t('nav.home')}
           </>
         )}
       </NavLink>
@@ -23,7 +27,7 @@ export default function NavLinks() {
         {({ isActive }) => (
           <>
             <LineMdImageTwotone key={+isActive} className='text-lg' />
-            字库
+            {t('nav.support')}
           </>
         )}
       </NavLink>
@@ -36,7 +40,7 @@ export default function NavLinks() {
             ) : (
               <LineMdCog className='text-lg' />
             )}
-            模型
+            {t('nav.model')}
           </>
         )}
       </NavLink>
@@ -45,7 +49,7 @@ export default function NavLinks() {
         {({ isActive }) => (
           <>
             <LineMdSearchTwotone key={+isActive} className='text-lg' />
-            识别
+            {t('nav.query')}
           </>
         )}
       </NavLink>

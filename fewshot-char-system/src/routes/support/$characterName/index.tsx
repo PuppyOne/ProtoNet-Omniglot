@@ -4,6 +4,7 @@ import { convertFileSrc } from '@tauri-apps/api/core';
 import { openPath } from '@tauri-apps/plugin-opener';
 import { useAtom } from 'jotai';
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
 import { characterSupportsAtom } from '@/atoms/support';
 import MotionContainer from '@/components/MotionContainer';
@@ -16,6 +17,9 @@ export const Route = createFileRoute('/support/$characterName/')({
 
 function CharacterSupport() {
   const { characterName } = Route.useParams();
+
+  const { t } = useTranslation();
+
   const [characterSupports] = useAtom(characterSupportsAtom);
   const supports = characterSupports?.[characterName];
 
@@ -29,7 +33,7 @@ function CharacterSupport() {
           variant='primary'
           onPress={() => openPath(`support/${characterName}`)}
         >
-          打开文件夹
+          {t('support.openFolder')}
         </Button>
       </div>
       <MotionContainer className='grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 overflow-auto'>

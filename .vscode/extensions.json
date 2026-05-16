@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "antfu.iconify"
+        "antfu.iconify",
+        "lokalise.i18n-ally"
     ]
 }

@@ -2,6 +2,7 @@ import { AlertDialog, Button, ButtonGroup, Chip, toast } from '@heroui/react';
 import { createFileRoute, notFound, useNavigate } from '@tanstack/react-router';
 import { useAtom } from 'jotai';
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
 import { modelsAtom, selectedModelAtom } from '@/atoms/model';
 import { getModels, moveModelToTrash } from '@/client/apiClient';
@@ -18,6 +19,8 @@ export const Route = createFileRoute('/model/$modelFolderName/')({
 
 function ModelInfo() {
   const { modelFolderName } = Route.useParams();
+
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -54,9 +57,9 @@ function ModelInfo() {
         await navigate({ to: '../' });
       },
       {
-        loading: `正在移动 ${model.meta.name} 至回收站`,
-        success: `已将 ${model.meta.name} 移动至回收站`,
-        error: `移动 ${model.meta.name} 至回收站失败`,
+        loading: t('model.moving', { name: model.meta.name }),
+        success: t('model.moved', { name: model.meta.name }),
+        error: t('model.moveFailed', { name: model.meta.name }),
       }
     );
   };
@@ -77,12 +80,12 @@ function ModelInfo() {
                 onPress={handleSelect}
               >
                 {selectedModel?.folder.name === modelFolderName
-                  ? '已选'
-                  : '选择'}
+                  ? t('model.alreadySelected')
+                  : t('common.select')}
               </Button>
               <Button onPress={handleSelectAndQuery}>
                 <ButtonGroup.Separator />
-                推理
+                {t('common.inference')}
               </Button>
             </ButtonGroup>
             <AlertDialog>
@@ -95,22 +98,24 @@ function ModelInfo() {
                     <AlertDialog.Header>
                       <AlertDialog.Icon />
                       <AlertDialog.Heading>
-                        确认删除 {model.meta.name}
+                        {t('model.confirmDelete', { name: model.meta.name })}
                       </AlertDialog.Heading>
                     </AlertDialog.Header>
                     <AlertDialog.Body>
-                      此操作将移动 {model.folder.name} 至回收站。
+                      {t('model.moveToTrashConfirm', {
+                        folder: model.folder.name,
+                      })}
                     </AlertDialog.Body>
                     <AlertDialog.Footer>
                       <Button slot='close' variant='tertiary'>
-                        取消
+                        {t('common.cancel')}
                       </Button>
                       <Button
                         slot='close'
                         variant='danger'
                         onPress={handleMoveToTrash}
                       >
-                        确定
+                        {t('common.confirm')}
                       </Button>
                     </AlertDialog.Footer>
                   </AlertDialog.Dialog>
@@ -124,41 +129,53 @@ function ModelInfo() {
         <MotionContainer className='grid grid-cols-2 justify-between gap-4'>
           <motion.section variants={childVariants}>
             <Section className='flex flex-col items-start gap-6 p-4'>
-              <h2 className='text-accent text-3xl font-semibold'>模型信息</h2>
+              <h2 className='text-accent text-3xl font-semibold'>
+                {t('model.modelInfo')}
+              </h2>
               <div className='flex flex-col items-start gap-3'>
                 <div>
-                  <span className='font-semibold'>结构: </span>
+                  <span className='font-semibold'>
+                    {t('model.architecture')}:{' '}
+                  </span>
                   {model.meta.architecture}
                 </div>
 
                 <div>
-                  <span className='font-semibold'>编码器: </span>
+                  <span className='font-semibold'>{t('model.encoder')}: </span>
                   {model.meta.encoder}
                 </div>
 
                 <div>
-                  <span className='font-semibold'>数据集: </span>
+                  <span className='font-semibold'>{t('model.dataset')}: </span>
                   {model.meta.dataset}
                 </div>
 
                 <div>
-                  <span className='font-semibold'>嵌入维度: </span>
+                  <span className='font-semibold'>
+                    {t('model.embeddingDim')}:{' '}
+                  </span>
                   {model.meta.embeddingDim}
                 </div>
 
                 <div>
-                  <span className='font-semibold'>训练设置: </span>
+                  <span className='font-semibold'>
+                    {t('model.trainConfig')}:{' '}
+                  </span>
                   {model.meta.train.nWay}-way {model.meta.train.kShot}-shot{' '}
                   {model.meta.train.qQuery}-query
                 </div>
 
                 <div>
-                  <span className='font-semibold'>早停耐心值: </span>
-                  {model.meta.train.earlyStopPatience ?? '未启用'}
+                  <span className='font-semibold'>
+                    {t('model.earlyStopPatience')}:{' '}
+                  </span>
+                  {model.meta.train.earlyStopPatience ?? t('common.notEnabled')}
                 </div>
 
                 <div>
-                  <span className='font-semibold'>训练时间: </span>
+                  <span className='font-semibold'>
+                    {t('model.trainTime')}:{' '}
+                  </span>
                   {new Date(model.meta.train.timestamp).toLocaleString()}
                 </div>
               </div>
@@ -166,28 +183,40 @@ function ModelInfo() {
           </motion.section>
           <motion.section variants={childVariants}>
             <Section className='flex flex-col items-start gap-6 p-4'>
-              <h2 className='text-accent text-3xl font-semibold'>模型指标</h2>
+              <h2 className='text-accent text-3xl font-semibold'>
+                {t('model.modelMetrics')}
+              </h2>
               <div className='flex flex-col items-start gap-3'>
                 <div>
-                  <span className='font-semibold'>测试准确率: </span>
+                  <span className='font-semibold'>
+                    {t('model.testAccuracy')}:{' '}
+                  </span>
                   {(model.meta.metrics.testAccuracy * 100).toFixed(2)}%
                 </div>
                 {model.meta.metrics.testLoss != null && (
                   <div>
-                    <span className='font-semibold'>测试损失: </span>
+                    <span className='font-semibold'>
+                      {t('model.testLoss')}:{' '}
+                    </span>
                     {model.meta.metrics.testLoss.toFixed(4)}
                   </div>
                 )}
                 <div>
-                  <span className='font-semibold'>训练批次: </span>
+                  <span className='font-semibold'>
+                    {t('model.trainBatches')}:{' '}
+                  </span>
                   {model.meta.train.trainBatches}
                 </div>
                 <div>
-                  <span className='font-semibold'>验证批次: </span>
+                  <span className='font-semibold'>
+                    {t('model.valBatches')}:{' '}
+                  </span>
                   {model.meta.train.valBatches}
                 </div>
                 <div>
-                  <span className='font-semibold'>测试批次: </span>
+                  <span className='font-semibold'>
+                    {t('model.testBatches')}:{' '}
+                  </span>
                   {model.meta.metrics.testBatches}
                 </div>
               </div>
@@ -199,12 +228,14 @@ function ModelInfo() {
         <motion.section variants={childVariants}>
           <Section className='flex flex-col items-start gap-6 p-4'>
             <div className='flex items-baseline gap-4'>
-              <h2 className='text-accent text-3xl font-semibold'>可视化</h2>
-              <span className='text-muted'>(点击放大)</span>
+              <h2 className='text-accent text-3xl font-semibold'>
+                {t('model.visualization')}
+              </h2>
+              <span className='text-muted'>{t('model.clickToEnlarge')}</span>
             </div>
             <div className='grid w-full grid-cols-2 gap-4 lg:grid-cols-3'>
               <ModelImage
-                alt='损失曲线'
+                alt={t('model.lossCurve')}
                 modelFolderName={modelFolderName}
                 imageName={
                   model.meta.files.images.lossCurveSvg ??
@@ -213,7 +244,7 @@ function ModelInfo() {
               />
 
               <ModelImage
-                alt='准确率曲线'
+                alt={t('model.accuracyCurve')}
                 modelFolderName={modelFolderName}
                 imageName={
                   model.meta.files.images.accuracyCurveSvg ??
@@ -222,7 +253,7 @@ function ModelInfo() {
               />
 
               <ModelImage
-                alt='t-SNE 可视化'
+                alt={t('model.tSneViz')}
                 modelFolderName={modelFolderName}
                 imageName={
                   model.meta.files.images.tSneSvg ??

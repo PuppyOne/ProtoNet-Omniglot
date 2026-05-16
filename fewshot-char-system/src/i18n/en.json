@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Home",
+    "support": "Characters",
+    "model": "Model",
+    "query": "Recognize"
+  },
+  "home": {
+    "engineTitle": "Inference Engine",
+    "ready": "Ready",
+    "readyDesc": "Initialization complete. Ready for inference.",
+    "initializing": "Initializing...",
+    "initializingDesc": "Please wait while initializing...",
+    "characters": "Characters",
+    "samples": "Samples",
+    "clickToSelect": "Click to select",
+    "clickToEnter": "Click to enter",
+    "uploadImage": "Upload Image"
+  },
+  "model": {
+    "alreadySelected": "Selected",
+    "modelInfo": "Model Info",
+    "modelMetrics": "Model Metrics",
+    "visualization": "Visualization",
+    "clickToEnlarge": "(click to enlarge)",
+    "architecture": "Architecture",
+    "encoder": "Encoder",
+    "dataset": "Dataset",
+    "embeddingDim": "Embedding Dim",
+    "trainConfig": "Train Config",
+    "earlyStopPatience": "Early Stop Patience",
+    "trainTime": "Train Time",
+    "testAccuracy": "Test Accuracy",
+    "testLoss": "Test Loss",
+    "trainBatches": "Train Batches",
+    "valBatches": "Val Batches",
+    "testBatches": "Test Batches",
+    "lossCurve": "Loss Curve",
+    "accuracyCurve": "Accuracy Curve",
+    "tSneViz": "t-SNE Visualization",
+    "confirmDelete": "Confirm Delete {{name}}",
+    "moveToTrashConfirm": "This operation will move {{folder}} to trash.",
+    "moving": "Moving {{name}} to trash",
+    "moved": "Moved {{name}} to trash",
+    "moveFailed": "Failed to move {{name}} to trash",
+    "accuracy": "Accuracy",
+    "details": "Details"
+  },
+  "query": {
+    "pleaseSelectModel": "Please select a model first",
+    "prediction": "Result: {{result}}",
+    "timeSpent": "Time: {{ms}}ms",
+    "inferenceFailed": "Inference failed:",
+    "confidenceRanking": "Confidence Ranking",
+    "supportSamples": "Support samples:"
+  },
+  "support": {
+    "openFolder": "Open Folder",
+    "empty": "No characters yet"
+  },
+  "common": {
+    "select": "Select",
+    "inference": "Inference",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "notEnabled": "Not enabled",
+    "selectImage": "Select an image",
+    "pleaseSelectImage": "Please select an image",
+    "browse": "Browse",
+    "notFound": "Not found",
+    "goHome": "Go home"
+  }
+}

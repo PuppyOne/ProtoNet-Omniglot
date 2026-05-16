@@ -1,12 +1,13 @@
 import { Button, Input } from '@heroui/react';
 import { open } from '@tauri-apps/plugin-dialog';
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
 import type { OverrideProps } from '@/types/override-props';
 
 
 export default function ImagePicker({
-  placeholder = '选择图片',
+  placeholder,
   value,
   onChange,
   ...props
@@ -18,6 +19,8 @@ export default function ImagePicker({
     onChange?: (path: string | null) => void;
   }
 >) {
+  const { t } = useTranslation();
+
   const handleExplore = async () => {
     const path = await open();
 
@@ -31,14 +34,14 @@ export default function ImagePicker({
           className='rounded-l-full rounded-r-none shadow-none'
           readOnly
           value={value ?? ''}
-          placeholder={placeholder}
+          placeholder={placeholder ?? t('common.selectImage')}
           onClick={handleExplore}
         />
         <Button
           className='rounded-l-none rounded-r-full'
           onPress={handleExplore}
         >
-          浏览
+          {t('common.browse')}
         </Button>
       </div>
     </motion.div>

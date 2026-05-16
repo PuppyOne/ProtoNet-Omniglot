@@ -4,6 +4,7 @@ import { convertFileSrc } from '@tauri-apps/api/core';
 import { useAtom } from 'jotai';
 import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { isEngineReadyAtom } from '@/atoms/engine';
 import { selectedModelAtom } from '@/atoms/model';
@@ -25,6 +26,8 @@ export const Route = createFileRoute('/query/')({
 });
 
 function Query() {
+  const { t } = useTranslation();
+
   const [imagePath, setImagePath] = useState<string | null>(null);
   const [isEngineReady] = useAtom(isEngineReadyAtom);
   const [selectedModel] = useAtom(selectedModelAtom);
@@ -40,7 +43,7 @@ function Query() {
       setImagePath(path);
 
       if (!selectedModel) {
-        toast.danger('请先选择模型');
+        toast.danger(t('query.pleaseSelectModel'));
         return;
       }
 
@@ -98,13 +101,17 @@ function Query() {
                             variants={childVariants}
                             className='text-accent text-2xl font-semibold 2xl:text-3xl'
                           >
-                            识别结果: {result?.prediction[0]}
+                            {t('query.prediction', {
+                              result: result?.prediction[0],
+                            })}
                           </motion.div>
                           <motion.div
                             key={`time-spent-${JSON.stringify(result.request)}`}
                             variants={childVariants}
                           >
-                            耗时: {Math.round(result?.timeSpentS * 1000)}ms
+                            {t('query.timeSpent', {
+                              ms: Math.round(result?.timeSpentS * 1000),
+                            })}
                           </motion.div>
                         </>
                       ) : error ? (
@@ -113,7 +120,7 @@ function Query() {
                             variants={childVariants}
                             className='text-danger'
                           >
-                            推理失败:
+                            {t('query.inferenceFailed')}
                           </motion.div>
                           <motion.div variants={childVariants} className='pl-8'>
                             {error.name}
@@ -166,7 +173,7 @@ function Query() {
                           variants={childVariants}
                           className='text-accent self-start text-2xl font-semibold 2xl:text-3xl'
                         >
-                          置信度排行
+                          {t('query.confidenceRanking')}
                         </motion.div>
                         <Accordion
                           allowsMultipleExpanded
@@ -213,7 +220,7 @@ function Query() {
                                   <Accordion.Panel>
                                     <Accordion.Body className='pt-1'>
                                       <div className='text-start'>
-                                        字库参考样本:
+                                        {t('query.supportSamples')}
                                       </div>
                                       <div className='flex size-full h-10 overflow-auto 2xl:h-20'>
                                         {characterSupports?.[characterName].map(

@@ -30,6 +30,13 @@ export default defineConfig([
     rules: {
       ...reactHooks.configs.r,
 
+      'no-console': [
+        'error',
+        {
+          allow: ['warn', 'error'],
+        },
+      ],
+
       // 命名规范
       '@typescript-eslint/naming-convention': [
         'error',

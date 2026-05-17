@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "support": "Caractères",
+    "model": "Modèle",
+    "query": "Reconnaître"
+  },
+  "home": {
+    "engineTitle": "Moteur d'inférence",
+    "ready": "Prêt",
+    "readyDesc": "Initialisation terminée. Prêt pour l'inférence.",
+    "initializing": "Initialisation...",
+    "initializingDesc": "Initialisation en cours, veuillez patienter...",
+    "characters": "Caractères",
+    "samples": "Échantillons",
+    "clickToSelect": "Cliquer pour sélectionner",
+    "clickToEnter": "Cliquer pour saisir",
+    "uploadImage": "Téléverser une image"
+  },
+  "model": {
+    "alreadySelected": "Sélectionné",
+    "modelInfo": "Infos du modèle",
+    "modelMetrics": "Métriques du modèle",
+    "visualization": "Visualisation",
+    "clickToEnlarge": "(cliquer pour agrandir)",
+    "architecture": "Architecture",
+    "encoder": "Encodeur",
+    "dataset": "Jeu de données",
+    "embeddingDim": "Dim. d'embedding",
+    "trainConfig": "Config. d'entraînement",
+    "earlyStopPatience": "Patience arrêt anticipé",
+    "trainTime": "Temps d'entraînement",
+    "testAccuracy": "Précision de test",
+    "testLoss": "Perte de test",
+    "trainBatches": "Lots d'entraînement",
+    "valBatches": "Lots de validation",
+    "testBatches": "Lots de test",
+    "lossCurve": "Courbe de perte",
+    "accuracyCurve": "Courbe de précision",
+    "tSneViz": "Visualisation t-SNE",
+    "confirmDelete": "Confirmer la suppression de {{name}}",
+    "moveToTrashConfirm": "Cette opération déplacera {{folder}} vers la corbeille.",
+    "moving": "Déplacement de {{name}} vers la corbeille",
+    "moved": "{{name}} déplacé vers la corbeille",
+    "moveFailed": "Échec du déplacement de {{name}} vers la corbeille",
+    "accuracy": "Accuracy",
+    "details": "Détails"
+  },
+  "query": {
+    "pleaseSelectModel": "Veuillez d'abord sélectionner un modèle",
+    "prediction": "Résultat : {{result}}",
+    "timeSpent": "Temps : {{ms}}ms",
+    "inferenceFailed": "Échec de l'inférence :",
+    "confidenceRanking": "Classement de confiance",
+    "supportSamples": "Échantillons de support :"
+  },
+  "support": {
+    "openFolder": "Ouvrir le dossier",
+    "empty": "Aucun caractère pour l'instant"
+  },
+  "common": {
+    "select": "Sélectionner",
+    "inference": "Inférence",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "notEnabled": "Non activé",
+    "selectImage": "Sélectionner une image",
+    "pleaseSelectImage": "Veuillez sélectionner une image",
+    "browse": "Parcourir",
+    "notFound": "Not found",
+    "goHome": "Go home"
+  }
+}

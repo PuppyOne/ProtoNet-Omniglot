@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Start",
+    "support": "Zeichen",
+    "model": "Modell",
+    "query": "Erkennen"
+  },
+  "home": {
+    "engineTitle": "Inferenz-Engine",
+    "ready": "Bereit",
+    "readyDesc": "Initialisierung abgeschlossen. Bereit für die Inferenz.",
+    "initializing": "Initialisierung...",
+    "initializingDesc": "Initialisierung läuft, bitte warten...",
+    "characters": "Zeichen",
+    "samples": "Beispiele",
+    "clickToSelect": "Zum Auswählen klicken",
+    "clickToEnter": "Zum Eingeben klicken",
+    "uploadImage": "Bild hochladen"
+  },
+  "model": {
+    "alreadySelected": "Ausgewählt",
+    "modelInfo": "Modellinfo",
+    "modelMetrics": "Modellmetriken",
+    "visualization": "Visualisierung",
+    "clickToEnlarge": "(zum Vergrößern klicken)",
+    "architecture": "Architektur",
+    "encoder": "Encoder",
+    "dataset": "Datensatz",
+    "embeddingDim": "Einbettungsdim.",
+    "trainConfig": "Trainingskonfiguration",
+    "earlyStopPatience": "Frühstopp-Geduld",
+    "trainTime": "Trainingszeit",
+    "testAccuracy": "Testgenauigkeit",
+    "testLoss": "Testverlust",
+    "trainBatches": "Trainings-Batches",
+    "valBatches": "Validierungs-Batches",
+    "testBatches": "Test-Batches",
+    "lossCurve": "Verlustkurve",
+    "accuracyCurve": "Genauigkeitskurve",
+    "tSneViz": "t-SNE-Visualisierung",
+    "confirmDelete": "{{name}} löschen bestätigen",
+    "moveToTrashConfirm": "Dieser Vorgang verschiebt {{folder}} in den Papierkorb.",
+    "moving": "{{name}} wird in den Papierkorb verschoben",
+    "moved": "{{name}} in den Papierkorb verschoben",
+    "moveFailed": "{{name}} konnte nicht in den Papierkorb verschoben werden",
+    "accuracy": "Accuracy",
+    "details": "Details"
+  },
+  "query": {
+    "pleaseSelectModel": "Bitte zuerst ein Modell auswählen",
+    "prediction": "Ergebnis: {{result}}",
+    "timeSpent": "Zeit: {{ms}}ms",
+    "inferenceFailed": "Inferenz fehlgeschlagen:",
+    "confidenceRanking": "Konfidenz-Ranking",
+    "supportSamples": "Support-Beispiele:"
+  },
+  "support": {
+    "openFolder": "Ordner öffnen",
+    "empty": "Noch keine Zeichen vorhanden"
+  },
+  "common": {
+    "select": "Auswählen",
+    "inference": "Inferenz",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "notEnabled": "Nicht aktiviert",
+    "selectImage": "Bild auswählen",
+    "pleaseSelectImage": "Bitte ein Bild auswählen",
+    "browse": "Durchsuchen",
+    "notFound": "Not found",
+    "goHome": "Go home"
+  }
+}

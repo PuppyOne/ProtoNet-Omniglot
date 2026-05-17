@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "support": "文字ライブラリ",
+    "model": "モデル",
+    "query": "認識"
+  },
+  "home": {
+    "engineTitle": "推論エンジン",
+    "ready": "準備完了",
+    "readyDesc": "初期化が完了しました。推論を開始できます。",
+    "initializing": "初期化中...",
+    "initializingDesc": "初期化中です。しばらくお待ちください...",
+    "characters": "文字",
+    "samples": "サンプル",
+    "clickToSelect": "クリックして選択",
+    "clickToEnter": "クリックして入力",
+    "uploadImage": "画像をアップロード"
+  },
+  "model": {
+    "alreadySelected": "選択済み",
+    "modelInfo": "モデル情報",
+    "modelMetrics": "モデル指標",
+    "visualization": "可視化",
+    "clickToEnlarge": "(クリックして拡大)",
+    "architecture": "アーキテクチャ",
+    "encoder": "エンコーダー",
+    "dataset": "データセット",
+    "embeddingDim": "埋め込み次元",
+    "trainConfig": "学習設定",
+    "earlyStopPatience": "早期停止の忍耐値",
+    "trainTime": "学習時間",
+    "testAccuracy": "テスト精度",
+    "testLoss": "テスト損失",
+    "trainBatches": "学習バッチ",
+    "valBatches": "検証バッチ",
+    "testBatches": "テストバッチ",
+    "lossCurve": "損失曲線",
+    "accuracyCurve": "精度曲線",
+    "tSneViz": "t-SNE 可視化",
+    "confirmDelete": "{{name}} を削除しますか",
+    "moveToTrashConfirm": "この操作により {{folder}} がゴミ箱に移動されます。",
+    "moving": "{{name}} をゴミ箱に移動中",
+    "moved": "{{name}} をゴミ箱に移動しました",
+    "moveFailed": "{{name}} のゴミ箱への移動に失敗しました",
+    "accuracy": "Accuracy",
+    "details": "詳細"
+  },
+  "query": {
+    "pleaseSelectModel": "最初にモデルを選択してください",
+    "prediction": "結果: {{result}}",
+    "timeSpent": "時間: {{ms}}ms",
+    "inferenceFailed": "推論に失敗しました:",
+    "confidenceRanking": "信頼度ランキング",
+    "supportSamples": "サポートサンプル:"
+  },
+  "support": {
+    "openFolder": "フォルダを開く",
+    "empty": "文字ライブラリが空です"
+  },
+  "common": {
+    "select": "選択",
+    "inference": "推論",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "notEnabled": "無効",
+    "selectImage": "画像を選択",
+    "pleaseSelectImage": "画像を選択してください",
+    "browse": "参照",
+    "notFound": "Not found",
+    "goHome": "Go home"
+  }
+}

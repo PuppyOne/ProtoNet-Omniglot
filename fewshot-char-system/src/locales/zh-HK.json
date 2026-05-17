@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "主頁",
+    "support": "字符庫",
+    "model": "模型",
+    "query": "識別"
+  },
+  "home": {
+    "engineTitle": "推理引擎",
+    "ready": "就緒",
+    "readyDesc": "初始化已完成，可以開始推理。",
+    "initializing": "初始化中...",
+    "initializingDesc": "正在初始化，請稍候...",
+    "characters": "字符",
+    "samples": "樣本",
+    "clickToSelect": "點擊選擇",
+    "clickToEnter": "點擊進入",
+    "uploadImage": "上傳圖片"
+  },
+  "model": {
+    "alreadySelected": "已選擇",
+    "modelInfo": "模型信息",
+    "modelMetrics": "模型指標",
+    "visualization": "視覺化",
+    "clickToEnlarge": "(點擊放大)",
+    "architecture": "架構",
+    "encoder": "編碼器",
+    "dataset": "數據集",
+    "embeddingDim": "嵌入維度",
+    "trainConfig": "訓練配置",
+    "earlyStopPatience": "早停耐心值",
+    "trainTime": "訓練時間",
+    "testAccuracy": "測試準確率",
+    "testLoss": "測試損失",
+    "trainBatches": "訓練批次",
+    "valBatches": "驗證批次",
+    "testBatches": "測試批次",
+    "lossCurve": "損失曲線",
+    "accuracyCurve": "準確率曲線",
+    "tSneViz": "t-SNE 視覺化",
+    "confirmDelete": "確認刪除 {{name}}",
+    "moveToTrashConfirm": "此操作會將 {{folder}} 移至回收站。",
+    "moving": "正在將 {{name}} 移至回收站",
+    "moved": "{{name}} 已移至回收站",
+    "moveFailed": "將 {{name}} 移至回收站失敗",
+    "accuracy": "Accuracy",
+    "details": "詳細資料"
+  },
+  "query": {
+    "pleaseSelectModel": "請先選擇模型",
+    "prediction": "結果: {{result}}",
+    "timeSpent": "耗時: {{ms}}ms",
+    "inferenceFailed": "推理失敗:",
+    "confidenceRanking": "置信度排名",
+    "supportSamples": "支援樣本:"
+  },
+  "support": {
+    "openFolder": "開啟文件夾",
+    "empty": "暫無字符"
+  },
+  "common": {
+    "select": "選擇",
+    "inference": "推理",
+    "cancel": "取消",
+    "confirm": "確認",
+    "notEnabled": "未啟用",
+    "selectImage": "選擇圖片",
+    "pleaseSelectImage": "請選擇圖片",
+    "browse": "瀏覽",
+    "notFound": "Not found",
+    "goHome": "Go home"
+  }
+}

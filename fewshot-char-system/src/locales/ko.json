@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "홈",
+    "support": "문자 라이브러리",
+    "model": "모델",
+    "query": "인식"
+  },
+  "home": {
+    "engineTitle": "추론 엔진",
+    "ready": "준비 완료",
+    "readyDesc": "초기화가 완료되었습니다. 추론을 시작할 수 있습니다.",
+    "initializing": "초기화 중...",
+    "initializingDesc": "초기화 중입니다. 잠시만 기다려 주세요...",
+    "characters": "문자",
+    "samples": "샘플",
+    "clickToSelect": "클릭하여 선택",
+    "clickToEnter": "클릭하여 입력",
+    "uploadImage": "이미지 업로드"
+  },
+  "model": {
+    "alreadySelected": "선택됨",
+    "modelInfo": "모델 정보",
+    "modelMetrics": "모델 지표",
+    "visualization": "시각화",
+    "clickToEnlarge": "(클릭하여 확대)",
+    "architecture": "아키텍처",
+    "encoder": "인코더",
+    "dataset": "데이터셋",
+    "embeddingDim": "임베딩 차원",
+    "trainConfig": "학습 설정",
+    "earlyStopPatience": "조기 종료 인내값",
+    "trainTime": "학습 시간",
+    "testAccuracy": "테스트 정확도",
+    "testLoss": "테스트 손실",
+    "trainBatches": "학습 배치",
+    "valBatches": "검증 배치",
+    "testBatches": "테스트 배치",
+    "lossCurve": "손실 곡선",
+    "accuracyCurve": "정확도 곡선",
+    "tSneViz": "t-SNE 시각화",
+    "confirmDelete": "{{name}} 삭제 확인",
+    "moveToTrashConfirm": "이 작업으로 {{folder}} 가 휴지통으로 이동됩니다.",
+    "moving": "{{name}} 을(를) 휴지통으로 이동 중",
+    "moved": "{{name}} 을(를) 휴지통으로 이동했습니다",
+    "moveFailed": "{{name}} 을(를) 휴지통으로 이동하지 못했습니다",
+    "accuracy": "Accuracy",
+    "details": "상세"
+  },
+  "query": {
+    "pleaseSelectModel": "먼저 모델을 선택해 주세요",
+    "prediction": "결과: {{result}}",
+    "timeSpent": "시간: {{ms}}ms",
+    "inferenceFailed": "추론 실패:",
+    "confidenceRanking": "신뢰도 순위",
+    "supportSamples": "지원 샘플:"
+  },
+  "support": {
+    "openFolder": "폴더 열기",
+    "empty": "문자 라이브러리가 비어 있습니다"
+  },
+  "common": {
+    "select": "선택",
+    "inference": "추론",
+    "cancel": "취소",
+    "confirm": "확인",
+    "notEnabled": "비활성화",
+    "selectImage": "이미지 선택",
+    "pleaseSelectImage": "이미지를 선택해 주세요",
+    "browse": "찾아보기",
+    "notFound": "Not found",
+    "goHome": "Go home"
+  }
+}

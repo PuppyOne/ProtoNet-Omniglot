@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "support": "Caracteres",
+    "model": "Modelo",
+    "query": "Reconocer"
+  },
+  "home": {
+    "engineTitle": "Motor de inferencia",
+    "ready": "Listo",
+    "readyDesc": "Inicialización completada. Listo para la inferencia.",
+    "initializing": "Inicializando...",
+    "initializingDesc": "Inicializando, por favor espere...",
+    "characters": "Caracteres",
+    "samples": "Muestras",
+    "clickToSelect": "Clic para seleccionar",
+    "clickToEnter": "Clic para ingresar",
+    "uploadImage": "Subir imagen"
+  },
+  "model": {
+    "alreadySelected": "Seleccionado",
+    "modelInfo": "Info del modelo",
+    "modelMetrics": "Métricas del modelo",
+    "visualization": "Visualización",
+    "clickToEnlarge": "(clic para ampliar)",
+    "architecture": "Arquitectura",
+    "encoder": "Codificador",
+    "dataset": "Conjunto de datos",
+    "embeddingDim": "Dim. de embedding",
+    "trainConfig": "Config. de entrenamiento",
+    "earlyStopPatience": "Paciencia de parada temprana",
+    "trainTime": "Tiempo de entrenamiento",
+    "testAccuracy": "Precisión de prueba",
+    "testLoss": "Pérdida de prueba",
+    "trainBatches": "Lotes de entrenamiento",
+    "valBatches": "Lotes de validación",
+    "testBatches": "Lotes de prueba",
+    "lossCurve": "Curva de pérdida",
+    "accuracyCurve": "Curva de precisión",
+    "tSneViz": "Visualización t-SNE",
+    "confirmDelete": "Confirmar eliminación de {{name}}",
+    "moveToTrashConfirm": "Esta operación moverá {{folder}} a la papelera.",
+    "moving": "Moviendo {{name}} a la papelera",
+    "moved": "{{name}} movido a la papelera",
+    "moveFailed": "No se pudo mover {{name}} a la papelera",
+    "accuracy": "Accuracy",
+    "details": "Detalles"
+  },
+  "query": {
+    "pleaseSelectModel": "Por favor, seleccione primero un modelo",
+    "prediction": "Resultado: {{result}}",
+    "timeSpent": "Tiempo: {{ms}}ms",
+    "inferenceFailed": "Inferencia fallida:",
+    "confidenceRanking": "Ranking de confianza",
+    "supportSamples": "Muestras de soporte:"
+  },
+  "support": {
+    "openFolder": "Abrir carpeta",
+    "empty": "Aún no hay caracteres"
+  },
+  "common": {
+    "select": "Seleccionar",
+    "inference": "Inferencia",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "notEnabled": "No habilitado",
+    "selectImage": "Seleccionar imagen",
+    "pleaseSelectImage": "Por favor, seleccione una imagen",
+    "browse": "Examinar",
+    "notFound": "Not found",
+    "goHome": "Go home"
+  }
+}

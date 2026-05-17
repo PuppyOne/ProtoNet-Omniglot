@@ -52,7 +52,8 @@
     "timeSpent": "耗时: {{ms}}ms",
     "inferenceFailed": "推理失败:",
     "confidenceRanking": "置信度排行",
-    "supportSamples": "字库参考样本:"
+    "supportSamples": "字库参考样本:",
+    "initializing": "正在初始化..."
   },
   "support": {
     "openFolder": "打开文件夹",

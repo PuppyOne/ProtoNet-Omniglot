@@ -52,7 +52,8 @@
     "timeSpent": "Time: {{ms}}ms",
     "inferenceFailed": "Inference failed:",
     "confidenceRanking": "Confidence Ranking",
-    "supportSamples": "Support samples:"
+    "supportSamples": "Support samples:",
+    "initializing": "Initializing..."
   },
   "support": {
     "openFolder": "Open Folder",

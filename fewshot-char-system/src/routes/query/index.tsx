@@ -148,7 +148,7 @@ function Query() {
                                 exit='exit'
                                 className='row-start-3 self-start text-nowrap'
                               >
-                                正在初始化...
+                                {t('query.initializing')}
                               </motion.div>
                             )}
                           </AnimatePresence>

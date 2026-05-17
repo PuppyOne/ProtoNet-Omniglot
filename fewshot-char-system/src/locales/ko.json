@@ -52,7 +52,8 @@
     "timeSpent": "시간: {{ms}}ms",
     "inferenceFailed": "추론 실패:",
     "confidenceRanking": "신뢰도 순위",
-    "supportSamples": "지원 샘플:"
+    "supportSamples": "지원 샘플:",
+    "initializing": "초기화 중..."
   },
   "support": {
     "openFolder": "폴더 열기",

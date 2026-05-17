@@ -52,7 +52,8 @@
     "timeSpent": "Tiempo: {{ms}}ms",
     "inferenceFailed": "Inferencia fallida:",
     "confidenceRanking": "Ranking de confianza",
-    "supportSamples": "Muestras de soporte:"
+    "supportSamples": "Muestras de soporte:",
+    "initializing": "Inicializando..."
   },
   "support": {
     "openFolder": "Abrir carpeta",

@@ -52,7 +52,8 @@
     "timeSpent": "時間: {{ms}}ms",
     "inferenceFailed": "推論に失敗しました:",
     "confidenceRanking": "信頼度ランキング",
-    "supportSamples": "サポートサンプル:"
+    "supportSamples": "サポートサンプル:",
+    "initializing": "初期化中..."
   },
   "support": {
     "openFolder": "フォルダを開く",

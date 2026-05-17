@@ -1,26 +1,32 @@
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import resourcesToBackend from 'i18next-resources-to-backend';
 import { initReactI18next } from 'react-i18next';
 
 
-const localeFiles = import.meta.glob<{ default: Record<string, string> }>(
-  './locales/*.json',
-  { eager: true }
-);
+const localeImports = import.meta.glob<NestedTranslation>('./locales/*.json');
 
-const resources: Record<string, { translation: Record<string, string> }> = {};
+const lngToImport: Record<string, () => Promise<NestedTranslation>> = {};
 
-for (const [path, module] of Object.entries(localeFiles)) {
+for (const [path, importer] of Object.entries(localeImports)) {
   const { lng } = path.match(/\/(?<lng>[^/]+)\.json$/)?.groups ?? {};
 
-  if (lng) resources[lng] = { translation: module.default };
+  if (lng) lngToImport[lng] = importer;
 }
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
+  .use(
+    resourcesToBackend(async (language: string) => {
+      const importer = lngToImport[language];
+
+      if (!importer) throw new Error(`Unsupported language: ${language}`);
+
+      return await importer();
+    })
+  )
   .init({
-    resources,
     fallbackLng: 'zh-CN',
     detection: {
       order: ['navigator'],
@@ -28,3 +34,7 @@ i18n
   });
 
 export default i18n;
+
+interface NestedTranslation {
+  [key: string]: string | NestedTranslation;
+}

@@ -6,7 +6,7 @@ import { initReactI18next } from 'react-i18next';
 
 const localeImports = import.meta.glob<NestedTranslation>('./locales/*.json');
 
-const lngToImport: Record<string, () => Promise<NestedTranslation>> = {};
+const lngToImport: typeof localeImports = {};
 
 for (const [path, importer] of Object.entries(localeImports)) {
   const { lng } = path.match(/\/(?<lng>[^/]+)\.json$/)?.groups ?? {};

@@ -7,10 +7,9 @@ import { useAtom } from 'jotai';
 import { AnimatePresence } from 'motion/react';
 import { useEffect } from 'react';
 
-import { isEngineReadyAtom } from '@/atoms/engine';
-import { modelsAtom } from '@/atoms/model';
-import { characterSupportsAtom } from '@/atoms/support';
-import { getModels, getSupports, preload } from '@/client/apiClient';
+import { preloadEngineAtom } from '@/atoms/engine';
+import { fetchModelsAtom } from '@/atoms/model';
+import { fetchSupportsAtom } from '@/atoms/support';
 import NavBar from '@/components/NavBar';
 import NotFound from '@/components/NotFound';
 import { isWin11 } from '@/utils/is-win11';
@@ -23,39 +22,17 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   const location = useLocation();
-  const [characterSupports, setCharacterSupports] = useAtom(
-    characterSupportsAtom
-  );
-  const [, setModels] = useAtom(modelsAtom);
-  const [isEngineReady, setIsEngineReady] = useAtom(isEngineReadyAtom);
+  const [, fetchSupports] = useAtom(fetchSupportsAtom);
+  const [, fetchModels] = useAtom(fetchModelsAtom);
+  const [, preloadEngine] = useAtom(preloadEngineAtom);
 
   useTheme();
 
-  const fetchSupports = async () => {
-    setCharacterSupports(await getSupports());
-  };
-
-  const fetchModels = async () => {
-    const models = await getModels();
-
-    setModels(models);
-  };
-
-  const loadEngine = async () => {
-    if (isEngineReady) return;
-
-    await preload();
-
-    setIsEngineReady(true);
-  };
-
   useEffect(() => {
-    if (!characterSupports) fetchSupports();
-
+    fetchSupports();
     fetchModels();
-
-    loadEngine();
-  }, []);
+    preloadEngine();
+  }, [fetchSupports, fetchModels, preloadEngine]);
 
   useEffect(() => {
     let disposed = false;
@@ -81,7 +58,7 @@ function RootComponent() {
       disposed = true;
       cleanup?.();
     };
-  }, []);
+  }, [fetchSupports, fetchModels]);
 
   return (
     <>

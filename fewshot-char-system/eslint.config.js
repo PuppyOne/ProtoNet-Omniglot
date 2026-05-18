@@ -44,6 +44,10 @@ export default defineConfig([
         },
       ],
 
+      '@typescript-eslint/no-unnecessary-condition': 'error',
+      '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/no-import-type-side-effects': 'error',
+
       // 适配框架
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-return': 'off',

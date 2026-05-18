@@ -106,7 +106,7 @@ function Home() {
             >
               {selectedModel.meta.name}{' '}
               <Chip color='accent' variant='soft'>
-                v{selectedModel?.meta.version.join('.')}
+                v{selectedModel.meta.version.join('.')}
               </Chip>
             </motion.span>
             <motion.span

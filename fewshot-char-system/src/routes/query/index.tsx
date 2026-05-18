@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { isEngineReadyAtom } from '@/atoms/engine';
 import { selectedModelAtom } from '@/atoms/model';
 import { characterSupportsAtom } from '@/atoms/support';
-import { InferOutput } from '@/client/_apiTypes';
+import type { InferOutput } from '@/client/_apiTypes';
 import { infer } from '@/client/apiClient';
 import EmptyQuery from '@/components/EmptyQuery';
 import ImagePicker from '@/components/ImagePicker';
@@ -102,7 +102,7 @@ function Query() {
                             className='text-accent text-2xl font-semibold 2xl:text-3xl'
                           >
                             {t('query.prediction', {
-                              result: result?.prediction[0],
+                              result: result.prediction[0],
                             })}
                           </motion.div>
                           <motion.div
@@ -110,7 +110,7 @@ function Query() {
                             variants={childVariants}
                           >
                             {t('query.timeSpent', {
-                              ms: Math.round(result?.timeSpentS * 1000),
+                              ms: Math.round(result.timeSpentS * 1000),
                             })}
                           </motion.div>
                         </>

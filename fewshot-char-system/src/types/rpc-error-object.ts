@@ -1,4 +1,4 @@
-import { RPCErrorType } from './rpc-error-type';
+import type { RPCErrorType } from './rpc-error-type';
 
 
 export type RPCErrorObject = { error: RPCErrorType };

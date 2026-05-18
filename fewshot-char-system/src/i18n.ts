@@ -21,6 +21,7 @@ void i18n
     resourcesToBackend(async (language: string) => {
       const importer = lngToImport[language];
 
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (!importer) throw new Error(`Unsupported language: ${language}`);
 
       return await importer();

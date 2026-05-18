@@ -29,7 +29,6 @@ export default defineConfig([
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      unicorn: eslintPluginUnicorn,
     },
     extends: [
       tseslint.configs.recommendedTypeChecked,
@@ -165,6 +164,11 @@ export default defineConfig([
   },
 
   // 文件命名规则
+  {
+    plugins: {
+      unicorn: eslintPluginUnicorn,
+    },
+  },
   {
     files: ['**/*.ts'],
     rules: {

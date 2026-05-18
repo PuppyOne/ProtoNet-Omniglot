@@ -17,19 +17,30 @@ export default function ModelImage({
 >) {
   const [src, setSrc] = useState<string | undefined>(undefined);
 
-  if (!imageName) return null;
-
-  const fetchSrc = async () => {
-    const src = convertFileSrc(
-      await resolveModelPath({ modelFolderName, fileName: imageName })
-    );
-
-    setSrc(src);
-  };
-
   useEffect(() => {
+    if (!imageName) return;
+
+    let cancelled = false;
+
+    const fetchSrc = async () => {
+      const resolvedSrc = convertFileSrc(
+        await resolveModelPath({
+          modelFolderName,
+          fileName: imageName,
+        })
+      );
+
+      if (!cancelled) setSrc(resolvedSrc);
+    };
+
     void fetchSrc();
-  }, []);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [modelFolderName, imageName]);
+
+  if (!imageName) return null;
 
   return (
     <div className='flex flex-col gap-2'>

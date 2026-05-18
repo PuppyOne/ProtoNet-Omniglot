@@ -38,7 +38,7 @@ function ModelInfo() {
   const handleSelectAndQuery = () => {
     handleSelect();
 
-    navigate({ to: '/query' });
+    void navigate({ to: '/query' });
   };
 
   const fetchModels = async () => {

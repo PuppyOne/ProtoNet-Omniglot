@@ -9,12 +9,12 @@ const localeImports = import.meta.glob<NestedTranslation>('./locales/*.json');
 const lngToImport: typeof localeImports = {};
 
 for (const [path, importer] of Object.entries(localeImports)) {
-  const { lng } = path.match(/\/(?<lng>[^/]+)\.json$/)?.groups ?? {};
+  const { lng } = /\/(?<lng>[^/]+)\.json$/.exec(path)?.groups ?? {};
 
   if (lng) lngToImport[lng] = importer;
 }
 
-i18n
+void i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .use(

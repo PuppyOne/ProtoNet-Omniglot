@@ -4,9 +4,10 @@ export function parseError(error: unknown): Error {
   const errorString = typeof error === 'string' ? error : String(error);
 
   // 匹配形如 AssertionError('xxx')
-  const match = errorString.match(
-    /^(?<name>[A-Za-z_][A-Za-z0-9_]*)\((['"]?)(?<message>.*)\2\)$/
-  );
+  const match =
+    /^(?<name>[A-Za-z_][A-Za-z0-9_]*)\((['"]?)(?<message>.*)\2\)$/.exec(
+      errorString
+    );
 
   if (match?.groups) {
     const { name, message } = match.groups;

@@ -14,19 +14,26 @@ import tseslint from 'typescript-eslint';
 export default defineConfig([
   globalIgnores(['**/*.gen.*', 'src/client']),
   js.configs.recommended,
-  ...tseslint.configs.recommended,
   ...pluginRouter.configs['flat/recommended'],
 
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
       globals: globals.browser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
     },
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       unicorn: eslintPluginUnicorn,
     },
+    extends: [
+      tseslint.configs.recommendedTypeChecked,
+      tseslint.configs.stylisticTypeChecked,
+    ],
     rules: {
       ...reactHooks.configs.r,
 
@@ -36,6 +43,26 @@ export default defineConfig([
           allow: ['warn', 'error'],
         },
       ],
+
+      // 适配框架
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-misused-promises': [
+        'error',
+        {
+          checksVoidReturn: { attributes: false },
+        },
+      ],
+
+      // 允许 tanstack-router 的 throw notFound();
+      '@typescript-eslint/only-throw-error': [
+        'error',
+        { allow: [{ from: 'file', name: 'NotFoundError' }] },
+      ],
+
+      '@typescript-eslint/consistent-type-definitions': 'off',
 
       // 命名规范
       '@typescript-eslint/naming-convention': [

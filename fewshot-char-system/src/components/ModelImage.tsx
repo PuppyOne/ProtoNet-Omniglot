@@ -28,7 +28,7 @@ export default function ModelImage({
   };
 
   useEffect(() => {
-    fetchSrc();
+    void fetchSrc();
   }, []);
 
   return (

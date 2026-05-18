@@ -29,9 +29,9 @@ function RootComponent() {
   useTheme();
 
   useEffect(() => {
-    fetchSupports();
-    fetchModels();
-    preloadEngine();
+    void fetchSupports();
+    void fetchModels();
+    void preloadEngine();
   }, [fetchSupports, fetchModels, preloadEngine]);
 
   useEffect(() => {
@@ -42,8 +42,8 @@ function RootComponent() {
       const unlisten = await getCurrentWindow().onFocusChanged(
         ({ payload: focus }) => {
           if (focus) {
-            fetchSupports();
-            fetchModels();
+            void fetchSupports();
+            void fetchModels();
           }
         }
       );
@@ -52,7 +52,7 @@ function RootComponent() {
       else cleanup = unlisten;
     };
 
-    setupFocusListener();
+    void setupFocusListener();
 
     return () => {
       disposed = true;

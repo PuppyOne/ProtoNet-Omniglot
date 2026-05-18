@@ -15,6 +15,7 @@ export default defineConfig([
   globalIgnores(['**/*.gen.*', 'src/client']),
   js.configs.recommended,
   ...pluginRouter.configs['flat/recommended'],
+  reactHooks.configs.flat['recommended-latest'],
 
   {
     files: ['**/*.{ts,tsx}'],
@@ -35,8 +36,6 @@ export default defineConfig([
       tseslint.configs.stylisticTypeChecked,
     ],
     rules: {
-      ...reactHooks.configs.r,
-
       'no-console': [
         'error',
         {

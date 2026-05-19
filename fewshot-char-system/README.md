@@ -4,40 +4,40 @@
 
 ## 技术栈
 
-| 层 | 技术 |
-|----|------|
-| 前端 UI | React 19 + TypeScript + Vite 8 + TailwindCSS v4 |
-| 组件库 | HeroUI v3 |
-| 路由 | TanStack Router |
-| 状态管理 | Jotai v2 |
-| 动画 | Motion |
-| 桌面宿主 | Tauri v2 |
-| Python 桥接 | PyTauri 0.8 |
-| 推理引擎 | PyTorch + torchvision |
-| 前端包管理 | Bun |
-| Python 包管理 | uv |
+| 层            | 技术                                            |
+| ------------- | ----------------------------------------------- |
+| 前端 UI       | React 19 + TypeScript + Vite 8 + TailwindCSS v4 |
+| 组件库        | HeroUI v3                                       |
+| 路由          | TanStack Router                                 |
+| 状态管理      | Jotai v2                                        |
+| 动画          | Motion                                          |
+| 桌面宿主      | Tauri v2                                        |
+| Python 桥接   | PyTauri 0.8                                     |
+| 推理引擎      | PyTorch + torchvision                           |
+| 前端包管理    | Bun                                             |
+| Python 包管理 | uv                                              |
 
 ## 工具链
 
-| 类别 | 工具 |
-|------|------|
-| 运行时 | Python 3.14、Rust（stable）、Node.js |
-| 包管理器 | Bun（前端）、uv（Python） |
-| 构建工具 | Vite 8、Tauri CLI、setuptools |
-| 代码格式化 | Prettier（前端）、Ruff（Python） |
-| 静态检查 | TypeScript、ESLint、Ruff |
-| Git 钩子 | Husky + lint-staged（pre-commit 自动格式化与检查） |
+| 类别       | 工具                                               |
+| ---------- | -------------------------------------------------- |
+| 运行时     | Python 3.14、Rust 1.94.1、Node.js                  |
+| 包管理器   | Bun（前端）、uv（Python）                          |
+| 构建工具   | Vite 8、Tauri CLI、setuptools                      |
+| 代码格式化 | Prettier（前端）、Ruff（Python）                   |
+| 静态检查   | TypeScript、ESLint、Ruff                           |
+| Git 钩子   | Husky + lint-staged（pre-commit 自动格式化与检查） |
 
 ## 功能页面
 
-| 路由 | 功能 |
-|------|------|
-| `/` | 首页仪表盘：推理引擎状态、字库统计、当前模型、推理入口 |
-| `/support` | 字库管理：查看已注册的字符及其参考样本图像 |
-| `/support/$characterName` | 字符详情：查看单个字符的所有样本图像 |
-| `/model` | 模型列表：以 RadioGroup 形式展示并选择模型 |
-| `/model/$modelFolderName` | 模型详情：查看结构、指标、可视化图，选择或删除模型 |
-| `/query` | 推理页：上传图像 → 实时推理 → 识别结果 + 置信度排行 |
+| 路由                      | 功能                                                   |
+| ------------------------- | ------------------------------------------------------ |
+| `/`                       | 首页仪表盘：推理引擎状态、字库统计、当前模型、推理入口 |
+| `/support`                | 字库管理：查看已注册的字符及其参考样本图像             |
+| `/support/$characterName` | 字符详情：查看单个字符的所有样本图像                   |
+| `/model`                  | 模型列表：以 RadioGroup 形式展示并选择模型             |
+| `/model/$modelFolderName` | 模型详情：查看结构、指标、可视化图，选择或删除模型     |
+| `/query`                  | 推理页：上传图像 → 实时推理 → 识别结果 + 置信度排行    |
 
 ## 快速开始
 
@@ -45,7 +45,7 @@
 
 - [Bun](https://bun.sh/) >= 1.x
 - [uv](https://github.com/astral-sh/uv) >= 0.5
-- [Rust](https://www.rust-lang.org/) (stable)
+- [Rust](https://www.rust-lang.org/) 1.94.1
 - Python ~3.14
 
 ### 安装依赖
@@ -83,14 +83,14 @@ support/
 
 模型文件从 `./models/` 目录（相对于应用运行目录）加载。每个模型子目录须包含：
 
-| 文件 | 说明 |
-|------|------|
-| `meta.json` | 模型元数据（必须） |
-| `encoder.pt2` | ATen 图格式的编码器（必须） |
-| `protonet-classifier.pt2` 或 `siamesenet-classifier.pt2` | 分类器（必须） |
-| `loss_curve.png/svg` | 训练损失曲线（可选） |
-| `accuracy_curve.png/svg` | 验证准确率曲线（可选） |
-| `t-sne.png/svg` | 嵌入 t-SNE 可视化（可选） |
+| 文件                                                     | 说明                        |
+| -------------------------------------------------------- | --------------------------- |
+| `meta.json`                                              | 模型元数据（必须）          |
+| `encoder.pt2`                                            | ATen 图格式的编码器（必须） |
+| `protonet-classifier.pt2` 或 `siamesenet-classifier.pt2` | 分类器（必须）              |
+| `loss_curve.png/svg`                                     | 训练损失曲线（可选）        |
+| `accuracy_curve.png/svg`                                 | 验证准确率曲线（可选）      |
+| `t-sne.png/svg`                                          | 嵌入 t-SNE 可视化（可选）   |
 
 ### meta.json 格式
 
@@ -152,15 +152,15 @@ support/
 
 ## Python 后端命令
 
-| 命令 | 说明 |
-|------|------|
-| `preload` | 异步加载 PyTorch 并初始化推理引擎 |
-| `infer` | 执行推理，返回识别结果和置信度 |
-| `get_supports` | 获取字库列表 |
-| `get_models` | 扫描并返回所有可用模型 |
-| `resolve_model_path` | 解析模型文件的绝对路径 |
-| `add_model` | 将外部模型文件夹复制到 `./models/` |
-| `move_model_to_trash` | 将模型文件夹移至系统回收站 |
+| 命令                  | 说明                               |
+| --------------------- | ---------------------------------- |
+| `preload`             | 异步加载 PyTorch 并初始化推理引擎  |
+| `infer`               | 执行推理，返回识别结果和置信度     |
+| `get_supports`        | 获取字库列表                       |
+| `get_models`          | 扫描并返回所有可用模型             |
+| `resolve_model_path`  | 解析模型文件的绝对路径             |
+| `add_model`           | 将外部模型文件夹复制到 `./models/` |
+| `move_model_to_trash` | 将模型文件夹移至系统回收站         |
 
 ## 分发构建
 
@@ -170,7 +170,7 @@ support/
 bun run build
 ```
 
-构建产物位于 `src-tauri/target/release/` 目录。
+构建产物位于 `target/bundle-release/bundle` 目录。
 
 完成构建后，若需要无需安装的便携版：
 

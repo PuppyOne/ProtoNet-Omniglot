@@ -6,19 +6,19 @@
 
 ```
 ProtoNet-Omniglot/
-├── training/                        # Jupyter 训练 Notebook
-│   ├── prototypical_net.ipynb       # 标准原型网络（ProtoNet）
+├── training/                           # Jupyter 训练 Notebook
+│   ├── prototypical_net.ipynb          # 标准原型网络（ProtoNet）
 │   ├── prototypical_net_cbam_sa.ipynb  # 注意力增强版 ProtoNet（+CBAM+SA）
-│   └── siamese_net.ipynb            # 孪生网络（SiameseNet）
-├── models/                          # 训练好的模型权重与元数据
-│   ├── ProtoNet_5_1/                # 5-way 1-shot
-│   ├── ProtoNet_5_5/                # 5-way 5-shot
-│   ├── ProtoNet_CBAM_SA_5_1/        # 注意力增强，5-way 1-shot
-│   ├── ProtoNet_CBAM_SA_5_5/        # 注意力增强，5-way 5-shot
-│   ├── SiameseNet_5_1/              # 孪生网络，5-way 1-shot
-│   └── SiameseNet_5_5/              # 孪生网络，5-way 5-shot
-├── fewshot-char-system/             # 桌面推理应用（Tauri + React + Python）
-├── requirements.txt                 # Python 训练环境依赖
+│   └── siamese_net.ipynb               # 孪生网络（SiameseNet）
+├── models/                             # 训练好的模型权重与元数据
+│   ├── ProtoNet_5_1/                   # 5-way 1-shot
+│   ├── ProtoNet_5_5/                   # 5-way 5-shot
+│   ├── ProtoNet_CBAM_SA_5_1/           # 注意力增强，5-way 1-shot
+│   ├── ProtoNet_CBAM_SA_5_5/           # 注意力增强，5-way 5-shot
+│   ├── SiameseNet_5_1/                 # 孪生网络，5-way 1-shot
+│   └── SiameseNet_5_5/                 # 孪生网络，5-way 5-shot
+├── fewshot-char-system/                # 桌面推理应用（Tauri + React + Python）
+├── requirements.txt                    # Python 训练环境依赖
 └── LICENSE
 ```
 

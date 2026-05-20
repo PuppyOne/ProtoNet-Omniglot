@@ -98,7 +98,7 @@ class Model(CommandBaseModel):
 
 
 class ModelsOutput(RootModel):
-    root: list[Model]
+    root: list[Model] = []
 
 
 class AddModelInput(CommandBaseModel):

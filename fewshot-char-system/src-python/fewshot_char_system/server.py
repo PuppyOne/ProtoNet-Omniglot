@@ -125,6 +125,11 @@ async def get_supports() -> SupportsOutput:
 async def get_models() -> ModelsOutput:
     JSON_NAME = 'meta'
 
+    models_path = Path(models_path_str)
+
+    if not (models_path.exists() and models_path.is_dir()):
+        return ModelsOutput()
+
     models = []
 
     for model_path in Path(models_path_str).iterdir():

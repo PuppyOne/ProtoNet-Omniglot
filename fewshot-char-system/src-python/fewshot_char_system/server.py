@@ -15,8 +15,8 @@ from .data.support import SupportsOutput
 from .infer import InferenceManager
 
 
-support_path = './support'
-models_path = './models'
+support_path_str = './support'
+models_path_str = './models'
 
 commands = Commands(experimental_gen_ts=PYTAURI_GEN_TS)
 
@@ -33,7 +33,7 @@ async def infer(body: InferInput) -> InferOutput:
     support_strs: list[str] = []
     support_labels_str_list: list[str] = []
 
-    for character_path in Path(support_path).iterdir():
+    for character_path in Path(support_path_str).iterdir():
         if not character_path.is_dir():
             continue
 
@@ -45,8 +45,8 @@ async def infer(body: InferInput) -> InferOutput:
             support_labels_str_list.append(character_path.name)
 
     model_folder_name = body.model.folder.name
-    encoder_path = models_path / Path(model_folder_name) / body.model.meta.files.models.encoder
-    classifier_path = models_path / Path(model_folder_name) / body.model.meta.files.models.classifier
+    encoder_path = models_path_str / Path(model_folder_name) / body.model.meta.files.models.encoder
+    classifier_path = models_path_str / Path(model_folder_name) / body.model.meta.files.models.classifier
 
     inference_manager.load_model(encoder_path, classifier_path)
     start_time = time.perf_counter()
@@ -89,9 +89,14 @@ async def get_supports() -> SupportsOutput:
         ]
     }
     """
+    support_path = Path(support_path_str)
+
+    if not (support_path.exists() and support_path.is_dir()):
+        return SupportsOutput()
+
     data = {}
 
-    for character_path in Path(support_path).iterdir():
+    for character_path in support_path.iterdir():
         if not character_path.is_dir():
             continue
 
@@ -122,7 +127,7 @@ async def get_models() -> ModelsOutput:
 
     models = []
 
-    for model_path in Path(models_path).iterdir():
+    for model_path in Path(models_path_str).iterdir():
         if not model_path.is_dir():
             continue
 
@@ -154,7 +159,7 @@ async def get_models() -> ModelsOutput:
 
 @commands.command()
 async def resolve_model_path(body: ResolvePathInput) -> str:
-    file_path = Path(models_path) / body.model_folder_name / body.file_name
+    file_path = Path(models_path_str) / body.model_folder_name / body.file_name
 
     return file_path.resolve().as_posix()
 
@@ -165,14 +170,14 @@ async def add_model(body: AddModelInput) -> None:
         raise InvokeException('source_path is not a directory')
 
     if body.target_folder_name:
-        body.source_path.copy(Path(models_path) / body.target_folder_name)
+        body.source_path.copy(Path(models_path_str) / body.target_folder_name)
     else:
-        body.source_path.copy_into(models_path)
+        body.source_path.copy_into(models_path_str)
 
 
 @commands.command()
 async def move_model_to_trash(body: RemoveModelInput) -> None:
-    model_path = Path(models_path) / body.model_folder_name
+    model_path = Path(models_path_str) / body.model_folder_name
 
     if not model_path.exists():
         raise InvokeException('model_folder_name does not exist')

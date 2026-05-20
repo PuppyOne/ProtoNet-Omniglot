@@ -11,8 +11,15 @@ export const selectedModelAtom = atomWithStorage<Model | null>(
   null
 );
 
-export const fetchModelsAtom = atom(null, async (_get, set) => {
+export const fetchModelsAtom = atom(null, async (get, set) => {
   const models = await getModels();
 
   set(modelsAtom, models);
+
+  if (
+    !models.some(
+      model => model.folder.name === get(selectedModelAtom)?.folder.name
+    )
+  )
+    set(selectedModelAtom, null);
 });

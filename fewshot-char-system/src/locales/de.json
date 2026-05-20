@@ -48,6 +48,7 @@
   },
   "query": {
     "pleaseSelectModel": "Bitte zuerst ein Modell auswählen",
+    "pleaseAddSupport": "Bitte zuerst Zeichenbibliothek-Beispiele hinzufügen",
     "prediction": "Ergebnis: {{result}}",
     "timeSpent": "Zeit: {{ms}}ms",
     "inferenceFailed": "Inferenz fehlgeschlagen:",

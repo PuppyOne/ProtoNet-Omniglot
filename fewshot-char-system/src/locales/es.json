@@ -48,6 +48,7 @@
   },
   "query": {
     "pleaseSelectModel": "Por favor, seleccione primero un modelo",
+    "pleaseAddSupport": "Por favor, agregue primero muestras de caracteres",
     "prediction": "Resultado: {{result}}",
     "timeSpent": "Tiempo: {{ms}}ms",
     "inferenceFailed": "Inferencia fallida:",

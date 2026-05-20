@@ -48,6 +48,7 @@
   },
   "query": {
     "pleaseSelectModel": "最初にモデルを選択してください",
+    "pleaseAddSupport": "最初に文字ライブラリのサンプルを追加してください",
     "prediction": "結果: {{result}}",
     "timeSpent": "時間: {{ms}}ms",
     "inferenceFailed": "推論に失敗しました:",

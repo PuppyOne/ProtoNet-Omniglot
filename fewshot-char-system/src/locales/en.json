@@ -48,6 +48,7 @@
   },
   "query": {
     "pleaseSelectModel": "Please select a model first",
+    "pleaseAddSupport": "Please add support samples first",
     "prediction": "Result: {{result}}",
     "timeSpent": "Time: {{ms}}ms",
     "inferenceFailed": "Inference failed:",

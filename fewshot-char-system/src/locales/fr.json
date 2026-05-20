@@ -48,6 +48,7 @@
   },
   "query": {
     "pleaseSelectModel": "Veuillez d'abord sélectionner un modèle",
+    "pleaseAddSupport": "Veuillez d'abord ajouter des échantillons de caractères",
     "prediction": "Résultat : {{result}}",
     "timeSpent": "Temps : {{ms}}ms",
     "inferenceFailed": "Échec de l'inférence :",

@@ -48,6 +48,7 @@
   },
   "query": {
     "pleaseSelectModel": "먼저 모델을 선택해 주세요",
+    "pleaseAddSupport": "먼저 문자 라이브러리 샘플을 추가해 주세요",
     "prediction": "결과: {{result}}",
     "timeSpent": "시간: {{ms}}ms",
     "inferenceFailed": "추론 실패:",

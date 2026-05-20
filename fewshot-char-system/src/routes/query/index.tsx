@@ -44,6 +44,15 @@ function Query() {
     if (path) {
       setImagePath(path);
 
+      if (
+        characterSupports === undefined ||
+        Object.keys(characterSupports).length === 0
+      ) {
+        toast.danger(t('query.pleaseAddSupport'));
+        void navigate({ to: '/support' });
+        return;
+      }
+
       if (!selectedModel) {
         toast.danger(t('query.pleaseSelectModel'));
         void navigate({ to: '/model' });

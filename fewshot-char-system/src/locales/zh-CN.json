@@ -48,6 +48,7 @@
   },
   "query": {
     "pleaseSelectModel": "请先选择模型",
+    "pleaseAddSupport": "请先添加字库样本",
     "prediction": "识别结果: {{result}}",
     "timeSpent": "耗时: {{ms}}ms",
     "inferenceFailed": "推理失败:",

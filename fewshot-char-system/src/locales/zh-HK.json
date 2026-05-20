@@ -48,6 +48,7 @@
   },
   "query": {
     "pleaseSelectModel": "請先選擇模型",
+    "pleaseAddSupport": "請先添加字符庫樣本",
     "prediction": "結果: {{result}}",
     "timeSpent": "耗時: {{ms}}ms",
     "inferenceFailed": "推理失敗:",

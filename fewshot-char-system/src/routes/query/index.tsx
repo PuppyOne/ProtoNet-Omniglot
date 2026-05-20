@@ -28,6 +28,8 @@ export const Route = createFileRoute('/query/')({
 function Query() {
   const { t } = useTranslation();
 
+  const navigate = Route.useNavigate();
+
   const [imagePath, setImagePath] = useState<string | null>(null);
   const [isEngineReady] = useAtom(isEngineReadyAtom);
   const [selectedModel] = useAtom(selectedModelAtom);
@@ -44,6 +46,7 @@ function Query() {
 
       if (!selectedModel) {
         toast.danger(t('query.pleaseSelectModel'));
+        void navigate({ to: '/model' });
         return;
       }
 

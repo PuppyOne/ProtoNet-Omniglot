@@ -42,6 +42,9 @@ export default defineConfig([
         },
       ],
 
+      'object-shorthand': 'error',
+      'prefer-template': 'error',
+
       '@typescript-eslint/no-unnecessary-condition': 'error',
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-import-type-side-effects': 'error',

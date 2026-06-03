@@ -1,0 +1,2 @@
+cd fewshot-char-system
+bun ./scripts/commitlint-main.ts "$@"

@@ -19,6 +19,7 @@ export default defineConfig([
 
   {
     files: ['**/*.{ts,tsx}'],
+    ignores: ['scripts/**'],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
@@ -113,6 +114,22 @@ export default defineConfig([
         {
           selector: 'typeParameter',
           format: ['PascalCase'],
+        },
+      ],
+    },
+  },
+
+  {
+    files: ['scripts/**'],
+    languageOptions: {
+      globals: globals.bunBuiltin,
+    },
+    extends: [tseslint.configs.recommended, tseslint.configs.stylistic],
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          destructuredArrayIgnorePattern: '^_',
         },
       ],
     },

@@ -7,7 +7,7 @@ import cargoConfig from '../src-tauri/Cargo.toml';
 const PORTABLE_DIR = 'portable';
 const PYEMBED_DIR = 'src-tauri/pyembed';
 
-const exeName: string = `${cargoConfig.bin[0].name}.exe`;
+const exeName = `${cargoConfig.bin[0].name}.exe`;
 
 await rm(PORTABLE_DIR, { recursive: true, force: true });
 
